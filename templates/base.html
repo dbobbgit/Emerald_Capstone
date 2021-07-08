@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Motogram{% endblock %}</title>
+    <link rel="stylesheet" href="">
+    {% block style_css %}{% endblock %}
+</head>
+<body>
+ <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 fixed-top">
+        <div class="container">
+            <a href="#" class="navbar-brand">Motogram</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navmenu">
+                <!-- ms: margin-start -->
+                <ul class="navbar-nav ms-auto"> 
+                    <li class="nav-item">
+                        <a href="#Home" class="nav-link">Home</a>
+                        <li class="nav-item">
+                            <a href="#Profile" class="nav-link">Questions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#instructors" class="nav-link">Instructors</a>
+                        </li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+    {% block content %}{% endblock content %}
+    </main>
+</body>
+</html>
