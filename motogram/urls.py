@@ -15,6 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+# Needed for notifications
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
@@ -24,4 +29,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),  # Tells Django to include built in auth urls
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-]
+    path('', include('notifications.urls')),
+    path('', include('user.urls')),
+    path('', include('auth.urls')),
+    path('', include('post.urls')),
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

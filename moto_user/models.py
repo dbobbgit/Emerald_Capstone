@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.contrib.auth.models import AbstractUser
 from motogram.settings import AUTH_USER_MODEL
 # Create your models here.
@@ -31,4 +32,5 @@ class MotoUser(AbstractUser):
 
     def __str__(self):
             return self.display_name
+
 

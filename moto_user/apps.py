@@ -1,5 +1,7 @@
 from django.apps import AppConfig
+
 from motogram.settings import AUTH_USER_MODEL
+
 
 
 class UserConfig(AppConfig):
