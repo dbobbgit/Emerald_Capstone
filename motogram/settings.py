@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'authentication',
     'post',
     'notifications',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'motogram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR  /  'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Tells Django to look for a templates folder at the project level
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,7 +127,17 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
 
+
+# Specifies redirect to home page
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Password reset - for project ease, I decided to store emails as a file in a folder rather than integrate with an email service.
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'moto_user.MotoUser'
