@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'user',
+=======
+    'moto_user',
+>>>>>>> user
     'authentication',
     'post',
     'notifications',
@@ -140,3 +144,4 @@ EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'moto_user.MotoUser'
