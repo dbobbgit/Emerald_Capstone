@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from user.models import CustomUser
+# from moto_user.models import MotoUser
 from post.models import Post
 from notifications.models import Notifications
 from django.contrib.auth.decorators import login_required
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def notification_view(request):
     notifications = Notifications.objects.filter(
-        author=request.user, visibility=False)
+        author=request.user, read=False)
     n_list = []
     for item in notifications:
         if item.visibility == False:
