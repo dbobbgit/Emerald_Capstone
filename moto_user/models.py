@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from motogram.settings import AUTH_USER_MODEL
 # Create your models here.
-class CustomerUser(AbstractUser):
+class MotoUser(AbstractUser):
     """CAITLIN: THIS CUSTOM USER MODEL IS INTENDED TO BE THE BASIS FOR OUR PROFILE TEMPLATE. 
     OUR ABSTRACT USER PARAMETER GIVES US ACCESS TO USERNAME, PASSWORD, AND EMAIL"""
     
@@ -30,5 +30,5 @@ class CustomerUser(AbstractUser):
 
 
     def __str__(self):
-            return self.color_name
+            return self.display_name
 

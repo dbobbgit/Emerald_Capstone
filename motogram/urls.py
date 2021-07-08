@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from moto_user.views import MotoUser
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
 ]

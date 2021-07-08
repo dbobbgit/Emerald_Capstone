@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-    'auth',
+    'moto_user',
+    'authentication',
     'post',
     'notifications',
 ]
@@ -129,3 +129,4 @@ LOGIN_URL = '/login/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'moto_user.MotoUser'
