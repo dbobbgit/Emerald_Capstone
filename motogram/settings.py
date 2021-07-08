@@ -38,11 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'user',
-=======
     'moto_user',
->>>>>>> user
     'authentication',
     'post',
     'notifications',
