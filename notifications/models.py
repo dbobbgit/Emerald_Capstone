@@ -1,6 +1,6 @@
 from django.db import models
 from moto_user.models import MotoUser
-from post.models import Post
+# from post.models import Post
 
 # Create your models here.
 class Notifications(models.Model):
@@ -8,8 +8,8 @@ class Notifications(models.Model):
         MotoUser, 
         on_delete=models.CASCADE)
     text = models.ForeignKey(
-        Post, 
-        on_deleate=models.CASCADE)
+        'post.Post', 
+        on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null = True)
     
