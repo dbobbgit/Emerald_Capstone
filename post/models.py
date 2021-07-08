@@ -2,12 +2,11 @@ import uuid
 # https://www.geeksforgeeks.org/uuidfield-django-models/
 from django.db import models
 # from django.utils import timezone
-# from moto_user.models import MotoUser
-from django.contrib.auth.models import User
+from moto_user.models import MotoUser
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
-# from notifications.models import Notification
+from notifications.models import Notifications
 
 ''' This funcion allows the file to be uploaded to MEDIA_ROOT/user_<id>/<filename>'''
 def user_directory_path(instance, filename):
@@ -35,7 +34,7 @@ class Tag(models.Model):
 
 
 class PostFileContent(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_owner')
+    user = models.ForeignKey(MotoUser, on_delete=models.CASCADE, related_name='content_owner')
     file = models.FileField(upload_to=user_directory_path)
 
 
@@ -46,7 +45,7 @@ class Post(models.Model):
     caption = models.TextField(max_length=500, verbose_name='Caption')
     posted = models.DateField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='tags')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(MotoUser, on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
 
     def get_absolute_url(self):
@@ -57,26 +56,26 @@ class Post(models.Model):
 
 
 class Follow(models.Model):
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='follower')
-    following = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='following')
+    follower = models.ForeignKey(MotoUser, on_delete=models.CASCADE, null=True, related_name='follower')
+    following = models.ForeignKey(MotoUser, on_delete=models.CASCADE, null=True, related_name='following')
 
-    # def user_follow(sender, instance, *args, **kwargs):
-    #     follow = instance
-    #     sender = follow.follower
-    #     following = follow.following
-    #     notify = Notification(sender=sender, user=following, notification_type=3)
-    #     notify.save()
+    def user_follow(sender, instance, *args, **kwargs):
+        follow = instance
+        sender = follow.follower
+        following = follow.following
+        notify = Notifications(sender=sender, user=following, notification_type=3)
+        notify.save()
 
-    # def user_unfollow(sender, instance, *args, **kwargs):
-    #     follow = instance
-    #     sender = follow.follower
-    #     following = follow.following
-    #     notify = Notification(sender=sender, user=following, notification_type=3)
-    #     notify.delete()
+    def user_unfollow(sender, instance, *args, **kwargs):
+        follow = instance
+        sender = follow.follower
+        following = follow.following
+        notify = Notifications(sender=sender, user=following, notification_type=3)
+        notify.delete()
 
 class Stream(models.Model):
-    following = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='stream_following')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    following = models.ForeignKey(MotoUser, on_delete=models.CASCADE, null=True, related_name='stream_following')
+    user = models.ForeignKey(MotoUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField()
 
@@ -89,19 +88,19 @@ class Stream(models.Model):
             stream.save()
 
 class Likes(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
-    post = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_like')
+    user = models.ForeignKey(MotoUser, on_delete=models.CASCADE, related_name='user_like')
+    post = models.ForeignKey(MotoUser, on_delete=models.CASCADE, related_name='post_like')
 
-    # def user_like_post(sender, instance, *args, **kwargs):
-    #     like = instance
-    #     post = like.post
-    #     sender = like.user
-    #     notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
-    #     notify.save()
+    def user_like_post(sender, instance, *args, **kwargs):
+        like = instance
+        post = like.post
+        sender = like.user
+        notify = Notifications(post=post, sender=sender, user=post.user, notification_type=1)
+        notify.save()
 
-    # def user_unlike_post(sender, instance, *args, **kwargs):
-    #     like = instance
-    #     post = like.post
-    #     sender = like.user
-    #     # notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
-    #     notify.delete()
+    def user_unlike_post(sender, instance, *args, **kwargs):
+        like = instance
+        post = like.post
+        sender = like.user
+        notify = Notifications(post=post, sender=sender, user=post.user, notification_type=1)
+        notify.delete()
