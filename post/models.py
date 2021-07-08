@@ -2,7 +2,7 @@ import uuid
 # https://www.geeksforgeeks.org/uuidfield-django-models/
 from django.db import models
 # from django.utils import timezone
-# from user.models import CustomUser
+# from moto_user.models import MotoUser
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
