@@ -127,9 +127,14 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
 
+
 # Specifies redirect to home page
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Password reset - for project ease, I decided to store emails as a file in a folder rather than integrate with an email service.
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
