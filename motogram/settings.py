@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
-    'auth',
+    'authorization',
     'post',
     'notifications',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'motogram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR  /  'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Tells Django to look for a templates folder at the project level
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,6 +126,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
+
+# Specifies redirect to home page
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
