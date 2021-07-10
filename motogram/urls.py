@@ -30,7 +30,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # Tells Django to include built in auth urls
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('', include('notifications.urls')),
-    # path('', include('moto_user.urls')),
+    path('', include('moto_user.urls')),
     # path('', include('post.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
