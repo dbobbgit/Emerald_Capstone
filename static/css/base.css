@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body::before {
+  display: block;
+  content: '';
+  height: 80px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: antiquewhite;
+  font-family: 'Roboto', sans-serif;
+  color: #222;
+  padding-bottom: 50px;
+}
+
+@media(min-width: 768px) {
+  .new-input {
+      width: 50%;
+  }
+}

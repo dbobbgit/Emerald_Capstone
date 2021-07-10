@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
+{% block css_files %}{% endblock css_files %}
 {% block content %}
 {% if request.user.is_authenticated %}
 <a href="javascript:history.go(-1)">⌛ Refresh</a>
 {% if notifications %}
-
 {% for item in notifications %}
 {{item.text}} - {{item.author}}
 {{item.date_created}}
@@ -12,3 +12,4 @@
 <h3>There is no notification</h3>
 {% endif %}
 {% endif %}
+{% endblock %}

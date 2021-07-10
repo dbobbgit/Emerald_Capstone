@@ -15,6 +15,6 @@ def notification_view(request):
             n_list.append(item)
             item.read = True
             item.save()
-    return render(request, 'notification/notify.html', {
+    return render(request, 'notifications/notify.html', {
         'notifications': n_list,
     })

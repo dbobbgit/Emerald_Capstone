@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
-
+{% block css_files %}{% endblock %}
 {% block content%}
 {% if user.is_authenticated %} Hi {{ user.username }}!
+
 <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
 <p>You are not logged in</p>
