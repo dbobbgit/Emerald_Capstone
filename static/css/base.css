@@ -1,23 +1,49 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Open Sans', 'Lato', sans-serif;
+}
+
+body {
+  margin: 0;
+}
 
 body::before {
   display: block;
   content: '';
   height: 80px;
+  width: 80px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
+/* body {
   background-color: antiquewhite;
   font-family: 'Roboto', sans-serif;
   color: #222;
+  margin: auto;
   padding-bottom: 50px;
+} */
+
+/* .notification {
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
 }
+ 
+.notification .badge {
+  position: absolute;
+  top: 2px;
+  right: 30px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+} */
 
 @media(min-width: 768px) {
   .new-input {

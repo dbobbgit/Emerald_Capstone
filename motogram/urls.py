@@ -19,7 +19,8 @@ from django.urls import path, include
 # Needed for notifications
 from django.conf import settings
 from django.conf.urls.static import static
-
+import notifications.urls
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
@@ -29,8 +30,11 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),  # Tells Django to include built in auth urls
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('', include('notifications.urls')),
+    path('recipe/', include('recipe.urls')),
+    # django-notifications
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    # notification
+    path('notification/', include('notification.urls', namespace='notice')),
     # path('', include('moto_user.urls')),
     # path('', include('post.urls')),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

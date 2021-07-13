@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load notifications_tags %} 
+{% block title %}Notification{% endblock %}
+{% block css_files %}{% endblock css_files %}
+{% block content %}
+<div class="container">
+{{% include "include/messages.html" %}}
+{% if request.user.is_authenticated %}
+{% notifications_unread as unread_count %}
+{% if unread_count %}
+<h6>You have <strong>{{unread_count}}</strong>unread notifications</h6>
+{% endif %}
+{% comment %} <a href="javascript:history.go(-1)">⌛ Refresh</a> {% endcomment %}
+{% if notifications %}
+<div class="collapse">
+<p>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Here is your new notification
+  </button>
+</p>
+{% for notification in notifications %}
+  <div class="card card-body">
+    text: {{notification.post.text}}
+  </div>
+  <a href="{% url 'post' post.id %}">
+  <div class="card card-body">
+    sent by: {{notification.post.author}} ({{notification.post.date_created}}) 
+  </div>
+  </a>
+</div>
+{% endfor %}
+{% else %}
+<p>There is no notifications</p>
+{% endif %}
+{% endif %}
+</div>
+{% endblock %}

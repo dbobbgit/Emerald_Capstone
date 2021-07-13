@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Outdoor {% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+<div class="container">
+    <h3>{{recipe.title}}</h3>
+    <div class="card mb-3">
+    <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{recipe.title}}</h5>
+            <p class="card-text">{{recipe.instruction}}</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+<!--Add Recipe Form-->
+<section id="comment-form">
+  <h2>Share your recipe with others!!</h2>
+  <form action="{% url "recipe-detail" recipe.slug %}" method="POST">
+    {% csrf_token %}
+    {% for form_field in add_form %}
+      <div class="form-control {% if form_field.errors %}invalid{% endif %}">
+        {{ form_field.label_tag }}
+        {{ form_field }}
+        {{ form_field.errors }}
+      </div>
+    {% endfor %}
+    <button>Save Recipe!!</button>
+  </form>
+</section>
+
+{% endblock %}
