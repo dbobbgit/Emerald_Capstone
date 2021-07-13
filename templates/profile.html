@@ -1,7 +1,17 @@
-<h3>{{current_user.display_name}}'sProfile</h3>
+<h3>{{profile.display_name}}'s Profile</h3>
 
-{{current_user.username}}
-{{current_user.bio}}
-{{current_user.bike}}
-{{current_user.riding_style}}
-{{current_user.riding_level}}
+{{profile.username}}
+<br></br>
+{{profile.bio}}
+<br></br>
+{{profile.bike}}
+<br></br>
+{{profile.riding_style}}
+<br></br>
+{{profile.riding_level}}
+<br></br>
+<br></br>
+_____________________________
+<br></br>
+
+<a href='/edit/profile/{{profile.id}}/'>Edit Profile</a>

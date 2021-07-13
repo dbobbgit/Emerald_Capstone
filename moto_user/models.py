@@ -7,7 +7,6 @@ class MotoUser(AbstractUser):
     """CAITLIN: THIS CUSTOM USER MODEL IS INTENDED TO BE THE BASIS FOR OUR PROFILE TEMPLATE. 
     OUR ABSTRACT USER PARAMETER GIVES US ACCESS TO USERNAME, PASSWORD, AND EMAIL"""
     
-    
     display_name = models.CharField(max_length=30)
     bio = models.CharField(max_length=300)
     bike = models.CharField(max_length=50)
@@ -18,8 +17,9 @@ class MotoUser(AbstractUser):
         ('RIDING_STYLE_EXAMPLE3', 'riding_style_example3'),
     ]
 
-    riding_style = models.CharField(max_length=21, choices=riding_style_choices, default="JUST STARTING")
-
+    riding_style = models.CharField(max_length=21, 
+                                    choices=riding_style_choices, 
+                                    default="JUST STARTING")
 
     riding_level_choices = [
         ('RIDING_LEVEL_EXAMPLE1', 'riding_level_example1'),
@@ -27,7 +27,9 @@ class MotoUser(AbstractUser):
         ('RIDING_LEVEL_EXAMPLE3', 'riding_level_example3'),
     ]
 
-    riding_level = models.CharField(max_length=21, choices=riding_level_choices, default="JUST STARTING")
+    riding_level = models.CharField(max_length=21, 
+                                    choices=riding_level_choices, 
+                                    default="JUST STARTING")
 
 
     def __str__(self):
