@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'notifications',
     'moto_user',
     'authentication',
     'post',
-    'notifications',
+    'notification',
     'accounts',
+    'recipe'
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'motogram.wsgi.application'
 
+
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -131,6 +135,8 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = '/login/'
 
+
+# Media(images, video)
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
@@ -150,4 +156,3 @@ EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'moto_user.MotoUser'
-

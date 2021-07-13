@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Outdoor Food{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+
+ <section id="outdoor-food" class="p-5 bg-success">
+        <div class="container">
+            <h2 class="text-center text-white">Outdoor food</h2>
+            <p class="lead text-center text-white mb-5">
+                Here is great source for outdoor food from our people!!
+            </p>
+            title:{{recipes.title}}
+            {% comment %} {% for recipe in recipes %} {% endcomment %}
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card text-center" style="width: 18rem;">
+                    <!--"{{MEDIA_URL}}{{ recipe.image.url }}"-->
+                        <img src="https://mykoreankitchen.com/wp-content/uploads/2006/10/3.-Korean-Kimbap.jpg" width=200 height=250 class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{recipe.title}}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Duration time: {{recipe.time_required}}</li>
+                            <li class="list-group-item">Description: {{recipe.description}}</li>
+                            <li class="list-group-item">Created by: {{recipe.author}}</li>
+                        </ul>
+                        <div class="card-body">
+                            <p class="card-text">Instruction: {{recipe.instruction}}</p>
+                        </div>
+                        <div class="card-body">
+                            <a href="" class="card-link">Recipe Link</a>
+                            {% comment %} <a href="{% url 'recipe-detail' recipe.slug %}" class="card-link">Recipe Link</a> {% endcomment %}
+                            <a href="#" class="card-link">Like</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        {% comment %} {% endfor %} {% endcomment %}
+        </div>
+    </section>
+{% endblock content %}
+
