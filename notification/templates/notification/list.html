@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load notifications_tags %} 
+{% block title %}Notification{% endblock %}
+{% block css_files %}
+<style>
+    #notice_link a:link {
+        color: black;
+    }
+
+    #notice_link a:visited {
+        color: lightgrey;
+    }
+</style>
+{% endblock css_files %}
+{% block content %}
+<div class="container">
+{% include "includes/messages.html" %}
+{% if request.user.is_authenticated %}
+{% notifications_unread as unread_count %}
+{% if unread_count %}
+<h6>You have <strong>{{unread_count}}</strong>unread notifications</h6>
+{% endif %}
+
+{% if notifications %}
+<div class="container">
+    <div class="row mt-4 ml-4">
+        <a href="{% url "notification:post_update" %}" class="btn btn-warning" role="button">Clear all notifications/a>
+    </div>
+    <div class="row mt-2 ml-4">
+        <ul class="list-group">
+            {% for notice in notices %}
+                <li class="list-group-item" id="notice_link">
+                    <a href="{% url "notice:update" %}?article_id={{ notice.target.id }}&notice_id={{ notice.id }}#comment_elem_{{ notice.action_object.id }}"
+                       target="_blank"
+                    >
+                    <span style="color: #5897fb;">
+                        {{ notice.actor }}
+                    </span>
+                     in <span style="color: #01a252;">{{ notice.target }}</span> {{ notice.verb }}。
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ notice.timestamp|date:"Y/m/d H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% else %}
+<p>There is no notifications</p>
+{% endif %}
+{% endif %}
+{% endblock%}

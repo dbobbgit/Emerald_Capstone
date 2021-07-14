@@ -2,22 +2,93 @@
 {% load static %}
 {% block title %}Outdoor Food{% endblock title %}
 {% block css_files %}
+<style>
+#outdoor-food {
+  background-image: var(--bs-gradient)
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  height: 100%;
+  width: 100%;
+</style>
 {% endblock css_files %}
 {% block content %}
 
- <section id="outdoor-food" class="p-5 bg-success">
-        <div class="container">
+ <section id="outdoor-food" class="container-xxl p-5 bg-secondary">
+        <div class="container-fluid">
             <h2 class="text-center text-white">Outdoor food</h2>
             <p class="lead text-center text-white mb-5">
                 Here is great source for outdoor food from our people!!
             </p>
+            <!--Create Recipe Modal-->
+            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#create">
+                        Create New Recipe
+            </button>
+        <div class="modal fade" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="createLabel">Create New Recipe</h5>
+                <button 
+                    type="button" 
+                    class="btn-close" 
+                    data-bs-dismiss="modal" 
+                    >
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">Share your new recipe!!</p>
+                <form action="{% url 'recipe' %}" method="POST">
+                {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="col-form-label">
+                            Title:
+                        </label>
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Time-required" class="col-form-label">
+                            Time-required:
+                        </label>
+                        <input type="text" class="form-control" id="time_required ">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="col-form-label">
+                            Description:
+                        </label>
+                        <input type="text" class="form-control" id="description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Author" class="col-form-label">
+                            Author:
+                        </label>
+                        <input type="text" class="form-control" id="Author">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Instruction" class="col-form-label">
+                            Instruction:
+                        </label>
+                        <input type="text" class="form-control" id="instruction">
+                    </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!--End Modal-->
+        <br>
             title:{{recipes.title}}
             {% comment %} {% for recipe in recipes %} {% endcomment %}
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
-                    <div class="card text-center" style="width: 18rem;">
+                    <div class="card text-center bg-warning text-dark" style="width: 18rem;">
                     <!--"{{MEDIA_URL}}{{ recipe.image.url }}"-->
-                        <img src="https://mykoreankitchen.com/wp-content/uploads/2006/10/3.-Korean-Kimbap.jpg" width=200 height=250 class="card-img-top" alt="...">
+                        <img src="{{recipe.image.url}}" width=200 height=250 class="card-img-top" alt="{{recipe.title}}">
+                        {% comment %} <img src="https://mykoreankitchen.com/wp-content/uploads/2006/10/3.-Korean-Kimbap.jpg" width=200 height=250 class="card-img-top" alt="..."> {% endcomment %}
                         <div class="card-body">
                             <h5 class="card-title">{{recipe.title}}</h5>
                         </div>
@@ -30,9 +101,10 @@
                             <p class="card-text">Instruction: {{recipe.instruction}}</p>
                         </div>
                         <div class="card-body">
-                            <a href="" class="card-link">Recipe Link</a>
+                            <a href="#" class="btn btn-outline-success">Go to Recipe!! 😋</a>
+                            {% comment %} <a href="" class="card-link">Recipe Link</a> {% endcomment %}
                             {% comment %} <a href="{% url 'recipe-detail' recipe.slug %}" class="card-link">Recipe Link</a> {% endcomment %}
-                            <a href="#" class="card-link">Like</a>
+                            <a href="#" class="btn btn-outline-danger">Like 💜</a>
                         </div>
                         </div>
                     </div>

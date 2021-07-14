@@ -41,7 +41,7 @@
                        
                         <!--Notification Alert-->
                         <li class="nav-item">
-                            <a href="#" class="nav-link position-relative"><i class="bi bi-bell-fill"></i>
+                            <a href="{% url 'notification:list' %}" class="nav-link position-relative"><i class="bi bi-bell-fill"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{% live_notify_badge %}</span>
                             </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -67,8 +67,8 @@
                                <i class="bi bi-file-person-fill"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'MotoUserView' user.id%}">My Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
                             </ul>
                             </li>
                             {% if user.is_authenticated %}

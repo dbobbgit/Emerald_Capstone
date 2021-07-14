@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.views.generic import ListView
+# from django.views.generic import ListView
 from django.views import View
 from .models import Recipe
 from .forms import CreateRecipeForm

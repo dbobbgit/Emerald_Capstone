@@ -1,5 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock %}
+{% block css_files %}{% endblock %}
+{% block content %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save Updates</button>
   </form>
+{% endblock content %}
