@@ -38,13 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'notifications',
     'moto_user',
     'authentication',
     'post',
     'notification',
     'accounts',
-    'recipe'
+    'recipe',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'motogram.wsgi.application'
 
-
-DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
