@@ -17,13 +17,3 @@ class Notification(models.Model):
         on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-
-
-# @receiver(post_save, sender=MotoUser)
-# def create_welcome__message(sender, **kwargs):
-#     if kwargs.get('created', False):
-#         Notifications.objects.create(
-#             author=kwargs.get('instance'),
-#             title="Welcome to Motogram!!",
-#             message="Thanks for signing up!!"
-#         )
