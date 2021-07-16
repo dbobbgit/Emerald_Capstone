@@ -1,5 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Notification{% endblock %} {% block css_files %}{% endblock
-css_files %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Notification{% endblock %} 
+{% block css_files %}
+{% endblock css_files %} 
+{% block content %}
 <div class="container">
 	{{% include "include/messages.html" %}} {% if request.user.is_authenticated %} {% notifications_unread as
 	unread_count %} {% if unread_count %}
@@ -21,7 +25,7 @@ css_files %} {% block content %}
 		{% for notification in notifications %}
 		<div class="card card-body">text: {{notification.post.text}}</div>
 		<a href="{% url 'post' post.id %}">
-			<div class="card card-body">sent by: {{notification.post.author}} ({{notification.post.date_created}})</div>
+			<div class="card card-body">sent by: {{notification.post.receiver}} ({{notification.post.date_created}})</div>
 		</a>
 	</div>
 	{% endfor %} {% else %}

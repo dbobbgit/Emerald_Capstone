@@ -1,5 +1,6 @@
 from django import forms
 from moto_user.models import MotoUser
+from recipe.models import Recipe
 
 
 class CreateRecipeForm(forms.Form):
@@ -8,3 +9,14 @@ class CreateRecipeForm(forms.Form):
     time_required = forms.CharField(max_length=30)
     instructions = forms.CharField(widget=forms.Textarea)
     author = forms.ModelChoiceField(queryset=MotoUser.objects.all())
+
+
+class EditRecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = [
+            'title',
+            'description',
+            'time_required',
+            'instruction'
+        ]

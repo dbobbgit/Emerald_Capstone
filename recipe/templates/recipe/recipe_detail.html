@@ -4,23 +4,40 @@
 {% block css_files %}
 {% endblock css_files %}
 {% block content %}
-<div class="container">
-    <h3>{{recipe.title}}</h3>
-    <div class="card mb-3">
-    <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{recipe.title}}</h5>
-            <p class="card-text">{{recipe.instruction}}</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+<div class="container d-flex justify-content-md-center">
+    <!--<h3>{{recipe.title}}</h3>-->
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4 mt-4">
+        <img src="{{recipe.image.url}}" class="img-fluid rounded-start" alt="{{recipes.title}}">
+        </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{recipe.title}}</h5>
+              <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
+              <p class="card-text"><strong>Duration time:</strong> {{recipe.time_required}}</p>
+              <p class="card-text"><strong>Instruction:</strong> <br>
+              {{recipe.instruction}}</p>
+              <p class="card-text"><small class="text-muted">Last updated <time>{{recipe.date}}</time>
+              </small></p>
+            </div>
+          </div>
         </div>
     </div>
 </div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center mb-3">
+<a href="{% url 'recipe:edit-recipe' recipe.slug %}" class="btn btn-outline-success btn-sm">Edit</a>
+<a href="{% url 'recipe:delete-recipe' recipe.slug %}" class="btn btn-outline-danger btn-sm">Delete</a>
+</div>  
+  {% comment %} <a href="/recipe/{{recipe.slug}}/edit">Edit</a>
+  <a href="/recipe/{{recipe.slug}}/delete">Delete</a> {% endcomment %}
+
 <!--Add Recipe Form-->
-<section id="comment-form">
+{% comment %} <section id="edit-form">
   <h2>Share your recipe with others!!</h2>
-  <form action="{% url "recipe-detail" recipe.slug %}" method="POST">
+  <form action="{% url "recipe:recipe-detail" recipe.slug %}" method="POST">
     {% csrf_token %}
-    {% for form_field in add_form %}
+    {% for form_field in create_form %}
       <div class="form-control {% if form_field.errors %}invalid{% endif %}">
         {{ form_field.label_tag }}
         {{ form_field }}
@@ -28,7 +45,8 @@
       </div>
     {% endfor %}
     <button>Save Recipe!!</button>
-  </form>
+  </form> {% endcomment %}
+
 </section>
 
 {% endblock %}

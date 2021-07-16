@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Recipe{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+
+<main>
+  {{ recipes.title|linebreaks }}
+</main>
+
+<div class=container id="edit">
+  <ul>
+    {% for recipe in recipes %}
+      <li>
+        <h2>{{ recipe.author }}</h2>
+        <p>{{ recipe.description|linebreaks }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class=container id="edit-form">
+  <h2>Edit Your Recipe: {{recipes.username}}</h2>
+  <form action="{% url "recipe-detail" recipe.slug %}" method="POST">
+    {% csrf_token %}
+    {% for form_field in recipe_form %}
+      <div class="form-control {% if form_field.errors %}invalid{% endif %}">
+        {{ form_field.label_tag }}
+        {{ form_field }}
+        {{ form_field.errors }}
+      </div>
+    {% endfor %}
+    <button>Save to Update</button>
+  </form>
+</div>
+{% endblock %}
