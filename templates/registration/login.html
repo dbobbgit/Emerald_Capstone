@@ -26,8 +26,8 @@
             <div class="form-group"> 
               <input type="submit" value="Sign In" class="form-control btn btn-secondary submit px-3">
              </div> 
-             {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+             {% if form.errors %} {{ form.errors }}
+<!-- <p>Your username and password didn't match. Please try again.</p> -->
 {% endif %}
 
 {% if next %}
@@ -46,13 +46,14 @@
                 </label>
               </div>
             </div>
+            {# password_reset view in URLconf #}
               <div class="w-100 text-md-center">
-                <a href="{% url 'password_reset' %}" style="color: #fff;" >Forgot  Password??</a>
+                <a href="{% url 'password_reset' %}" style="color: #fff;" >Forgot  Password?</a>
               </div>
           </form>
           </div>
           {% comment %} <p class="w-100 text-center">- Or Sign In With -</p>
-          <div class=class="d-grid gap-2 d-md-flex justify-content-md-center"> 
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center"> 
           <div class="social d-flex gap-2 text-center">
           <a class="btn btn-light px-2 py-2 mr-md-1 rounded" href="#" role="button">
             <i class="bi bi-facebook"></i>
@@ -68,17 +69,6 @@
       </div>
     </div>
 </div> 
-{% comment %} <h2>Log In</h2>
-<div class="d-flex justify-content-center form-container"></div>
-<form method="post" action="{% url 'login' %}">
-  {% csrf_token %} 
-  <input type="text">
-  {{ form.as_p }}
-  <button type="submit" value="login">Log In</button>
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>  {% endcomment %}
 
-{# password_reset view in URLconf #}
-{% comment %} <p><a href="{% url 'password_reset' %}">Forgot password?</a></p> {% endcomment %}
 
 {% endblock %}

@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from motogram.settings import AUTH_USER_MODEL
+
+
 # Create your models here.
 class MotoUser(AbstractUser):
     """CAITLIN: THIS CUSTOM USER MODEL IS INTENDED TO BE THE BASIS FOR OUR PROFILE TEMPLATE. 
