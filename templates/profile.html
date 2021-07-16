@@ -1,18 +1,50 @@
-
-<h3>{{profile.display_name}}'s Profile</h3>
-
-{{profile.username}}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% block title %} {{profile.display_name}}'s Profile
+{% endblock %}
 <br></br>
-{{profile.bio}}
+Username: {{profile.username}}
 <br></br>
-{{profile.bike}}
+Bio: {{profile.bio}}
 <br></br>
-{{profile.riding_style}}
+Bike: {{profile.bike}}
 <br></br>
-{{profile.riding_level}}
+Riding Style: {{profile.riding_style}}
+<br></br>
+Riding Level: {{profile.riding_level}}
 <br></br>
 <br></br>
 _____________________________
 <br></br>
 
-<a href='/edit/profile/{{profile.id}}/'>Edit Profile</a>
+
+Favorite Posts:
+
+    {% for post in profile.favorite_posts.all %}
+    <div class="card text-white bg-success mb-3" style="width: 28rem;">
+        <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="card-img-top" alt="Post picture">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.caption }}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><span><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a></span>
+        </div>
+    </div>
+    {% endfor %}
+
+
+<br></br>
+<br></br>
+_____________________________ 
+<br></br>
+
+Favorite Recipes:
+<ul>
+    {% for recipe in current_user.favorite_recipes.all %}
+    <li>
+        <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href='/user/edit/profile/{{profile.id}}/'>Edit Profile</a>
+{% endblock %}

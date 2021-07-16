@@ -1,6 +1,9 @@
+from recipe.models import Recipe, Author
+from post.models import Post
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser
 from .forms import EditProfileForm
+
 # Create your views here.
 
 def MotoUserView(request, user_id: int):
@@ -16,7 +19,7 @@ def EditProfileView(request, user_id: int):
     THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
     current_profile= MotoUser.objects.get(id=user_id)
-    if request.user.is_staff or request.user == MotoUser.username.user:
+    if request.user.is_staff or request.user == MotoUser.username:
         if request.method == "POST":
             form = EditProfileForm(request.POST)
             if form.is_valid():
@@ -40,3 +43,41 @@ def EditProfileView(request, user_id: int):
         return render(request, "edit_profile.html", { "form": form})
 
     return HttpResponseRedirect(reverse("home"))
+
+
+def Add_Favorite_Recipe(request, recipe_title: str):
+    current_user = Recipe.objects.filter(author=request.user).first()
+    if current_user:
+        recipe = Recipe.objects.get(title=recipe_title)
+        current_user.user.favorite_recipes.add(recipe)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def Remove_Favorite_Recipe(request, recipe_title: str):
+    current_user = Recipe.objects.get(author=request.user)
+    if current_user:
+        recipe = Recipe.objects.get(title=recipe_title)
+        current_user.user.favorite_recipes.remove(recipe)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def Add_Favorite_Post(request, post_id: str):
+    current_user = Post.objects.filter(user=request.user).first()
+    if current_user:
+        post = Post.objects.get(id=post_id)
+        current_user.user.favorite_posts.add(post)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+def Remove_Favorite_Post(request, post_id: str):
+    current_user = Post.objects.get(user=request.user)
+    if current_user:
+        post = Post.objects.get(id=post_id)
+        current_user.user.favorite_posts.remove(post)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

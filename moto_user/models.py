@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.contrib.auth.models import AbstractUser
 from motogram.settings import AUTH_USER_MODEL
 # Create your models here.
@@ -31,7 +30,13 @@ class MotoUser(AbstractUser):
                                     choices=riding_level_choices, 
                                     default="JUST STARTING")
 
+    # followers = models.ManyToManyField()
 
+    favorite_posts = models.ManyToManyField('post.Post', symmetrical=False, related_name='+', blank=True, null=True)
+
+    favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, related_name='+', blank=True, null=True)
+    
+    
     def __str__(self):
             return self.display_name
 
