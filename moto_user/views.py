@@ -65,20 +65,20 @@ def Remove_Favorite_Recipe(request, recipe_title: str):
 
 
 def Add_Favorite_Post(request, post_id: str):
-    current_user = Post.objects.filter(user=request.user).first()
+    current_user = request.user
     if current_user:
         post = Post.objects.get(id=post_id)
-        current_user.user.favorite_posts.add(post)
+        current_user.favorite_posts.add(post)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 
 def Remove_Favorite_Post(request, post_id: str):
-    current_user = Post.objects.get(user=request.user)
+    current_user = request.user
     if current_user:
         post = Post.objects.get(id=post_id)
-        current_user.user.favorite_posts.remove(post)
+        current_user.favorite_posts.remove(post)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
