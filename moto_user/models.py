@@ -30,7 +30,7 @@ class MotoUser(AbstractUser):
                                     choices=riding_level_choices, 
                                     default="JUST STARTING")
 
-    # followers = models.ManyToManyField()
+    following = models.ManyToManyField('self', symmetrical=False)
 
     favorite_posts = models.ManyToManyField('post.Post', symmetrical=False, related_name='+', blank=True, null=True)
 

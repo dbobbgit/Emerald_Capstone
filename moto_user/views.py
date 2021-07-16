@@ -81,3 +81,32 @@ def Remove_Favorite_Post(request, post_id: str):
         current_user.user.favorite_posts.remove(post)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def Follow_View(request, user_id:int):
+    following = MotoUser.objects.get(id=user_id)
+    if request.user.is_authenticated:
+        if request.user.following.filter(id=user_id).exists() == False:
+            request.user.following.add(following)
+            following.save()
+        count = request.user.following.all().count()
+        if count == None:
+            count = 0
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+
+def Unfollow_View(request, user_id:int):
+    following = MotoUser.objects.get(id=user_id)
+    if request.user.is_authenticated:
+        if request.user.following.filter(id=user_id).exists():
+            request.user.following.remove(following)
+            following.save()
+        count = request.user.following.all().count()
+        if count == None:
+            count = 0
+            
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+
+def Following_View(request, user_id:int):
+    following = request.user.following.exclude(following=user_id)
+
+    return render(request, 'following.html',{'following':following})

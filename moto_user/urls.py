@@ -8,6 +8,8 @@ urlpatterns = [
     path("favorite_post/<str:post_id>/", views.Add_Favorite_Post, name='AddFavePost'),
     path("unfavorite_post/<str:post_id>/", views.Remove_Favorite_Post, name='RemoveFavePost'),
     path("favorite_recipe/<str:recipe_title>/", views.Add_Favorite_Recipe, name='AddFaveRecipe'),
-    path("unfavorite_recipe/<str:recipe_title>/", views.Remove_Favorite_Recipe, name='RemoveFaveRecipe')
-
+    path("unfavorite_recipe/<str:recipe_title>/", views.Remove_Favorite_Recipe, name='RemoveFaveRecipe'),
+    path("follow/<int:user_id>/", views.Follow_View, name='FollowView'),
+    path("unfollow/<int:user_id>/", views.Unfollow_View, name='UnfollowView'),
+    path('following/all/<int:user_id>/', views.Following_View, name='FollowingList')
 ]

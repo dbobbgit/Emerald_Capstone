@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 <br>
 <br>
-<h1>{{ request.user.username }}!</h>
+<a href='/user/profile/{{request.user.id}}/'><h1>{{ request.user.username }}!</h></a>
     <img class="mb-4" src="{{ request.picture }}" alt="" width="72" height="57">
     <h2>A member since: {{ request.user.joined_date }}</h2>
     <h4>Notifications: {{ pings.count }}</h4>

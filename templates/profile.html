@@ -3,6 +3,21 @@
 {% block content %}
 {% block title %} {{profile.display_name}}'s Profile
 {% endblock %}
+{% if profile.username == request.user.username%}
+<h4>Your Profile</h4>
+{% elif user.is_authenticated %}
+<a href='/user/follow/{{profile.id}}/'>Follow {{profile.display_name}}</a>
+<a href='/user/unfollow/{{profile.id}}/'>Unfollow {{profile.display_name}}</a>
+{%else%}
+Login to <a href='/user/follow/{{profile.id}}/'>follow {{profile.username}}</a>
+{%endif%}
+
+{% if profile.username == request.user.username%}
+<p><a href= '/user/following/all/{{profile.id}}/'>Following:{{profile.following.count}} </a></p>
+
+
+{%endif%}
+
 <br></br>
 Username: {{profile.username}}
 <br></br>
@@ -14,7 +29,8 @@ Riding Style: {{profile.riding_style}}
 <br></br>
 Riding Level: {{profile.riding_level}}
 <br></br>
-<br></br>
+<br></br> 
+
 _____________________________
 <br></br>
 
