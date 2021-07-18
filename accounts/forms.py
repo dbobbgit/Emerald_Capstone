@@ -6,11 +6,12 @@ User = get_user_model()
 
 
 class CustomUserCreationForm(UserCreationForm):
-    password2 = None
 
     class Meta:
         model = User
         fields = ('username', 'password')
+
+        exclude = ['password2']
 
 
 class CustomUserChangeForm(UserChangeForm):
