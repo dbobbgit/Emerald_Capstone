@@ -32,11 +32,11 @@ class MotoUser(AbstractUser):
                                     choices=riding_level_choices, 
                                     default="JUST STARTING")
 
-    following = models.ManyToManyField('self', symmetrical=False)
+    following = models.ManyToManyField('self', symmetrical=False, blank=True)
 
-    favorite_posts = models.ManyToManyField('post.Post', symmetrical=False, related_name='+', blank=True, null=True)
+    favorite_posts = models.ManyToManyField('post.Post', symmetrical=False, related_name='+', blank=True)
 
-    favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, related_name='+', blank=True, null=True)
+    favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, related_name='+', blank=True)
     
     
     def __str__(self):
