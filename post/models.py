@@ -49,7 +49,7 @@ class PostFileContent(models.Model):
 
 
 class Post(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     picture = models.ImageField(
         upload_to=user_directory_path,
         verbose_name='Picture',
