@@ -1,4 +1,4 @@
-from recipe.models import Recipe, Author
+from recipe.models import Recipe
 from post.models import Post
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser
@@ -8,7 +8,7 @@ from .forms import EditProfileForm
 
 def MotoUserView(request, user_id: int):
     profile= MotoUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {"profile":profile})
+    return render(request, 'profile.html', {"profile": profile})
 
 
 

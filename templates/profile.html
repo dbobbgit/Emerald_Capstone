@@ -32,10 +32,15 @@ Login to <a href='/user/follow/{{profile.id}}/'>follow {{profile.username}}</a>
 <br></br> 
 
 _____________________________
-<br></br>
+</br>
+
 
 
 <b>Favorite Posts:</b>
+
+Favorite Posts:
+<div class="row d-flex align-item-center justify-content-center">
+
 
     {% for post in profile.favorite_posts.all %}
     <div class="card text-white bg-success mb-3" style="width: 28rem;">
@@ -47,10 +52,11 @@ _____________________________
         </div>
     </div>
     {% endfor %}
+</div>
 
 
-<br></br>
-<br></br>
+</br>
+</br>
 _____________________________ 
 <br></br>
 
