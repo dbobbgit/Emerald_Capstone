@@ -15,10 +15,10 @@
     <img class="mb-4" src="{{ request.picture }}" alt="" width="72" height="57">
 
     <h2>A member since: {{ request.user.joined_date }}</h2>
-    <h4>Notifications: {{ pings.count }}</h4>
+    <h4>Motofications: {{ pings.count }}</h4>
     <hr>
     {% for post_item in post_items %}
-    <div class="card text-white bg-success mb-3" style="width: 28rem;">
+    <div class="card text-white bg-success mb-3" >
         <img src="{{MEDIA_URL}}{{ post_item.picture.url }}" class="card-img-top" alt="Post picture">
         <div class="card-body">
             <h5 class="card-title">{{ post_item.caption }}</h5>

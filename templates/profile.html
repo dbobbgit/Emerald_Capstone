@@ -1,68 +1,122 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% block title %} {{profile.display_name}}'s Profile
-{% endblock %}
-{% if profile.username == request.user.username%}
-<h4>Your Profile</h4>
-{% elif user.is_authenticated %}
-<a href='/user/follow/{{profile.id}}/'>Follow {{profile.display_name}}</a>
-<a href='/user/unfollow/{{profile.id}}/'>Unfollow {{profile.display_name}}</a>
-{%else%}
-Login to <a href='/user/follow/{{profile.id}}/'>follow {{profile.username}}</a>
-{%endif%}
+<header>
+    <div class="container">
 
-{% if profile.username == request.user.username%}
-<p><a href= '/user/following/all/{{profile.id}}/'>Following:{{profile.following.count}} </a></p>
+        <div class="profile">
+
+            <div class="profile-image">
+
+                <img src="/static/images/IMG_6521.jpg" alt="">
+
+            </div>
+
+            <div class="profile-user-settings">
+
+                <h1 class="profile-user-name"> 
+                <strong>{{profile.display_name}}</strong>
+                </h1>
+
+                <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning">Edit Profile</a>
+
+                <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+                
+            </div>
+            <!-- End of Profile User Settings Section-->
+
+            <div class="profile-stats">
+
+                <ul>
+                        <li><span class="profile-stat-count">164</span> Posts</li>
+                        <li><span class="profile-stat-count">188</span> Followers</li>
+                        <li><span class="profile-stat-count"><a href= '/user/following/all/{{profile.id}}/' style="text-decoration: none;">{{profile.following.count}} </a></span>Following</li>
+                    </ul>
+
+            </div>
 
 
-{%endif%}
+            <div class="profile-bio">
 
-<br></br>
-Username: {{profile.username}}
-<br></br>
-Bio: {{profile.bio}}
-<br></br>
-Bike: {{profile.bike}}
-<br></br>
-Riding Style: {{profile.riding_style}}
-<br></br>
-Riding Level: {{profile.riding_level}}
-<br></br>
-<br></br> 
+                <span class="profile-real-name">
+                        {{profile.username}} 
+                        <br></br>
+                        {{profile.bio}} 🏕️
+                        <br></br>
+                        My Trusty Two-Wheeled Steed is a 
+                        {{profile.bike}}
+                        <br></br>
+                        Catch Me Ridin {{profile.riding_style}}
+                        <br></br>
+                        I Ride Like a {{profile.riding_level}}
+                    </span>
 
-_____________________________
-</br>
+            </div>
 
 
-Favorite Posts:
-<div class="row d-flex align-item-center justify-content-center">
 
-    {% for post in profile.favorite_posts.all %}
-    <div class="card text-white bg-success mb-3" style="width: 28rem;">
-        <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="card-img-top" alt="Post picture">
-        <div class="card-body">
-            <h5 class="card-title">{{ post.caption }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><span><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a></span>
+    {% if profile.username == request.user.username%}
+    {% elif user.is_authenticated %}
+    <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.display_name}}</a>
+    <a href='/user/unfollow/{{profile.id}}/' style="text-decoration: none;">Unfollow {{profile.display_name}}</a>
+    {%else%}
+    Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">follow {{profile.username}}</a>
+    {%endif%}
+
+    {% if profile.username == request.user.username%}
+    <p></p>
+    {%endif%}
+            </div>
+            <!-- End of Profile Section -->
+
+    </div>
+    <!-- End of Container -->
+</header>
+<main>
+    <div class="container">
+
+        <div class="gallery">
+
+            <div class="gallery-item" tabindex="0">
+
+                {% for post in profile.favorite_posts.all %}
+
+                <!-- <div class="card text-white bg-light m-3"> -->
+
+                    <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture">
+
+                    <!-- <div class="card-body"> -->
+                        
+                        <!-- <h5 class="card-title text-dark">{{ post.caption }}</h5> -->
+                        <!-- <p class="card-text text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                        <!-- <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a> -->
+                        <div class="gallery-item-info">
+                            
+                            <ul>
+                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
+                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        {% endfor %}
+            </div>        
         </div>
     </div>
-    {% endfor %}
-</div>
 
 
-</br>
-</br>
-_____________________________ 
-<br></br>
+        Favorite Recipes:
+        <ul>
+            {% for recipe in current_user.favorite_recipes.all %}
+            <li>
+                <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
 
-Favorite Recipes:
-<ul>
-    {% for recipe in current_user.favorite_recipes.all %}
-    <li>
-        <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
-<a href='/user/edit/profile/{{profile.id}}/'>Edit Profile</a>
-{% endblock %}
+        <div class="loader"></div>
+
+        {% endblock %}
+
+</main>
