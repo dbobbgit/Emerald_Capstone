@@ -6,17 +6,24 @@ User = get_user_model()
 
 
 class CustomUserCreationForm(UserCreationForm):
-    password2 = None
-
     class Meta:
         model = User
         fields = ('username', 'password')
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        del self.fields['password2']
+        self.fields['password1'].help_text = None
+        self.fields['username'].help_text = None
 
 
 class CustomUserChangeForm(UserChangeForm):
-    password2 = None
-    
     class Meta:
         model = User
         fields = ('username', 'password')
 
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
+        del self.fields['password2']
+        self.fields['password1'].help_text = None
+        self.fields['username'].help_text = None
