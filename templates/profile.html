@@ -32,10 +32,11 @@ Riding Level: {{profile.riding_level}}
 <br></br> 
 
 _____________________________
-<br></br>
+</br>
 
 
 Favorite Posts:
+<div class="row d-flex align-item-center justify-content-center">
 
     {% for post in profile.favorite_posts.all %}
     <div class="card text-white bg-success mb-3" style="width: 28rem;">
@@ -47,10 +48,11 @@ Favorite Posts:
         </div>
     </div>
     {% endfor %}
+</div>
 
 
-<br></br>
-<br></br>
+</br>
+</br>
 _____________________________ 
 <br></br>
 
