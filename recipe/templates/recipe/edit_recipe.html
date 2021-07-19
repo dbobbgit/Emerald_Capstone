@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Recipe{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+
+<main class='bg-secondary text-white text-center'>
+<div class='main-header p-3'>
+  <h2>{{ recipe.title|linebreaks }}</h2>
+</div>
+
+<div class="container-sm d-flex justify-content-start" id="edit">
+  <ul>
+      <li>
+        <h4>Author: {{ recipe.author }}</h4>
+        <p>Description: {{ recipe.description|linebreaks }}</p>
+      </li>
+  </ul>
+</div>
+
+<div class=container id="edit-form">
+{% if recipe %}
+  <h2>Edit Your Recipe: {{recipe.author}}</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="card">
+    <div class="card-body bg-light text-dark">
+    <p><label for="id_title">Recipe name:</label> <input type="text" name="title" value="Tuna Mayo Onigiri" maxlength="50" required id="id_title"></p>
+    <p><label for="id_description">Description:</label> <textarea name="description" cols="40" rows="10" required id="id_description">
+      Japanese style simple picnic recipe</textarea></p>
+      <p><label for="id_time_required">Duration time:</label> <input type="text" name="time_required" value="30 min" maxlength="10" required id="id_time_required"></p>
+      <p><label for="id_instruction">Detail of your recipe:</label> <textarea name="instruction" cols="40" rows="10" required id="id_instruction">
+      test</textarea></p>
+      <p><label for="id_author">Author:</label> <select name="author" required id="id_author">
+        <option value="">---------</option>
+
+        <option value="1" selected>haejin</option>
+
+      </select></p>
+      <p><label for="id_image">Share your image:</label> Currently: <a href="/media/recipes/tunamayo_83FzICw.jpeg">recipes/tunamayo_83FzICw.jpeg</a>
+      <input type="checkbox" name="image-clear" id="image-clear_id">
+      <label for="image-clear_id">Clear</label><br>
+      Change:
+      <input type="file" name="image" accept="image/*" id="id_image"></p>
+    </div>
+    </div>
+    <button>Save to Update</button>
+  </form>
+    {{form.as_p}}
+    </div>
+    </div>
+    <button>Save to Update</button>
+  </form>
+</div>
+{% else %}
+You are not allow to be here.
+{% endif %}
+</main>
+{% endblock %}

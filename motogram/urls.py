@@ -28,9 +28,10 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),  # Tells Django to include built in auth urls
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('recipe/', include('recipe.urls')),
+    path('recipe/', include('recipe.urls', namespace='recipe')),
     # notification
-    path('notification/', include('notification.urls', namespace='notice')),
+    path('notification/', include('notification.urls', namespace='notification')),
+    path('', include('moto_user.urls')),
     path('user/', include('moto_user.urls')),
     path('post/', include('post.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

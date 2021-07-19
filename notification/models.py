@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models.signals import post_save
-from django.dispatch import receiver
 from moto_user.models import MotoUser
 
 
@@ -13,4 +12,6 @@ class Notification(models.Model):
         'post.Post',
         on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
+
     date_created = models.DateTimeField(auto_now_add=True)
+

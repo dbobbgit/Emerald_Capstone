@@ -1,0 +1,72 @@
+{% load static %}
+    <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 fixed-top">
+        <div class="container">
+            <a href="{% url 'home' %}" class="navbar-brand">
+            <img src="{% static 'images/bear.png' %}" alt="" width="30" height="27" class="d-inline-block align-text-top">
+            Motogram
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto "> 
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link"><i class="bi bi-house-door-fill"></i></a>
+                     </li>
+                        <li class="nav-item">
+                            <a href="#Post" class="nav-link"><i class="bi bi-cursor-fill"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#Post" class="nav-link"><i class="bi bi-plus-circle-fill"></i></a>
+                        </li>
+                        <!--Notification Alert-->
+                        <li class="nav-item">
+                            <a href="{% url 'notification:list' %}" class="nav-link position-relative"><i class="bi bi-bell-fill"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+                            </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                {% if not notification.read %}
+                                {% for notification in  notifications %}
+                                    <div>
+                                    You have<b>{{ notification.count}}</b> notification		
+                                    </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </li>
+                         <li class="nav-item">
+                            <a href="{% url 'recipe:recipe-list' %}" class="nav-link"><i class="bi bi-basket-fill"></i></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#Profile" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               <i class="bi bi-file-person-fill"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'MotoUserView' user.id%}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                            </ul>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                            <a class="nav-brand" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Hello, {{ user.username }}</a>
+                            </li>
+                            {% else %}
+                             <li class="nav-item">
+                            <a class="nav-brand" href="#Home" style="text-decoration: none;">Hello Guest user</a>
+                            </li>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="nav-link"><i class="bi bi-box-arrow-in-right"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'signup' %}" class="nav-link"><i class="bi bi-people-fill"></i></a>
+                        </li>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>

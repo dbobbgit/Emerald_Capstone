@@ -8,7 +8,8 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: auto;
+  padding: 0;
 }
 
 body::before {
@@ -17,6 +18,7 @@ body::before {
   height: 80px;
   width: 80px;
 }
+
 
 /* body {
   background-color: antiquewhite;

@@ -20,7 +20,7 @@ class Author(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True)
+    # slug = models.SlugField(unique=True)
     description = models.TextField()
     time_required = models.CharField(max_length=10)
     instruction = models.TextField()
@@ -31,12 +31,12 @@ class Recipe(models.Model):
         null=True
         )
     image = models.ImageField(
-        ("static/recipe/images/"),
         upload_to ="recipes",
         null = True,
+        blank = True
         )
-    date = models.DateField(auto_now=True)
-    tags= models.ManyToManyField(Tag)
+    date = models.DateTimeField(auto_now=True)
+    tags= models.ManyToManyField(Tag, blank=True, related_name='tags')
     favorites = models.ManyToManyField('Recipe', blank=True, related_name='favorite_recipes')
 
 
