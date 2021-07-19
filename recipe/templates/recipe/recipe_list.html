@@ -135,7 +135,9 @@
                 <div class="card-body">
                         <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Go to Recipe!! 😋</a>
                             <!--Need to change to Saved recipe-->
-                        <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-danger">Like 💜</a>
+
+                            
+                        <a href="/user/favorite_recipe/{{recipe.title}}/" class="btn btn-outline-danger">Like 💜</a>
                     </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <small class="text-muted">Created on: <time>{{recipe.date}}</time></small>

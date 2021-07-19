@@ -20,7 +20,7 @@ def EditProfileView(request, user_id: int):
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
     current_profile= MotoUser.objects.get(id=user_id)
 
-    if request.user.is_staff or request.user == request.user.is_authenticated:
+    if request.user.is_staff or request.user.is_authenticated:
 
         if request.method == "POST":
             form = EditProfileForm(request.POST)
@@ -48,7 +48,7 @@ def EditProfileView(request, user_id: int):
 
 
 def Add_Favorite_Recipe(request, recipe_title: str):
-    current_user = Recipe.objects.filter(author=request.user).first()
+    current_user = Recipe.objects.get(author=request.user)
     if current_user:
         recipe = Recipe.objects.get(title=recipe_title)
         current_user.user.favorite_recipes.add(recipe)

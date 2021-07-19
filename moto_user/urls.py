@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 
+app_name = 'moto_user'
 
 urlpatterns = [
     path('profile/<int:user_id>/', views.MotoUserView, name='MotoUserView'),
