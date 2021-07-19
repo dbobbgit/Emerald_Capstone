@@ -20,6 +20,7 @@
             <p class="lead text-center text-white mb-5">
                 Here is great source for outdoor food from our people!!
             </p>
+
         <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-primary btn-lg" type="submit">
                         Create New Recipe
         </button>
@@ -51,6 +52,7 @@
                                 Title:
                             </label>
                             <input type="text" class="form-control" id="title">
+
                         </div>
                         <div class="mb-3">
                             <label for="Time-required" class="col-form-label">
@@ -58,6 +60,7 @@
                             </label>
                             <input type="text" name="time_required" class="form-control" id="time_required ">
                         </div>
+
                         <div class="mb-3">
                             <label for="Description" class="col-form-label">
                                 Description:
@@ -109,6 +112,7 @@
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">{{recipe.description}}</div>
+                       
                         </div>
                     </div>
                 </div>
