@@ -20,7 +20,7 @@ def EditProfileView(request, user_id: int):
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
     current_profile= MotoUser.objects.get(id=user_id)
 
-    if request.user.is_staff or request.user == request.user.is_authenticated():
+    if request.user.is_staff or request.user == request.user.is_authenticated:
 
         if request.method == "POST":
             form = EditProfileForm(request.POST)
