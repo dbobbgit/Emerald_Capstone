@@ -1,3 +1,3 @@
-{% for follow in following %}
-<a href='/user/profile/{{follow.id}}/'>{{follow.display_name}}</a>
+{% extends 'base.html' %} {% for follow in following %}
+<a href="/user/profile/{{follow.id}}/">{{follow.display_name}}</a>
 {%endfor%}
