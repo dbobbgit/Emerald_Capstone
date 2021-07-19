@@ -86,16 +86,23 @@ def edit_recipe_view(request, pk):
     return render(request, "recipe/edit_recipe.html", context)
 
 
-class RecipeDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = "recipe/delete_recipe.html"
-    context_object_name = "recipe"
+@login_required
+def delete_recipe_view(request, pk):
+    recipe = Recipe.objects.get(id=pk)
+    recipe.delete()
+    return redirect("/recipe")
 
-    def get_success_url(self):
-        return reverse("recipe:recipe-list")
 
-    def get_queryset(self):
-        author = self.request.user.pk
-        return Recipe.objects.filter(author=author)
+
+# class RecipeDeleteView(LoginRequiredMixin, DeleteView):
+#     template_name = "recipe/delete_recipe.html"
+
+#     def get_success_url(self):
+#         return reverse("recipe:recipe-list")
+
+#     def get_queryset(self):
+#         author = self.request.user.pk
+#         return Recipe.objects.filter(author=author)
 
 
 class RecipeSavedView(View):

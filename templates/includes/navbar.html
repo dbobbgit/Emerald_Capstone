@@ -1,15 +1,15 @@
 {% load static %}
-    <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg alert alert-success navbar-light py-3 fixed-top" style="height: '20px;">
+        {% comment %} <div class="container"> {% endcomment %}
             <a href="{% url 'home' %}" class="navbar-brand">
-            <img src="{% static 'images/bear.png' %}" alt="" width="30" height="27" class="d-inline-block align-text-top">
+            <img src="{% static 'images/MotoBearTransparency.png' %}" alt="" width="70" height="80" class="d-inline-block align-text-top">
             Motogram
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto "> 
+                <ul class="navbar-nav ms-auto me-2"> 
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{% url 'home' %}" class="nav-link"><i class="bi bi-house-door-fill"></i></a>
@@ -49,11 +49,11 @@
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-item">
-                            <a class="nav-brand" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Hello, {{ user.username }}</a>
+                            <a class="nav-brand text-success" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Logged in as:  {{ user.username }}</a>
                             </li>
                             {% else %}
                              <li class="nav-item">
-                            <a class="nav-brand" href="#Home" style="text-decoration: none;">Hello Guest user</a>
+                            <a class="nav-brand" href="#Home" style="text-decoration: none;">Hello, Guest user</a>
                             </li>
                             {% endif %}
                         </div>
@@ -68,5 +68,5 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        {% comment %} </div> {% endcomment %}
     </nav>

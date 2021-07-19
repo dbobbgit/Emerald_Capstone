@@ -1,102 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Outdoor Food{% endblock title %}
-{% block css_files %}
-<style>
-#outdoor-food {
-  background-image: var(--bs-gradient)
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom center;
-  height: 100%;
-  width: 100%;
-</style>
-{% endblock css_files %}
+
 {% block content %}
 
- <section id="outdoor-food" class="container-xxl p-5 bg-secondary">
+ <section id="outdoor-food" class="container-fluid p-5 alert alert-light">
     <div class="container-fluid">
-        <h2 class="text-center text-white">Outdoor food</h2>
-            <p class="lead text-center text-white mb-5">
+        <h2 class="text-center text-secondary">Outdoor food</h2>
+            <p class="lead text-center text-secondary mb-5">
                 Here is great source for outdoor food from our people!!
             </p>
 
-        <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-primary btn-lg" type="submit">
+        <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-outline-secondary btn-lg" type="submit">
                         Create New Recipe
         </button>
         </a>
-
-
-            <!--Create Recipe Modal
-        <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#create">
-                        Create New Recipe
-        </button>
-            <div class="modal fade" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="createLabel">Create New Recipe</h5>
-                    <button 
-                        type="button" 
-                        class="btn-close" 
-                        data-bs-dismiss="modal" 
-                        >
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="lead">Share your new recipe!!</p>
-                    <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="title" class="col-form-label">
-                                Title:
-                            </label>
-                            <input type="text" class="form-control" id="title">
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="Time-required" class="col-form-label">
-                                Time-required:
-                            </label>
-                            <input type="text" name="time_required" class="form-control" id="time_required ">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="Description" class="col-form-label">
-                                Description:
-                            </label>
-                            <input type="text" name="description" class="form-control" id="description">
-                        </div>
-                        <div class="mb-3">
-                            <label for="Author" class="col-form-label">
-                                Author:
-                            </label>
-                            <input type="text" name="author" class="form-control" id="Author">
-                        </div>
-                        <div class="mb-3">
-                            <label for="Instruction" class="col-form-label">
-                                Instruction:
-                            </label>
-                            <input type="text" name="instruction" class="form-control" id="instruction">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                    </form>
-                    </div>
-                </div>
-                </div>
-            </div>
-        <!End Modal-->
-
         <br>
         <hr>
         <!--Start card-->
         <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for recipe in recipes  %}
             <div class="col">
-                <div class="card border-light text-center mb-3">
+                <div class="card border-light text-center mb-3" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
                 <img src="{{recipe.image.url}}" width=200 height=300 class="card-img-top" alt="{{recipe.title}}">
                 <div class="card-header bg-transparent border-secondary">
                     <h5 class="card-title">{{recipe.title}}</h5>
@@ -106,25 +31,12 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{recipe.title}}" aria-expanded="false" aria-controls="{{recipe.title}}">
                             <strong>Description</strong>
                         </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">{{recipe.description}}</div>
-                       
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            <strong>Instructions</strong>
-                        </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">{{recipe.instruction}}</div>
                         </div>
                     </div>
                 </div>
@@ -144,36 +56,6 @@
             </div>
         {% endfor %}
         </div>
-
-        {% comment %} <div class="row row-cols-1 row-cols-md-3 g-4"> {% endcomment %}
-            {% comment %} {% for recipe in recipes  %} {% endcomment %}
-            {% comment %} <div class="col">
-                <div class="card h-100 text-center bg-warning text-dark" style="width: 25rem; "> {% endcomment %}
-                <!--"{{MEDIA_URL}}{{ recipe.image.url }}"-->
-                    {% comment %} <img src="{{recipe.image.url}}" width=200 height=300 class="card-img-top" alt="{{recipe.title}}">
-                    {% comment %} <img src="https://mykoreankitchen.com/wp-content/uploads/2006/10/3.-Korean-Kimbap.jpg" width=200 height=250 class="card-img-top" alt="..."> {% endcomment %}
-                    {% comment %} <div class="card-body h-10">
-                        <h5 class="card-title">{{recipe.title}}</h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Duration time: {{recipe.time_required}}</li>
-                        <li class="list-group-item">Description: {{recipe.description}}</li>
-                        <li class="list-group-item">Created by: {{recipe.author}}</li>
-                    </ul>
-                    <div class="card-body">
-                        <p class="card-text">Instruction: {{recipe.instruction}}</p>
-                    </div>
-                    <div class="card-body">
-                        <a href={% url 'recipe:recipe-detail' recipe.slug %} class="btn btn-outline-success">Go to Recipe!! 😋</a> {% endcomment %}
-                            {% comment %} <a href="" class="card-link">Recipe Link</a> {% endcomment %}
-                            {% comment %} <a href="{% url 'recipe-detail' recipe.slug %}" class="card-link">Recipe Link</a> {% endcomment %}
-                            <!--Need to change to Saved recipe-->
-                        {% comment %} <a href="{% url 'recipe:recipe-detail' recipe.slug %}" class="btn btn-outline-danger">Like 💜</a>
-                    </div>
-                </div>
-            </div>  {% endcomment %}
-            {% comment %} {% endfor %}    {% endcomment %}
-        {% comment %} </div> {% endcomment %}
     </div>        
 </section>
 {% endblock content %}
