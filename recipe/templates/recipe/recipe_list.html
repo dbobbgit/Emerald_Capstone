@@ -20,7 +20,13 @@
             <p class="lead text-center text-white mb-5">
                 Here is great source for outdoor food from our people!!
             </p>
-            <!--Create Recipe Modal-->
+        <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-primary btn-lg" type="submit">
+                        Create New Recipe
+        </button>
+        </a>
+
+
+            <!--Create Recipe Modal
         <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#create">
                         Create New Recipe
         </button>
@@ -38,7 +44,7 @@
                     </div>
                     <div class="modal-body">
                         <p class="lead">Share your new recipe!!</p>
-                    <form action="{% url 'recipe:recipe-list' %}" method="POST">
+                    <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                         <div class="mb-3">
                             <label for="title" class="col-form-label">
@@ -50,25 +56,25 @@
                             <label for="Time-required" class="col-form-label">
                                 Time-required:
                             </label>
-                            <input type="text" class="form-control" id="time_required ">
+                            <input type="text" name="time_required" class="form-control" id="time_required ">
                         </div>
                         <div class="mb-3">
                             <label for="Description" class="col-form-label">
                                 Description:
                             </label>
-                            <input type="text" class="form-control" id="description">
+                            <input type="text" name="description" class="form-control" id="description">
                         </div>
                         <div class="mb-3">
                             <label for="Author" class="col-form-label">
                                 Author:
                             </label>
-                            <input type="text" class="form-control" id="Author">
+                            <input type="text" name="author" class="form-control" id="Author">
                         </div>
                         <div class="mb-3">
                             <label for="Instruction" class="col-form-label">
                                 Instruction:
                             </label>
-                            <input type="text" class="form-control" id="instruction">
+                            <input type="text" name="instruction" class="form-control" id="instruction">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -79,7 +85,8 @@
                 </div>
                 </div>
             </div>
-        <!--End Modal-->
+        <!End Modal-->
+
         <br>
         <hr>
         <!--Start card-->
@@ -122,9 +129,9 @@
                     <small>Created by: {{recipe.author}}</small>
                 </div>
                 <div class="card-body">
-                        <a href={% url 'recipe:recipe-detail' recipe.slug %} class="btn btn-outline-success">Go to Recipe!! 😋</a>
+                        <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Go to Recipe!! 😋</a>
                             <!--Need to change to Saved recipe-->
-                        <a href="{% url 'recipe:recipe-detail' recipe.slug %}" class="btn btn-outline-danger">Like 💜</a>
+                        <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-danger">Like 💜</a>
                     </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <small class="text-muted">Created on: <time>{{recipe.date}}</time></small>

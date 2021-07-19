@@ -3,12 +3,18 @@ from moto_user.models import MotoUser
 from recipe.models import Recipe
 
 
-class CreateRecipeForm(forms.Form):
-    title = forms.CharField(max_length=30)
-    description = forms.CharField(widget=forms.Textarea)
-    time_required = forms.CharField(max_length=30)
-    instructions = forms.CharField(widget=forms.Textarea)
-    author = forms.ModelChoiceField(queryset=MotoUser.objects.all())
+class RecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        labels = {
+            'title': "Recipe name",
+            'description': "Description",
+            'time_required': "Duration time",
+            'instruction': "Detail of your recipe",
+            'image': "Share your image",
+            'author': "Author"
+        }
+        exclude = ['date', 'favorites', 'tags']
 
 
 class EditRecipeForm(forms.ModelForm):

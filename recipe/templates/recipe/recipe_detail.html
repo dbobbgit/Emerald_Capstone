@@ -9,7 +9,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4 mt-4">
-        <img src="{{recipe.image.url}}" class="img-fluid rounded-start" alt="{{recipes.title}}">
+        <img src="{{recipe.image.url}}" class="img-fluid rounded-start" alt="{{recipe.title}}">
         </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -26,8 +26,8 @@
     </div>
 </div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-3">
-<a href="{% url 'recipe:edit-recipe' recipe.slug %}" class="btn btn-outline-success btn-sm">Edit</a>
-<a href="{% url 'recipe:delete-recipe' recipe.slug %}" class="btn btn-outline-danger btn-sm">Delete</a>
+<a href="{% url 'recipe:edit-recipe' recipe.pk %}" class="btn btn-outline-success btn-sm">Edit</a>
+<a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
 </div>  
   {% comment %} <a href="/recipe/{{recipe.slug}}/edit">Edit</a>
   <a href="/recipe/{{recipe.slug}}/delete">Delete</a> {% endcomment %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Recipe{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+<section>
+<div class='container'>
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="save recipe">
+</form>
+</div>
+</section>
+{% endblock %}

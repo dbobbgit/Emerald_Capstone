@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Recipe{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+<section id="delete" class="container-xxl p-5 bg-dark text-white">
+<div class="container mx-auto">
+    <a class="hover:text-primary" href="{% url 'recipe:recipe-list' %}">Go back to recipes</a>
+    <div class="card-body">
+        <h3>Are you sure you want to delete {{ recipe.title }}?</h3>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="button" class="btn btn-danger">Submit</button>
+    </form>
+</div>
+</section>
+{% endblock %}

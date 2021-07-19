@@ -16,7 +16,7 @@ def EditProfileView(request, user_id: int):
     THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
     current_profile= MotoUser.objects.get(id=user_id)
-    if request.user.is_staff or request.user == MotoUser.username.user:
+    if request.user.is_staff or request.user.is_active == MotoUser.username:
         if request.method == "POST":
             form = EditProfileForm(request.POST)
             if form.is_valid():

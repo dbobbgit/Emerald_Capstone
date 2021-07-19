@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.views import View
-from .models import Recipe
-from .forms import CreateRecipeForm, EditRecipeForm
-# from django.core.mail import send_mail
+from .models import Recipe, Tag
+from .forms import RecipeForm
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -34,91 +35,102 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
         return reverse("recipe:recipe-list")
 
     def get_queryset(self):
-        author = self.request.user.author
+        author = self.request.user.pk
         return Recipe.objects.filter(author=author)
 
 
-class RecipeCreateView(LoginRequiredMixin, CreateView):
-    template_name = "recipe/create_recipe.html"
-    form_class = CreateRecipeForm
+@login_required
+def create_recipe_view(request):
+    user = request.user.id 
+    tags_list = []
 
-    def get_success_url(self):
-        return reverse("recipe:recipe-list")
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.cleaned_data
+            image = data.get('image')
+            # tags_form = data.get('tags')
+            # tags_list = list(tags_form.split(','))
+            for tag in tags_list:
+                tag, __ = Tag.objects.get_or_create(title=tag)
+                tags_list.append(tag)
+            
+            recipe, __ = Recipe.objects.get_or_create(image=image, author_id=user)
+            recipe.tags.set(tags_list)
+            recipe.save()
+            return redirect('recipe:recipe-list')
+    else:
+        form = RecipeForm()
 
-    def form_valid(self, form):
-        recipe = form.save(commit=False)
-        recipe.title = self.request.user.title
-        recipe.author = self.request.user.author
-        recipe.save()
-        return super(RecipeCreateView, self).form_valid(form)
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'recipe/create_recipe.html', context)
 
 
-class RecipeEditView(LoginRequiredMixin, UpdateView):
-    template_name = "recipe/edit-recipe.html"
-    queryset = Recipe.objects.all()
-    form_class = EditRecipeForm
-    context_object_name = "recipe"
 
-    def get_success_url(self):
-        return reverse("recipe:recipe-list")
-
-    def get_queryset(self):
-        author = self.request.user.author
-        return Recipe.objects.filter(author=author)
+@login_required
+def edit_recipe_view(request, pk):
+    recipe = Recipe.objects.get(id=pk)
+    form = RecipeForm(instance=recipe)
+    if request.method == "POST":
+        form = RecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect("/recipe")
+    context = {
+        "form": form,
+        "recipe": recipe
+    }
+    return render(request, "recipe/edit_recipe.html", context)
 
 
 class RecipeDeleteView(LoginRequiredMixin, DeleteView):
-    template_name = "recipe/delete-recipe.html"
+    template_name = "recipe/delete_recipe.html"
     context_object_name = "recipe"
 
     def get_success_url(self):
         return reverse("recipe:recipe-list")
 
     def get_queryset(self):
-        author = self.request.user.author
+        author = self.request.user.pk
         return Recipe.objects.filter(author=author)
 
 
-class Recipe_detail_view(View):
-    def saved_recipe(self, request, recipe_id):
+class RecipeSavedView(View):
+    def get(self, request):
         saved_recipes = request.session.get("saved_recipes")
-        if saved_recipes is not None:
-            is_saved_for_later = recipe_id in saved_recipes
+
+        context = {}
+
+        if saved_recipes is None or len(saved_recipes) == 0:
+            context["recipes"] = []
+            context["has_recipes"] = False
         else:
-            is_saved_for_later = False
+            recipes = Recipe.objects.filter(id__in=saved_recipes)
+            context["recipes"] = recipes
+            context["has_recipes"] = True
 
-        return is_saved_for_later
+        return render(request, "recipe/saved_recipe.html", context)
 
-    def get(self, request, slug):
-        recipe = Recipe.objects.get(slug=slug)
-        print(slug)
-        context = {
-            "recipe": recipe,
-            "recipe_tags": recipe.tags.all(),
-            "recipe_form": CreateRecipeForm(),
-            # "favorite": recipe.favorite.all().order_by("-id"),
-            "saved_for_later": self.saved_recipe(request, recipe.id)
-        }
-        return render(request, "recipe/recipe_detail.html", context)
+    def post(self, request):
+        saved_recipes = request.session.get("saved_recipes")
 
-    def post(self, request, slug):
-        recipe_form = CreateRecipeForm(request.POST)
-        recipe = Recipe.objects.get(slug=slug)
+        if saved_recipes is None:
+            saved_recipes = []
 
-        if recipe_form.is_valid():
-            new_recipe = recipe_form.save(commit=False)
-            new_recipe.post = recipe
-            new_recipe.save()
+        recipe_id = int(request.POST["recipe_id"])
+    
+        if recipe_id not in saved_recipes:
+            saved_recipes.append(recipe_id)
+            request.session["saved_recipes"] = saved_recipes
+        else:
+            saved_recipes.remove(recipe_id)
 
-            return HttpResponseRedirect(reverse("recipe-detail", args=[slug]))       
-        context = {
-            "recipe": recipe,
-            "recipe_tags": recipe.tags.all(),
-            "recipe_form": recipe_form,
-            # "favorite": recipe.favorite.all().order_by("-id")
-        }
-        return render(request, "recipe/recipe_detail.html", context)
-
+        request.session["saved_recipes"] = saved_recipes
+                
+        return HttpResponseRedirect("recipe:recipe-list")
 
 # def create_Recipe_view(request, slug):
 #     form = CreateRecipeForm()
@@ -133,19 +145,6 @@ class Recipe_detail_view(View):
 #     return render(request, "recipe/recipe-detail.html", context)
 
 
-# def edit_recipe_view(request, slug):
-#     recipe = Recipe.objects.get(slug=slug)
-#     form = EditRecipeForm(instance=recipe)
-#     if request.method == "POST":
-#         form = EditRecipeForm(request.POST, instance=recipe)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("/recipe")
-#     context = {
-#         "form": form,
-#         "recipe": recipe
-#     }
-#     return render(request, "recipe/edit_recipe.html", context)
 
 
 # def delete_recipe_view(request, slug):
