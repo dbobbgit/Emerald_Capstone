@@ -1,4 +1,4 @@
-from recipe.models import Recipe, Author
+from recipe.models import Recipe
 from post.models import Post
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser

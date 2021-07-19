@@ -11,13 +11,6 @@ class Tag(models.Model):
         return self.caption
 
 
-class Author(models.Model):
-    author = models.OneToOneField(MotoUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.author.username
-
-
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
     # slug = models.SlugField(unique=True)
@@ -25,7 +18,7 @@ class Recipe(models.Model):
     time_required = models.CharField(max_length=10)
     instruction = models.TextField()
     author = models.ForeignKey(
-        Author,
+        MotoUser,
         on_delete=models.SET_NULL,
         related_name="recipes",
         null=True
