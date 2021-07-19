@@ -8,10 +8,8 @@ html {
 }
 
 body {
-
   margin: auto;
   padding: 0;
-
 }
 
 body::before {

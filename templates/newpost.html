@@ -8,9 +8,8 @@
 {% block content %}
 <br>
 <br>
-<img src="/static/images/bike.png" alt="bike pic" width="80" height="67">
 <div class="card text-center text-white bg-success mb-3" style="width: 28rem;">
-  <div class="card-header"><h1>Add a new post!!!</h1></div>
+  <div class="card-header"><h1>🏍 Add a new post!!!</h1></div>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
      {{ form.as_p }}

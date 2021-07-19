@@ -1,7 +1,7 @@
 import uuid
 # https://www.geeksforgeeks.org/uuidfield-django-models/
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
 from moto_user.models import MotoUser
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
@@ -57,7 +57,7 @@ class Post(models.Model):
         )
     # content = models.ManyToManyField(PostFileContent, related_name='contents')
     caption = models.TextField(max_length=500, verbose_name='Caption')
-    posted = models.DateTimeField(default=timezone.now)
+    posted = models.DateField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='tags')
     user = models.ForeignKey(MotoUser, on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
