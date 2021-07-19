@@ -19,15 +19,15 @@ Login to <a href='/user/follow/{{profile.id}}/'>follow {{profile.username}}</a>
 {%endif%}
 
 <br></br>
-Username: {{profile.username}}
+<b>Username:</b> {{profile.username}}
 <br></br>
-Bio: {{profile.bio}}
+<b>Bio:</b> {{profile.bio}}
 <br></br>
-Bike: {{profile.bike}}
+<b>Bike:</b> {{profile.bike}}
 <br></br>
-Riding Style: {{profile.riding_style}}
+<b>Riding Style:</b> {{profile.riding_style}}
 <br></br>
-Riding Level: {{profile.riding_level}}
+<b>Riding Level:</b> {{profile.riding_level}}
 <br></br>
 <br></br> 
 
@@ -35,7 +35,7 @@ _____________________________
 <br></br>
 
 
-Favorite Posts:
+<b>Favorite Posts:</b>
 
     {% for post in profile.favorite_posts.all %}
     <div class="card text-white bg-success mb-3" style="width: 28rem;">
@@ -54,7 +54,7 @@ Favorite Posts:
 _____________________________ 
 <br></br>
 
-Favorite Recipes:
+<b>Favorite Recipes:</b>
 <ul>
     {% for recipe in current_user.favorite_recipes.all %}
     <li>
