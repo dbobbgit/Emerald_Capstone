@@ -1,4 +1,4 @@
-from recipe.models import Recipe, Author
+from recipe.models import Recipe
 from post.models import Post
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser
@@ -19,7 +19,9 @@ def EditProfileView(request, user_id: int):
     THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
     current_profile= MotoUser.objects.get(id=user_id)
-    if request.user.is_staff or request.user == MotoUser.username:
+
+    if request.user.is_staff or request.user == request.user.is_authenticated:
+
         if request.method == "POST":
             form = EditProfileForm(request.POST)
             if form.is_valid():

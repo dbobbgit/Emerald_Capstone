@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Edit Recipe{% endblock title %} {% block css_files %}
+{%endblock css_files %} {% block content %}
+
+<main class="bg-secondary text-white text-center">
+	<div class="main-header p-3">
+		<h2>{{ recipe.title|linebreaks }}</h2>
+	</div>
+
+	<form method="POST">
+		{% csrf_token %} {{form.as_p}}
+		<button>Save to Update</button>
+	</form>
+</main>
+{% endblock content %}
