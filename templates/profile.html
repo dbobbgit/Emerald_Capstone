@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% block title %} {{profile.display_name}}'s Profile
+{% block title %} <h3>{{profile.display_name}}'s</h3> <Profile
 {% endblock %}
 {% if profile.username == request.user.username%}
-<h4>Your Profile</h4>
+<h6>Your Profile</h6>
 {% elif user.is_authenticated %}
 <a href='/user/follow/{{profile.id}}/'>Follow {{profile.display_name}}</a>
 <a href='/user/unfollow/{{profile.id}}/'>Unfollow {{profile.display_name}}</a>
