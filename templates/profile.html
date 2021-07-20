@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
 <header>
     <div class="container">
 
@@ -103,20 +104,26 @@
                 <!-- </div>         -->
             </div>
             {% endfor %}
-        </div>
-        
-        
-        <!-- Favorite Recipes:
-            <ul>
-                {% for recipe in current_user.favorite_recipes.all %}
-                <li>
-                    <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
-                </li>
-                {% endfor %}
-            </ul> -->
-            
-            <!-- <div class="loader"></div> -->
+
     </div>
-    
-</main>
+
+    {% endfor %}
+</div>
+
+
+</br>
+</br>
+_____________________________ 
+<!-- <br></br>
+
+<b>Favorite Recipes:</b>
+<ul>
+    {% for recipe in current_user.favorite_recipes.all %}
+    <li>
+        <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href='/user/edit/profile/{{profile.id}}/'>Edit Profile</a> -->
+
 {% endblock %}

@@ -23,6 +23,7 @@
 ></script>
 
 {% block content %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 <br />
 <br />
@@ -52,3 +53,34 @@
 	</div>
 </div>
 {% endfor %} {% endblock %}
+
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<br>
+<br>
+
+<a href='/user/profile/{{request.user.id}}/'><h1>{{ request.user.username }}!</h1></a>
+<img class="mb-4" src="/static/images/profile.png" alt="" width="72" height="57">
+    <h4>Notifications: {{ pings.count }}</h4>
+    {% for post_item in post_items %}
+    <div class="card shadow-lg p-1 text-white bg-success mb-3 rounded" style="width: 28rem;">
+        <img src="{{MEDIA_URL}}{{ post_item.picture.url }}" class="card-img-top" alt="Post picture">
+        <div class="card-body">
+            <a href='/user/profile/{{request.user.id}}/' class="card-title text-white" style="text-decoration: none;">{{ request.user.username }}</a>:
+            {{ post_item.caption }}
+            <br>
+            <br>
+            <br>
+            <a href="/user/favorite_post/{{post_item.id}}/" class="btn btn-outline-warning"> ➕ add fave </a>
+            <a href="/user/unfavorite_post/{{post_item.id}}/" class="btn btn-outline-warning"> ➖ remove from faves </a>
+            <a href="#" class="btn btn-outline-warning"> 💛 Likes </a>
+            <hr>
+            <p>Created: {{ post_item.posted }}</p>
+
+        
+
+        </div>
+    </div>
+    {% endfor %}
+    {% endblock %} -->
+
+

@@ -90,6 +90,17 @@ body {
 .profile-bio {
 	float: left;
 	width: calc(66.666% - 2rem);
+  margin: auto;
+  padding: 0;
+  /* background-color: #b489fa; */
+  /* background-color: #e3f2fd; */
+} 
+
+body::before {
+  display: block;
+  content: '';
+  height: 100px;
+  width: 100px;
 }
 
 .profile-user-settings {

@@ -1,24 +1,27 @@
 {% load static %}
-    <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg alert alert-success navbar-light py-3 fixed-top" style="height: 60px;">
+       {% comment %} <div class="container"> {% endcomment %}
             <a href="{% url 'home' %}" class="navbar-brand">
+              
             <img src="{% static 'images/MotoBearTransparency.png' %}" alt="" width="35" height="35" class="d-inline-block align-text-top">
             Motogram
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        {% comment %} </div>     {% endcomment %}
             <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto "> 
+                <ul class="navbar-nav ms-auto me-2"> 
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{% url 'home' %}" class="nav-link"><i class="bi bi-house-door-fill"></i></a>
                      </li>
                         <li class="nav-item">
-                            <a href="#Post" class="nav-link"><i class="bi bi-cursor-fill"></i></a>
+                            <a href="/post/" class="nav-link"><i class="bi bi-cursor-fill"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#Post" class="nav-link"><i class="bi bi-plus-circle-fill"></i></a>
+                            <a href="{% url 'newpost' %}" class="nav-link"><i class="bi bi-plus-circle-fill"></i></a>
                         </li>
                         <!--Notification Alert-->
                         <li class="nav-item">
@@ -43,17 +46,19 @@
                                <i class="bi bi-file-person-fill"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{% url 'MotoUserView' user.id%}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="/user/profile/{{request.user.id}}/">My Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                             </ul>
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-item">
-                            <a class="nav-brand" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Hello, {{ user.username }}</a>
+
+                            <a class="nav-brand text-success" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Logged in as:  {{ user.username }}</a>
+
                             </li>
                             {% else %}
                              <li class="nav-item">
-                            <a class="nav-brand" href="#Home" style="text-decoration: none;">Hello Guest user</a>
+                            <a class="nav-brand" href="#Home" style="text-decoration: none;">Hello, Guest user</a>
                             </li>
                             {% endif %}
                         </div>
@@ -68,5 +73,5 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        {% comment %} </div> {% endcomment %}
     </nav>

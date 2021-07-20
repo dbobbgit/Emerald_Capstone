@@ -1,14 +1,100 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Edit Recipe{% endblock title %} {% block css_files %}
-{%endblock css_files %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
 
-<main class="bg-secondary text-white text-center">
-	<div class="main-header p-3">
-		<h2>{{ recipe.title|linebreaks }}</h2>
-	</div>
+{% block title %}Edit Recipe{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
 
-	<form method="POST">
-		{% csrf_token %} {{form.as_p}}
-		<button>Save to Update</button>
-	</form>
-</main>
+<main class='bg-light text-secondary text-center'>
+<div class='main-header p-3'>
+  <h2>{{ recipe.title|linebreaks }}</h2>
+ <a href="{% url 'recipe:recipe-list' %}">Go back to recipes</a>
+</div>
+{% if user.is_authenticated %}
+<div class="container-sm d-flex justify-content-start" id="edit">
+  <ul>
+      <li>
+        <h4>Author: {{ recipe.author }}</h4>
+        <p>Description: {{ recipe.description|linebreaks }}</p>
+      </li>
+  </ul>
+</div>
+{% endif %}
+<div class=container id="edit-form">
+{% if recipe %}
+  <h2>Edit Your Recipe: {{recipe.author}}</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <div class='container d-flex justify-content-center'>
+    <div class="card" style="width: 36rem; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
+    <div class="card-body bg-light text-dark">
+    <div class="row form-control-sm mb-3">
+      <label for="id_title" class="col-sm-2 col-form-label">Recipe name:</label> 
+      <div class="col-sm-10">
+      <input class="form-control" type="text" name="title" value="Tuna Mayo Onigiri" maxlength="50" required id="id_title">
+      </div>
+      </div>
+    <div class="row form-control-sm mb-3">
+     <label for="id_description" "col-sm-2 col-form-label">Description:
+    </label>
+    <div class="col-sm-10">
+      <textarea class="form-control" name="description" cols="40" rows="10" required id="id_description">
+      </textarea>
+    </div>
+    </div>
+  <div class="row form-control-sm mb-3">
+    <label for="id_time_required" "col-sm-2 col-form-label">Duration time:</label> 
+    <div class="col-sm-10">
+      <input class="form-control" type="text" name="time_required" value="30 min" maxlength="10" required id="id_time_required">
+    </div>
+  </div>
+  <div class="row form-control-sm mb-3">
+    <label for="id_instruction" "col-sm-2 col-form-label">Detail of your recipe:</label> 
+  <div class="col-sm-10">
+    <textarea class="form-control" name="instruction" cols="40" rows="10" required id="id_instruction"></textarea>
+  </div>
+  </div>
+  <div class="row form-control-sm mb-3">
+    <label for="id_author" "col-sm-2 col-form-label">Author:</label>
+  <div class="col-sm-10"> 
+    <select class="form-select" name="author" required id="id_author">
+      <option value="">---------</option>
+
+      <option value="1" selected></option>
+
+    </select>
+  </div>
+  </div>
+  <div class="row form-control-sm mb-3">
+    <label for="id_image" "col-sm-2 col-form-label">Share your image:</label> 
+      Currently: <a href="/media/recipes/tunamayo_83FzICw.jpeg">recipes/tunamayo_83FzICw.jpeg</a>
+  <div class="col-sm-10">
+    <input class="form-control" type="checkbox" name="image-clear" id="image-clear_id">
+    </div>
+    <label for="image-clear_id" "col-sm-2 col-form-label">Clear</label><br>
+      Change:
+  <div class="row form-control-sm mb-3">
+    <input type="file" name="image" accept="image/*" id="id_image">
+  </div>
+</div>
+    </div>
+  <div class="card-footer-sm">
+<div class="d-flex justify-content-center">
+ <button type="submit" class="btn btn-outline-primary mb-3">Save Recipe</button>
+ </div>
+</div>
+      </div>
+  </form>
+    {% comment %} {{form.as_p}}
+    </div>
+    </div>
+    <button type="submit" class="btn btn-success">Save to Update</button>
+  </form> {% endcomment %}
+</div>
+</div>
+{% else %}
+You are not allow to be here.
+{% endif %}
+
 {% endblock content %}

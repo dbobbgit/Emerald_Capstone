@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+<!-- {% extends 'base.html' %} 
 {% load static %} {% block title %}Create Recipe
 {% endblock title %} {% block css_files %} 
 {% endblock css_files %} {% block content %}
@@ -10,4 +10,81 @@
 		</form>
 	</div>
 </section>
+{% endblock %} -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Recipe{% endblock title %}
+{% block css_files %}
+{% endblock css_files %}
+{% block content %}
+<section class="create-form">
+<div class='container d-flex justify-content-center'>
+<div class="card" style="width: 36rem;">
+<div class="card-header">
+<h5 class="text-center"><strong>Let's share your recipe!<strong></h5>
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="row form-control-sm mb-3">
+    <label for="id_title" class="col-sm-2 col-form-label">Name of recipe:</label> 
+<div class="col-sm-10">
+    <input type="text" class="form-control" name="title" maxlength="50" required id="id_title">
+</div>    
+</div>
+<div class="row form-control-sm mb-3">
+<label for="id_description" class="col-sm-2 col-form-label" >Description:</label> 
+<div class="col-sm-10">
+<textarea class="form-control" name="description" cols="40" rows="10" required id="id_description">
+</textarea>
+</div>
+</div>
+<div class="row form-control-sm mb-3">
+<label for="id_time_required" class="col-sm-2 col-form-label">Duration time:</label> 
+<div class="col-sm-10">
+<input type="text" class="form-control" name="time_required" maxlength="10" required id="id_time_required">
+</div>
+</div>
+<div class="row form-control-sm mb-3">
+<label for="id_instruction" class="col-sm-2 col-form-label">Detail of your recipe:</label> 
+<div class="col-sm-10">
+<textarea class="form-control" name="instruction" cols="40" rows="10" required id="id_instruction">
+</textarea>
+</div>
+</div>
+<div class="row form-control-sm mb-3">
+<label for="id_author" class="col-sm-2 col-form-label">Author:</label> 
+<div class="col-sm-10">
+<select class="form-select" name="author" required id="id_author">
+  <option value="" selected>---------</option>
+
+  <option value="1">gree</option>
+form-floating
+</select>
+</div>
+</div>
+<div class="row form-control-sm mb-3">
+<label for="id_image formFile " class="col-sm-2 col-form-label">Share your image:</label> 
+<div class="col-sm-10">
+<input type="file" class="form-control" name="image" accept="image/*" id="id_image">
+</div>
+</div>
+<div class="card-footer-sm">
+<div class="d-flex justify-content-center">
+ <button type="submit" class="btn btn-outline-primary mb-3">Save Recipe</button>
+ </div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<!--simple form
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{form.as_p}}
+ <button type="submit" class="btn btn-outline-primary mb-3">Save Recipe</button>
+</form>
+-->
 {% endblock %}
