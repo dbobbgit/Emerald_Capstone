@@ -1,24 +1,21 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from post.models import Post, Stream, Tag
+from post.models import Post, Tag
 from django.contrib.auth.decorators import login_required
 from django.template import loader
 from post.forms import NewPostForm
 
 
-# index created here
+""" index created here """
 @login_required
 def index(request):
-    # user = request.user
     posts = Post.objects.all().order_by('-id')
-    # group_ids = []
-    # for post in posts:
-    #     group_ids.append(post.post_id)
     template = loader.get_template('index.html')
     context = {'post_items': posts, }
     return HttpResponse(template.render(context, request))
 
 
+'''New post is created here.'''
 @login_required
 def NewPost(request):
     user = request.user.id 
@@ -34,7 +31,6 @@ def NewPost(request):
             for tag in tags_list:
                 t, created = Tag.objects.get_or_create(title=tag)
                 tags_objs.append(t)
-            
             p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
             p.tags.set(tags_objs)
             p.save()
@@ -45,7 +41,13 @@ def NewPost(request):
     context = {
         'form': form,
     }
-    
     return render(request, 'newpost.html', context)
 
 
+def error_404(request):
+        data = {}
+        return render(request,'404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'500.html', data)
