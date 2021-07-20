@@ -8,8 +8,9 @@ from .forms import EditProfileForm
 
 
 def MotoUserView(request, user_id: int):
-    profile = MotoUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {"profile":profile})
+
+    profile= MotoUser.objects.get(id=user_id)
+    return render(request, 'profile.html', {"profile": profile})
 
 
 def EditProfileView(request, user_id: int):
@@ -19,7 +20,7 @@ def EditProfileView(request, user_id: int):
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
     current_profile = MotoUser.objects.get(id=user_id)
 
-    if request.user.is_staff or request.user == MotoUser.username:
+    if request.user.is_staff or request.user.is_authenticated:
 
         if request.method == "POST":
             form = EditProfileForm(request.POST)
@@ -46,8 +47,10 @@ def EditProfileView(request, user_id: int):
     return HttpResponseRedirect(reverse("home"))
 
 
+
 def Add_Favorite_Recipe(request, recipe_pk: int):
     current_user = Recipe.objects.filter(author=request.user).first()
+
     if current_user:
         recipe = Recipe.objects.get(id=recipe_pk)
         current_user.favorite_recipes.add(recipe)

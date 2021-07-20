@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% block title %} {{profile.display_name}}'s Profile
+{% block title %} <h3>{{profile.display_name}}'s</h3> <Profile
 {% endblock %}
 {% if profile.username == request.user.username%}
-<h4>Your Profile</h4>
+<h6>Your Profile</h6>
 {% elif user.is_authenticated %}
 <a href='/user/follow/{{profile.id}}/'>Follow {{profile.display_name}}</a>
 <a href='/user/unfollow/{{profile.id}}/'>Unfollow {{profile.display_name}}</a>
@@ -19,23 +19,28 @@ Login to <a href='/user/follow/{{profile.id}}/'>follow {{profile.username}}</a>
 {%endif%}
 
 <br></br>
-Username: {{profile.username}}
+<b>Username:</b> {{profile.username}}
 <br></br>
-Bio: {{profile.bio}}
+<b>Bio:</b> {{profile.bio}}
 <br></br>
-Bike: {{profile.bike}}
+<b>Bike:</b> {{profile.bike}}
 <br></br>
-Riding Style: {{profile.riding_style}}
+<b>Riding Style:</b> {{profile.riding_style}}
 <br></br>
-Riding Level: {{profile.riding_level}}
+<b>Riding Level:</b> {{profile.riding_level}}
 <br></br>
 <br></br> 
 
 _____________________________
-<br></br>
+</br>
 
+
+
+<b>Favorite Posts:</b>
 
 Favorite Posts:
+<div class="row d-flex align-item-center justify-content-center">
+
 
     {% for post in profile.favorite_posts.all %}
     <div class="card text-white bg-success mb-3" style="width: 28rem;">
@@ -47,14 +52,15 @@ Favorite Posts:
         </div>
     </div>
     {% endfor %}
+</div>
 
 
-<br></br>
-<br></br>
+</br>
+</br>
 _____________________________ 
 <br></br>
 
-Favorite Recipes:
+<b>Favorite Recipes:</b>
 <ul>
     {% for recipe in current_user.favorite_recipes.all %}
     <li>

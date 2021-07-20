@@ -43,13 +43,15 @@
                                <i class="bi bi-file-person-fill"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{% url 'MotoUserView' user.id%}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="/user/profile/{{request.user.id}}/">My Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                             </ul>
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-item">
+
                             <a class="nav-brand text-success" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Logged in as:  {{ user.username }}</a>
+
                             </li>
                             {% else %}
                              <li class="nav-item">
