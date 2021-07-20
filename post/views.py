@@ -7,8 +7,6 @@ from post.forms import NewPostForm
 from django.template import RequestContext
 
 
-
-""" index created here """
 @login_required
 def index(request):
     posts = Post.objects.all().order_by('-id')
@@ -17,10 +15,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-'''New post is created here.'''
 @login_required
 def NewPost(request):
-    user = request.user.id 
+    user = request.user.id
     tags_objs = []
 
     if request.method == 'POST':
@@ -50,6 +47,7 @@ def handler404(request, exception, template_name="404.html"):
     response = render(template_name)
     response.status_code = 404
     return response
+
 
 def handler500(request, *args, **argv):
     return render(request, '500.html', status=500)

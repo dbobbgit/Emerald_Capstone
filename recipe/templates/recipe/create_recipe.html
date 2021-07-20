@@ -1,4 +1,7 @@
-<!-- {% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
+{% comment %}
+{% extends 'base.html' %} 
 {% load static %} {% block title %}Create Recipe
 {% endblock title %} {% block css_files %} 
 {% endblock css_files %} {% block content %}
@@ -10,10 +13,9 @@
 		</form>
 	</div>
 </section>
-{% endblock %} -->
+{% endblock %}
+{% endcomment %}
 
-{% extends 'base.html' %}
-{% load static %}
 
 {% block title %}Create Recipe{% endblock title %}
 {% block css_files %}
@@ -53,14 +55,7 @@
 </div>
 </div>
 <div class="row form-control-sm mb-3">
-<label for="id_author" class="col-sm-2 col-form-label">Author:</label> 
 <div class="col-sm-10">
-<select class="form-select" name="author" required id="id_author">
-  <option value="" selected>---------</option>
-
-  <option value="1">gree</option>
-form-floating
-</select>
 </div>
 </div>
 <div class="row form-control-sm mb-3">

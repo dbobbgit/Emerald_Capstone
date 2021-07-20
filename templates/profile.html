@@ -4,38 +4,26 @@
 
 <header>
     <div class="container">
-
         <div class="profile">
             <div class="profile-image">
-
-                <img src='/media/{{ profile.avatar }}'  alt="Avatar">
+                <img src='{{ profile.avatar.url }}'  alt="Avatar">
             </div>
-
-
                 <div class="profile-user-settings">
-
                     <div class="profile-user-name"> 
-                    <strong>{{profile.display_name}}</strong>
-
-                    <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
-
-                    <!-- <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button> -->
+                        <strong>{{profile.display_name}}</strong>
+                        <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
                     </div>
                 </div>
             <!-- End of Profile User Settings Section-->
             <div class="profile-stats">
-
                 <ul>
                         <li><span class="profile-stat-count">164</span> Posts</li>
                         <li><span class="profile-stat-count">188</span> Followers</li>
                         <li><span class="profile-stat-count"><a href= '/user/following/all/{{profile.id}}/' style="text-decoration: none;">{{profile.following.count}} </a></span>Following</li>
                     </ul>
-
             </div>
-
             <div class="profile-bio">
                 <h4>Member since: {{ request.user.joined_date }}</h4>
-
                 <span class="profile-real-name">
                         <br></br>
                         {{profile.bio}} 🏕️
@@ -46,27 +34,20 @@
                         Catch Me Ridin {{profile.riding_style}}
                         <br></br>
                         I Ride Like a {{profile.riding_level}}
-                    </span>
-
+                </span>
             </div>
 
+            {% comment %} {% if profile.username == request.user.username %}
+                # Commenting out following, unfollowing and follow while refactoring profile.html - Danielle 7/20
+            {% elif user.is_authenticated %}
 
-
-    {% if profile.username == request.user.username %}
-
-    {% elif user.is_authenticated %}
-
-    <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.display_name}}</a>
-    <a href='/user/unfollow/{{profile.id}}/' style="text-decoration: none;">Unfollow {{profile.display_name}}</a>
-    {%else%}
-    Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.username}}</a>
-    {%endif%}
-
-    {% if profile.username == request.user.username %}
-    <p></p>
-    {%endif%}
+            <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.display_name}}</a>
+            <a href='/user/unfollow/{{profile.id}}/' style="text-decoration: none;">Unfollow {{profile.display_name}}</a>
+            {%else%}
+            Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.username}}</a>
+            {%endif%} {% endcomment %}
             <!-- End of Profile Section -->
-
+        </div>           
     </div>
     <!-- End of Container -->
 </header>
@@ -80,42 +61,22 @@
             {% for post in profile.favorite_posts.all %}
             
             <div class="gallery-item">
-                
-
-                <!-- <div class="card text-white bg-light m-3"> -->
-
                 <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture">
                 
-                <!-- <div class="card-body"> -->
-                    
-                    <!-- <h5 class="card-title text-dark">{{ post.caption }}</h5> -->
-                    <!-- <p class="card-text text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                    <!-- <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a> -->
                 <div class="gallery-item-info">
-                    
                     <ul>
                         <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
                         <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
                     </ul>
                 </div>
-                    
-                    <!-- </div> -->
-                    <!-- </div> -->
-                <!-- </div>         -->
             </div>
             {% endfor %}
-
+        </div>
     </div>
+</main>
+{% endblock %}
 
-    {% endfor %}
-</div>
-
-
-</br>
-</br>
-_____________________________ 
-<!-- <br></br>
-
+<hr>
 <b>Favorite Recipes:</b>
 <ul>
     {% for recipe in current_user.favorite_recipes.all %}
@@ -124,6 +85,3 @@ _____________________________
     </li>
     {% endfor %}
 </ul>
-<a href='/user/edit/profile/{{profile.id}}/'>Edit Profile</a> -->
-
-{% endblock %}

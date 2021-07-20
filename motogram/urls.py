@@ -20,9 +20,11 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
-from django.contrib.staticfiles.urls import urlpatterns
+# from django.contrib.staticfiles.urls import urlpatterns
 
-# if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# else:
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,12 +37,11 @@ urlpatterns = [
     path('', include('moto_user.urls')),
     path('user/', include('moto_user.urls')),
     path('post/', include('post.urls')),
-]   
-if settings.DEBUG:
-    urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-else:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    ] + static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+        ) + static(
+            settings.STATIC_URL, document_root=settings.STATIC_ROOT
+            )
 
 handler404 = "post.views.handler404"
 handler500 = "post.views.handler500"
-

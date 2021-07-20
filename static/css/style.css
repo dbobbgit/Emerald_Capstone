@@ -1,15 +1,24 @@
 body {
-    /* background-image: url("/static/images/desert.jpeg"); */
-    background-color: whitesmoke;
-    background-size: cover;
-    padding: 15px 15px 15px 30px;
-    text-align: center;
+  /* background-image: url("/static/images/desert.jpeg"); */
+  background-color: whitesmoke;
+  background-size: cover;
+  padding: 15px 15px 15px 30px;
+  text-align: center;
 }
 h1 {
-    color: brown;
+  color: brown;
 }
 .card {
-    margin: 0 auto; /* Added */
-    float: none; /* Added */
-    margin-bottom: 10px; /* Added */
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+  object-fit: cover;
+}
+
+.card-img-top {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
