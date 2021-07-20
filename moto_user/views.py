@@ -3,14 +3,13 @@ from post.models import Post
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser
 from .forms import EditProfileForm
-import os
 
 # Create your views here.
 
 
 def MotoUserView(request, user_id: int):
 
-    profile= MotoUser.objects.get(id=user_id)
+    profile = MotoUser.objects.get(id=user_id)
     return render(request, 'profile.html', {"profile": profile})
 
 
@@ -23,8 +22,6 @@ def EditProfileView(request, user_id: int):
     current_profile = MotoUser.objects.get(id=user_id)
 
     if request.user.is_staff or request.user.is_authenticated:
-
-    if request.user.is_staff or request.user == request.user.is_authenticated:
         if request.method == "POST":
             form = EditProfileForm(request.POST, request.FILES)
             if form.is_valid():
@@ -35,10 +32,10 @@ def EditProfileView(request, user_id: int):
                 current_profile.riding_style = data['riding_style']
                 current_profile.riding_level = data['riding_level']
                 current_profile.avatar = data['avatar']
-                print(current_profile)
+                print(current_profile.avatar)
                 current_profile.save()
             return HttpResponseRedirect(reverse("home"))
-            
+
         form = EditProfileForm(initial={
             'avatar': current_profile.avatar,
             'display_name': current_profile.display_name,
@@ -51,7 +48,6 @@ def EditProfileView(request, user_id: int):
         return render(request, "edit_profile.html", {"form": form})
 
     return HttpResponseRedirect(reverse("home"))
-
 
 
 def Add_Favorite_Recipe(request, recipe_pk: int):
@@ -91,32 +87,30 @@ def Remove_Favorite_Post(request, post_id: str):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def Follow_View(request, user_id:int):
+def Follow_View(request, user_id: int):
     following = MotoUser.objects.get(id=user_id)
     if request.user.is_authenticated:
-        if request.user.following.filter(id=user_id).exists() == False:
+        if request.user.following.filter(id=user_id).exists() is False:
             request.user.following.add(following)
             following.save()
         count = request.user.following.all().count()
-        if count == None:
+        if count is None:
             count = 0
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count': count}))
 
 
-def Unfollow_View(request, user_id:int):
+def Unfollow_View(request, user_id: int):
     following = MotoUser.objects.get(id=user_id)
     if request.user.is_authenticated:
         if request.user.following.filter(id=user_id).exists():
             request.user.following.remove(following)
             following.save()
         count = request.user.following.all().count()
-        if count == None:
+        if count is None:
             count = 0
-            
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count': count}))
 
 
-def Following_View(request, user_id:int):
+def Following_View(request, user_id: int):
     following = request.user.following.exclude(following=user_id)
-
     return render(request, 'following.html', {'following': following})

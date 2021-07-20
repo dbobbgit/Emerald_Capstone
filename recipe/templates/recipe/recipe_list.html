@@ -23,7 +23,7 @@
             <div class="col">
              {{recipe.title}}
                 <div class="card border-light text-center mb-3" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
-                <img src="{{recipe.image.url}}" width=200 height=300 class="card-img-top" alt="{{recipe.title}}">
+                <img src="{{recipe.image.url}}" class="recipe-card-img-top img-thumbnail m-auto" alt="{{recipe.title}}">
                 {% comment %} <div class="card-header bg-transparent border-secondary">
                     <h5 class="card-title">{{recipe.title}}</h5>
                     <p class="card-text"><strong>Duration time: {{recipe.time_required}}</strong></p>
@@ -62,9 +62,9 @@
                 <div class="card-body">
                         <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Go to Recipe!! 😋</a>
                             <!--Need to change to Saved recipe-->
-                  
+
                         <a href="/favorite_recipe/{{recipe.pk}}/" class="btn btn-outline-danger">Save 💜</a>
-                  
+
                         <!-- Haejin's most recent push did not include the a tag for recipe.title and I wasn't sure if it should or not so I left it for her review -->
                         <a href="/user/favorite_recipe/{{recipe.title}}/" class="btn btn-outline-danger">Like 💜</a>
 
