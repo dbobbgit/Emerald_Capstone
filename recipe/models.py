@@ -13,7 +13,6 @@ class Tag(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
-    # slug = models.SlugField(unique=True)
     description = models.TextField()
     time_required = models.CharField(max_length=10)
     instruction = models.TextField()

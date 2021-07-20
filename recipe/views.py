@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
+from django.shortcuts import get_object_or_404, render, HttpResponseRedirect, reverse, redirect
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.views import View
 from .models import Recipe, Tag
-from .forms import RecipeForm
+from .forms import RecipeForm, EditRecipeForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -79,28 +79,31 @@ def create_recipe_view(request):
     return render(request, 'recipe/create_recipe.html', context)
 
 
-
 @login_required
 def edit_recipe_view(request, pk):
-    recipe = Recipe.objects.get(id=pk)
-    form = RecipeForm(instance=recipe)
-    if request.method == "POST":
-        form = RecipeForm(request.POST, instance=recipe)
-        if form.is_valid():
-            form.save()
-            return redirect("/recipe")
+    recipe = get_object_or_404(Recipe, id=pk)
+    form = EditRecipeForm(instance=recipe)
     context = {
         "form": form,
         "recipe": recipe
     }
+    if request.method == "POST":
+        form = EditRecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect("/recipe")
     return render(request, "recipe/edit_recipe.html", context)
 
 
 @login_required
 def delete_recipe_view(request, pk):
-    recipe = Recipe.objects.get(id=pk)
-    recipe.delete()
-    return redirect("/recipe")
+    recipe = get_object_or_404(Recipe, id=pk)
+    context = {'recipe': recipe}
+
+    if request.method == "POST":
+        recipe.delete()
+        return redirect("/recipe")
+    return render(request, "recipe/delete_recipe.html", context)
 
 
 
@@ -148,23 +151,3 @@ class RecipeSavedView(View):
         request.session["saved_recipes"] = saved_recipes
                 
         return HttpResponseRedirect("recipe:recipe-list")
-
-# def create_Recipe_view(request, slug):
-#     form = CreateRecipeForm()
-#     if request.method == "POST":
-#         form = CreateRecipeForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("/recipe")
-#     context = {
-#         "form": form
-#     }
-#     return render(request, "recipe/recipe-detail.html", context)
-
-
-
-
-# def delete_recipe_view(request, pk):
-#     recipe = Recipe.objects.get(id=pk)
-#     recipe.delete()
-#     return redirect('recipe:recipe-list')
