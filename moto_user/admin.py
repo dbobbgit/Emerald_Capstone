@@ -9,7 +9,9 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = MotoUser
-    list_display = ['username', 'email', 'password', 'display_name', 'bio', 'bike', 'riding_style', 'riding_level']
+    list_display = ['username', 'email', 'password', 'display_name', 'bio', 'bike', 'riding_style', 'riding_level', 'avatar']
+
+    exclude = ['password2']
 
 
 admin.site.register(MotoUser, CustomUserAdmin)

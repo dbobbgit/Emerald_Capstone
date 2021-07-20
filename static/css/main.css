@@ -1,38 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-
+body {
+	font-family: 'Lato', Arial, sans-serif;
+	font-size: 16px;
+	line-height: 1.8;
+	font-weight: normal;
+	color: #fff;
+	/* position: relative;
+	z-index: 0;
+	margin: 0;
+	padding: 0; */
+}
 
 .img {
-  background-image: url('https://images.unsplash.com/photo-1625741333766-ed5116195b1b?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1Mnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom center;
-  height: 100vh;
-  width: 100%;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  /* position: relative;
+	background-image: url('https://images.unsplash.com/photo-1625741333766-ed5116195b1b?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1Mnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom center;
+	height: 100vh;
+	width: 100%;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	/* position: relative;
   margin-bottom: 20px;
   z-index: -2;  */
 }
 
-body {
-  font-family: "Lato",Arial,sans-serif;
-  font-size: 16px;
-  line-height: 1.8;
-  font-weight: normal;
-  color: #fff;
-  /* position: relative;
-  z-index: 0;
-  margin: 0;
-  padding: 0; */
-}
-
 .container {
-  /* margin: auto; */
-  text-align: center;
-  
+	/* margin: auto; */
+	text-align: center;
 }

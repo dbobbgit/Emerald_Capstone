@@ -3,6 +3,7 @@ from post.models import Post
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser
 from .forms import EditProfileForm
+import os
 
 # Create your views here.
 
@@ -18,12 +19,14 @@ def EditProfileView(request, user_id: int):
     PREVIOUSLY ENTERED INFO. ONCE USER SAVES INFO, AS OF 7/10 COMMIT 
     THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
+
     current_profile = MotoUser.objects.get(id=user_id)
 
     if request.user.is_staff or request.user.is_authenticated:
 
+    if request.user.is_staff or request.user == request.user.is_authenticated:
         if request.method == "POST":
-            form = EditProfileForm(request.POST)
+            form = EditProfileForm(request.POST, request.FILES)
             if form.is_valid():
                 data = form.cleaned_data
                 current_profile.display_name = data['display_name']
@@ -31,10 +34,13 @@ def EditProfileView(request, user_id: int):
                 current_profile.bike = data['bike']
                 current_profile.riding_style = data['riding_style']
                 current_profile.riding_level = data['riding_level']
+                current_profile.avatar = data['avatar']
+                print(current_profile)
                 current_profile.save()
-                return HttpResponseRedirect(reverse("home"))
-        
+            return HttpResponseRedirect(reverse("home"))
+            
         form = EditProfileForm(initial={
+            'avatar': current_profile.avatar,
             'display_name': current_profile.display_name,
             'bio': current_profile.bio,
             'bike': current_profile.bike,
@@ -42,7 +48,7 @@ def EditProfileView(request, user_id: int):
             'riding_level': current_profile.riding_level
         })
 
-        return render(request, "edit_profile.html", { "form": form})
+        return render(request, "edit_profile.html", {"form": form})
 
     return HttpResponseRedirect(reverse("home"))
 
@@ -113,4 +119,4 @@ def Unfollow_View(request, user_id:int):
 def Following_View(request, user_id:int):
     following = request.user.following.exclude(following=user_id)
 
-    return render(request, 'following.html',{'following':following})
+    return render(request, 'following.html', {'following': following})
