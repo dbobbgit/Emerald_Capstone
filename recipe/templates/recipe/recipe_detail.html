@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Outdoor {% endblock title %}
+{% block title %}Outdoor Grindz{% endblock title %}
 {% block css_files %}
 {% endblock css_files %}
 {% block content %}
@@ -12,12 +12,12 @@
     <div class="col-md-8">
             <div class="card-body">
               <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
-              <p class="card-text"><strong>Duration time:</strong> {{recipe.time_required}}</p>
+              <p class="card-text"><strong>Total time:</strong> {{recipe.time_required}}</p>
     </div>
     <div id="image-control" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="{{recipe.image.url}}" class="img-thumbnail m-auto"" alt="{{recipe.title}}">
+          <img src="{{recipe.image.url}}" class="d-block w-100" alt="{{recipe.title}}">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#image-control" data-bs-slide="prev">
@@ -34,7 +34,7 @@
             <div class="card-body">
               <p class="card-text"><strong>Instruction:</strong> <br>
               {{recipe.instruction}}</p>
-              <p class="card-text"><small class="text-muted">Last updated <time>{{recipe.date}}</time>
+              <p class="card-text"><small class="text-muted">Last Updated <time>{{recipe.date}}</time>
               </small></p>
             </div>
           </div>
@@ -46,24 +46,6 @@
 <a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-outline-danger btn-md">Delete</a>
 </div>  
 </div>
-
-  {% comment %} <a href="/recipe/{{recipe.slug}}/edit">Edit</a>
-  <a href="/recipe/{{recipe.slug}}/delete">Delete</a> {% endcomment %}
-
-<!--Add Recipe Form-->
-{% comment %} <section id="edit-form">
-  <h2>Share your recipe with others!!</h2>
-  <form action="{% url "recipe:recipe-detail" recipe.slug %}" method="POST">
-    {% csrf_token %}
-    {% for form_field in create_form %}
-      <div class="form-control {% if form_field.errors %}invalid{% endif %}">
-        {{ form_field.label_tag }}
-        {{ form_field }}
-        {{ form_field.errors }}
-      </div>
-    {% endfor %}
-    <button>Save Recipe!!</button>
-  </form> {% endcomment %}
 
 
 {% endblock %}

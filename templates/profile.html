@@ -6,7 +6,7 @@
     <div class="container">
         <div class="profile">
             <div class="profile-image">
-                <img src='{{ profile.avatar.url }}'  alt="Avatar">
+                <img src='{{profile.avatar.url | default_if_none:'#'}}'  alt=""/>
             </div>
                 <div class="profile-user-settings">
                     <div class="profile-user-name"> 

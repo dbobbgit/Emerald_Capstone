@@ -40,10 +40,15 @@ class MotoUser(AbstractUser):
     favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, related_name='+', blank=True)
 
     avatar = models.ImageField(
+        default='/images/avatar/default.png',
         upload_to='images/avatar/',
-        verbose_name='Avatar',
         null=True
     )
 
     def __str__(self):
         return self.display_name
+
+
+def image_url(self):
+    if self.avatar and hasattr(self.avatar, 'url'):
+        return self.avatar.url

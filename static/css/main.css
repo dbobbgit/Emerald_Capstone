@@ -33,11 +33,3 @@ body {
   /* margin: auto; */
   text-align: center;
 }
-
-.card-img-top {
-  border: 1px solid;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-}
