@@ -1,4 +1,4 @@
-{% if messages %}
+{% comment %} {% if messages %}
     <ul class="messages">
         {% for message in messages  %}
             <li{% if message.tags %}class="{{message.tags}}"{% endif %}>
@@ -6,4 +6,34 @@
             </li>
         {% endfor %}
     </ul>
+{% endif %} {% endcomment %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="p-4 border-l-4
+        {% if message.tags == 'success' %}
+        bg-success border-success
+        {% elif message.tags == 'info' %}
+        bg-info border-primary
+        {% elif message.tags == 'warning' %}
+        bg-warning border-warning
+        {% else %}
+        bg-danger border-danger
+        {% endif %}
+        ">
+            <p class="text-sm
+            {% if message.tags == 'success' %}
+            text-white
+            {% elif message.tags == 'info' %}
+            text-dark
+            {% elif message.tags == 'warning' %}
+            text-dark
+            {% else %}
+            text-warning
+            {% endif %}
+            ">
+                {{ message }}
+            </p>
+        </div>
+    {% endfor %}
 {% endif %}

@@ -1,4 +1,3 @@
-from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from .models import Notification
@@ -7,14 +6,13 @@ from post.models import Post
 from recipe.models import Recipe
 from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
-from django.views import View
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
-    template_name = 'notification/list.html'
-    context_object_name = 'notices'
+    template_name = 'notification/notify.html'
+    context_object_name = 'notifications'
     login_url = 'accounts/login'
 
     def get_queryset(self):
@@ -22,28 +20,33 @@ class NotificationListView(LoginRequiredMixin, ListView):
         # return self.request.user.notifications.unread()
 
 
-class PostNotificationUpdateView(View):
-    def get(self, request):
-        notice_id = request.GET.get('notice_id)')
-        if notice_id:
-            post = Post.objects.get(id=request.GET.get('post_id'))
-            request.user.notification.get(id=notice_id).mark_as_read()
-            return redirect(post)
-        else:
-            request.user.notifications.mark_all_as_read()
-            return redirect('notification:list')
+def delete_notification(request):
+    notification = Notification.objects.filter(receiver=request.user)
+    for item in notification:
+        item.delete()
+    return redirect("/")
+# class PostNotificationUpdateView(View):
+#     def get(self, request):
+#         notice_id = request.GET.get('notice_id)')
+#         if notice_id:
+#             post = Post.objects.get(id=request.GET.get('post_id'))
+#             request.user.notification.get(id=notice_id).mark_as_read()
+#             return redirect(post)
+#         else:
+#             request.user.notifications.mark_all_as_read()
+#             return redirect('notification:list')
 
 
-class RecipeNotificationUpdateView(View):
-    def get(self, request):
-        notice_id = request.GET.get('notice_id)')
-        if notice_id:
-            recipe = Recipe.objects.get(id=request.GET.get('recipe_id'))
-            request.user.notification.get(id=notice_id).mark_as_read()
-            return redirect(recipe)
-        else:
-            request.user.notifications.mark_all_as_read()
-            return redirect('notification:list')
+# class RecipeNotificationUpdateView(View):
+#     def get(self, request):
+#         notice_id = request.GET.get('notice_id)')
+#         if notice_id:
+#             recipe = Recipe.objects.get(id=request.GET.get('recipe_id'))
+#             request.user.notification.get(id=notice_id).mark_as_read()
+#             return redirect(recipe)
+#         else:
+#             request.user.notifications.mark_all_as_read()
+#             return redirect('notification:list')
 
 # Create your views here.
 # def notification_view(request):

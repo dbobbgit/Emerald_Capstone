@@ -4,8 +4,8 @@
 {% block css_files %}
 {% endblock css_files %} 
 {% block content %}
-<div class="container">
-	{% include "include/messages.html" %}
+<div class="container text-center">
+	{% include "includes/messages.html" %}
 	{% if request.user.is_authenticated %} 
 	{% if not notification.read %}
 	<h6>You have <strong>{{notification.count}}</strong>unread notifications</h6>
@@ -23,7 +23,7 @@
 				Here is your new notification
 			</button>
 		</p>
-		<div class='card'>
+		<div class='card-body bg-dark text-white'>
 		{% for notification in notifications %}
 		<div class="card card-body">text: {{notification.post.post_to_notify}}</div>
 		<a href="/post/{{notification.post.id}}">
@@ -34,6 +34,7 @@
 	</div>
 	{% else %}
 	<p>There is no notifications</p>
-	{% endif %} {% endif %}
+	{% endif %} 
+	{% endif %}
 </div>
 {% endblock %}

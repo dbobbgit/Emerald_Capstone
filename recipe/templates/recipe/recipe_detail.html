@@ -4,18 +4,34 @@
 {% block css_files %}
 {% endblock css_files %}
 {% block content %}
+<main class="header text-center">
+<h5>{{recipe.title}}</h5>
+</main>
 <div class="container d-flex justify-content-md-center">
-    <!--<h3>{{recipe.title}}</h3>-->
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-4 mt-4">
-        <img src="{{recipe.image.url}}" class="img-fluid rounded-start" alt="{{recipe.title}}">
-        </div>
-          <div class="col-md-8">
+
+    <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{recipe.title}}</h5>
               <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
               <p class="card-text"><strong>Duration time:</strong> {{recipe.time_required}}</p>
+    </div>
+    <div id="image-control" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{{recipe.image.url}}" class="d-block w-100" alt="{{recipe.title}}">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#image-control" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#image-control" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="card mb-3">
+          <div class="col-md-8">
+            <div class="card-body">
               <p class="card-text"><strong>Instruction:</strong> <br>
               {{recipe.instruction}}</p>
               <p class="card-text"><small class="text-muted">Last updated <time>{{recipe.date}}</time>
@@ -25,10 +41,12 @@
         </div>
     </div>
 </div>
-<div class="d-grid gap-2 d-md-flex justify-content-md-center mb-3">
-<a href="{% url 'recipe:edit-recipe' recipe.pk %}" class="btn btn-outline-success btn-sm">Edit</a>
-<a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
+<div class="d-grid gap-4 d-md-flex justify-content-md-center mb-3">
+<a href="{% url 'recipe:edit-recipe' recipe.pk %}" class="btn btn-outline-success btn-md">Edit</a>
+<a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-outline-danger btn-md">Delete</a>
 </div>  
+</div>
+
   {% comment %} <a href="/recipe/{{recipe.slug}}/edit">Edit</a>
   <a href="/recipe/{{recipe.slug}}/delete">Delete</a> {% endcomment %}
 
@@ -47,6 +65,5 @@
     <button>Save Recipe!!</button>
   </form> {% endcomment %}
 
-</section>
 
 {% endblock %}

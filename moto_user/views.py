@@ -6,11 +6,11 @@ from .forms import EditProfileForm
 
 # Create your views here.
 
+
 def MotoUserView(request, user_id: int):
+
     profile= MotoUser.objects.get(id=user_id)
     return render(request, 'profile.html', {"profile": profile})
-
-
 
 
 def EditProfileView(request, user_id: int):
@@ -18,7 +18,7 @@ def EditProfileView(request, user_id: int):
     PREVIOUSLY ENTERED INFO. ONCE USER SAVES INFO, AS OF 7/10 COMMIT 
     THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
-    current_profile= MotoUser.objects.get(id=user_id)
+    current_profile = MotoUser.objects.get(id=user_id)
 
     if request.user.is_staff or request.user.is_authenticated:
 
@@ -47,21 +47,22 @@ def EditProfileView(request, user_id: int):
     return HttpResponseRedirect(reverse("home"))
 
 
-def Add_Favorite_Recipe(request, recipe_title: str):
-    current_user = Recipe.objects.get(author=request.user)
+
+def Add_Favorite_Recipe(request, recipe_pk: int):
+    current_user = Recipe.objects.filter(author=request.user).first()
+
     if current_user:
-        recipe = Recipe.objects.get(title=recipe_title)
-        current_user.user.favorite_recipes.add(recipe)
+        recipe = Recipe.objects.get(id=recipe_pk)
+        current_user.favorite_recipes.add(recipe)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-
-def Remove_Favorite_Recipe(request, recipe_title: str):
+def Remove_Favorite_Recipe(request, recipe_pk: int):
     current_user = Recipe.objects.get(author=request.user)
     if current_user:
-        recipe = Recipe.objects.get(title=recipe_title)
-        current_user.user.favorite_recipes.remove(recipe)
+        recipe = Recipe.objects.get(id=recipe_pk)
+        current_user.favorite_recipes.remove(recipe)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -73,7 +74,6 @@ def Add_Favorite_Post(request, post_id: str):
         current_user.favorite_posts.add(post)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
 
 
 def Remove_Favorite_Post(request, post_id: str):
@@ -96,6 +96,7 @@ def Follow_View(request, user_id:int):
             count = 0
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
 
+
 def Unfollow_View(request, user_id:int):
     following = MotoUser.objects.get(id=user_id)
     if request.user.is_authenticated:
@@ -107,6 +108,7 @@ def Unfollow_View(request, user_id:int):
             count = 0
             
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+
 
 def Following_View(request, user_id:int):
     following = request.user.following.exclude(following=user_id)
