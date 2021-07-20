@@ -12,17 +12,16 @@
 
             </div>
 
-            <div class="profile-user-settings">
+                <div class="profile-user-settings">
 
-                <h1 class="profile-user-name"> 
-                <strong>{{profile.display_name}}</strong>
-                </h1>
+                    <div class="profile-user-name"> 
+                    <strong>{{profile.display_name}}</strong>
 
-                <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
+                    <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
 
-                <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
-                
-            </div>
+                    <!-- <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button> -->
+                    </div>
+                </div>
             <!-- End of Profile User Settings Section-->
             <div class="profile-stats">
 
@@ -35,6 +34,7 @@
             </div>
 
             <div class="profile-bio">
+                <h4>Member since: {{ request.user.joined_date }}</h4>
 
                 <span class="profile-real-name">
                         <br></br>
@@ -52,18 +52,19 @@
 
 
 
-    {% if profile.username == request.user.username%}
+    {% if profile.username == request.user.username %}
+
     {% elif user.is_authenticated %}
+
     <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.display_name}}</a>
     <a href='/user/unfollow/{{profile.id}}/' style="text-decoration: none;">Unfollow {{profile.display_name}}</a>
     {%else%}
-    Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">follow {{profile.username}}</a>
+    Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.username}}</a>
     {%endif%}
 
-    {% if profile.username == request.user.username%}
+    {% if profile.username == request.user.username %}
     <p></p>
     {%endif%}
-            </div>
             <!-- End of Profile Section -->
 
     </div>
@@ -78,7 +79,7 @@
             
             {% for post in profile.favorite_posts.all %}
             
-            <div class="gallery-item shadow-lg">
+            <div class="gallery-item">
                 
 
                 <!-- <div class="card text-white bg-light m-3"> -->
@@ -115,7 +116,7 @@
                 {% endfor %}
             </ul> -->
             
-            <div class="loader"></div>
+            <!-- <div class="loader"></div> -->
     </div>
     
 </main>

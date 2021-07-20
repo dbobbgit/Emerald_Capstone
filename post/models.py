@@ -41,7 +41,7 @@ class Tag(models.Model):
 
 class PostFileContent(models.Model):
     user = models.ForeignKey(
-        MotoUser, 
+        MotoUser,
         on_delete=models.CASCADE, 
         related_name='content_owner'
         )
