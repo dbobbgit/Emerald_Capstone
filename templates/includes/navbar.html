@@ -1,13 +1,13 @@
 {% load static %}
-    <nav class="navbar navbar-expand-lg alert alert-success navbar-light py-3 fixed-top" style="height: '20px;">
-        {% comment %} <div class="container"> {% endcomment %}
+    <nav class="navbar navbar-expand-lg alert alert-success navbar-light py-3 fixed-top" style="height: 60px;">
+       {% comment %} <div class="container"> {% endcomment %}
             <a href="{% url 'home' %}" class="navbar-brand">
-            <img src="{% static 'images/MotoBearTransparency.png' %}" alt="" width="70" height="80" class="d-inline-block align-text-top">
-            Motogram
-            </a>
+            <img src="{% static 'images/MotoBearTransparency.png' %}" alt="" width="64" height="70" class="d-inline-block align-text-top"></a>
+            <h5>Motogram</h5>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        {% comment %} </div>     {% endcomment %}
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto me-2"> 
                 {% if request.user.is_authenticated %}
@@ -15,10 +15,10 @@
                         <a href="{% url 'home' %}" class="nav-link"><i class="bi bi-house-door-fill"></i></a>
                      </li>
                         <li class="nav-item">
-                            <a href="#Post" class="nav-link"><i class="bi bi-cursor-fill"></i></a>
+                            <a href="/post/" class="nav-link"><i class="bi bi-cursor-fill"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#Post" class="nav-link"><i class="bi bi-plus-circle-fill"></i></a>
+                            <a href="{% url 'newpost' %}" class="nav-link"><i class="bi bi-plus-circle-fill"></i></a>
                         </li>
                         <!--Notification Alert-->
                         <li class="nav-item">

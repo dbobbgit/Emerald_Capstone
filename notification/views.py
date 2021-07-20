@@ -20,6 +20,11 @@ class NotificationListView(LoginRequiredMixin, ListView):
         # return self.request.user.notifications.unread()
 
 
+def delete_notification(request):
+    notification = Notification.objects.filter(receiver=request.user)
+    for item in notification:
+        item.delete()
+    return redirect("/")
 # class PostNotificationUpdateView(View):
 #     def get(self, request):
 #         notice_id = request.GET.get('notice_id)')

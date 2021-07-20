@@ -6,29 +6,44 @@
 
  <section id="outdoor-food" class="container-fluid p-5 alert alert-light">
     <div class="container-fluid">
-        <h2 class="text-center text-secondary">Outdoor food</h2>
-            <p class="lead text-center text-secondary mb-5">
+        <h2 class="text-center text-dark">Outdoor food</h2>
+            <p class="lead text-center text-dark mb-5">
                 Here is great source for outdoor food from our people!!
             </p>
 
-        <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-outline-secondary btn-lg" type="submit">
+        <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-outline-dark btn-lg" type="submit">
                         Create New Recipe
         </button>
         </a>
         <br>
         <hr>
         <!--Start card-->
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for recipe in recipes  %}
             <div class="col">
+             {{recipe.title}}
                 <div class="card border-light text-center mb-3" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
                 <img src="{{recipe.image.url}}" width=200 height=300 class="card-img-top" alt="{{recipe.title}}">
-                <div class="card-header bg-transparent border-secondary">
+                {% comment %} <div class="card-header bg-transparent border-secondary">
                     <h5 class="card-title">{{recipe.title}}</h5>
                     <p class="card-text"><strong>Duration time: {{recipe.time_required}}</strong></p>
+                </div> {% endcomment %}
+
+                <div class="card">
+                {% comment %} <a class="btn btn-primary" data-bs-toggle="collapse" href="#{{recipe.pk}}" role="button" aria-expanded="false" aria-controls="{{recipe.pk}}">
+                    Link with href
+                </a> {% endcomment %}
+                <button class="btn btn-light d-flex justify-content-start " type="button" data-bs-toggle="collapse" data-bs-target="#{{recipe.description}}" aria-expanded="false" aria-controls="{{recipe.description}}">
+                    Description
+                </button>
+                </div>
+                <div class="collapse" id="{{recipe.description}}">
+                <div class="card card-body">
+                    {{recipe.description}}
+                </div>
                 </div>
                 <!--Accordion-->
-                <div class="accordion accordion-flush" id="accordionFlushExample">
+                {% comment %} <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{recipe.title}}" aria-expanded="false" aria-controls="{{recipe.title}}">
@@ -39,15 +54,15 @@
                         <div class="accordion-body">{{recipe.description}}</div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
                 <!--Accordion End-->
                 <div class="card-bady bg-transparent border-secondary">
-                    <small>Created by: {{recipe.author}}</small>
+                    <small>Created by: {{recipe.author.username}}</small>
                 </div>
                 <div class="card-body">
                         <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Go to Recipe!! 😋</a>
                             <!--Need to change to Saved recipe-->
-                        <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-danger">Like 💜</a>
+                        <a href="/favorite_recipe/{{recipe.pk}}/" class="btn btn-outline-danger">Save 💜</a>
                     </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <small class="text-muted">Created on: <time>{{recipe.date}}</time></small>

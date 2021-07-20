@@ -41,21 +41,31 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 
 @login_required
 def create_recipe_view(request):
-    user = request.user.id 
     tags_list = []
 
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
+            title = data.get("title")
+            time_required = data.get('time_required')
+            description = data.get('description')
+            instruction = data.get('instruction')
+            author = data.get('author')
             image = data.get('image')
             # tags_form = data.get('tags')
             # tags_list = list(tags_form.split(','))
             for tag in tags_list:
                 tag, __ = Tag.objects.get_or_create(title=tag)
                 tags_list.append(tag)
-            
-            recipe, __ = Recipe.objects.get_or_create(image=image, author_id=user)
+            recipe, __ = Recipe.objects.get_or_create(
+                image=image, 
+                author=request.user, 
+                title=title, 
+                time_required=time_required,
+                description=description,
+                instruction=instruction
+                )
             recipe.tags.set(tags_list)
             recipe.save()
             return redirect('recipe:recipe-list')
@@ -154,7 +164,7 @@ class RecipeSavedView(View):
 
 
 
-# def delete_recipe_view(request, slug):
-#     recipe = Recipe.objects.get(slug=slug)
+# def delete_recipe_view(request, pk):
+#     recipe = Recipe.objects.get(id=pk)
 #     recipe.delete()
-#     return redirect("/recipe")
+#     return redirect('recipe:recipe-list')

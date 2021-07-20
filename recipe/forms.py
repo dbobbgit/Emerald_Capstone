@@ -12,9 +12,9 @@ class RecipeForm(forms.ModelForm):
             'time_required': "Duration time",
             'instruction': "Detail of your recipe",
             'image': "Share your image",
-            'author': "Author"
+
         }
-        exclude = ['date', 'favorites', 'tags']
+        exclude = ['date', 'favorites', 'tags', 'author', 'password2']
 
 
 class EditRecipeForm(forms.ModelForm):
@@ -26,3 +26,5 @@ class EditRecipeForm(forms.ModelForm):
             'time_required',
             'instruction'
         ]
+
+        exclude = ['password2']

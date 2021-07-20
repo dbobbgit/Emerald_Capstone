@@ -17,8 +17,8 @@ body {
 body::before {
   display: block;
   content: '';
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
 }
 
 

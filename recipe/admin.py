@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Author, Tag
+from .models import Recipe, Tag
 
 # Register your models here.
 
@@ -11,5 +11,5 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Author)
+# admin.site.register(Author)
 admin.site.register(Tag)
