@@ -18,13 +18,12 @@
                 <strong>{{profile.display_name}}</strong>
                 </h1>
 
-                <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning">Edit Profile</a>
+                <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
 
                 <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
                 
             </div>
             <!-- End of Profile User Settings Section-->
-
             <div class="profile-stats">
 
                 <ul>
@@ -35,11 +34,9 @@
 
             </div>
 
-
             <div class="profile-bio">
 
                 <span class="profile-real-name">
-                        {{profile.username}} 
                         <br></br>
                         {{profile.bio}} 🏕️
                         <br></br>
@@ -75,48 +72,51 @@
 <main>
     <div class="container">
 
+        <hr class="gallery-line">
+
         <div class="gallery">
-
-            <div class="gallery-item" tabindex="0">
-
-                {% for post in profile.favorite_posts.all %}
+            
+            {% for post in profile.favorite_posts.all %}
+            
+            <div class="gallery-item shadow-lg">
+                
 
                 <!-- <div class="card text-white bg-light m-3"> -->
 
-                    <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture">
-
-                    <!-- <div class="card-body"> -->
-                        
-                        <!-- <h5 class="card-title text-dark">{{ post.caption }}</h5> -->
-                        <!-- <p class="card-text text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                        <!-- <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a> -->
-                        <div class="gallery-item-info">
-                            
-                            <ul>
-                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
-                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- </div> -->
-                        <!-- </div> -->
-                        {% endfor %}
-            </div>        
-        </div>
-    </div>
-
-
-        Favorite Recipes:
-        <ul>
-            {% for recipe in current_user.favorite_recipes.all %}
-            <li>
-                <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
-            </li>
+                <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture">
+                
+                <!-- <div class="card-body"> -->
+                    
+                    <!-- <h5 class="card-title text-dark">{{ post.caption }}</h5> -->
+                    <!-- <p class="card-text text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <!-- <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a> -->
+                <div class="gallery-item-info">
+                    
+                    <ul>
+                        <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
+                        <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
+                    </ul>
+                </div>
+                    
+                    <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div>         -->
+            </div>
             {% endfor %}
-        </ul>
-
-        <div class="loader"></div>
-
-        {% endblock %}
-
+        </div>
+        
+        
+        <!-- Favorite Recipes:
+            <ul>
+                {% for recipe in current_user.favorite_recipes.all %}
+                <li>
+                    <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
+                </li>
+                {% endfor %}
+            </ul> -->
+            
+            <div class="loader"></div>
+    </div>
+    
 </main>
+{% endblock %}

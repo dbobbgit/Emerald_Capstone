@@ -15,9 +15,13 @@ html {
 
 body {
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 	background-color: #fafafa;
 	color: #262626;
-	padding-bottom: 3rem;
+	padding-bottom: 1em;
+	overflow-y: auto;
+	margin: 8% auto;
 }
 
 .img {
@@ -87,12 +91,12 @@ body {
 }
 
 .profile-user-settings {
-	margin-top: 1.1rem;
+	margin-top: 2.5rem;
 }
 
 .profile-user-name {
 	display: inline-block;
-	font-size: 2.2rem;
+	font-size: 2.5rem;
 	font-weight: 300;
 }
 
@@ -101,23 +105,24 @@ body {
 	line-height: 1.8;
 	border: 0.1rem solid #dbdbdb;
 	border-radius: 0.3rem;
-	padding: 0 2.4rem;
+	padding: 0 2rem;
 	margin-left: 2rem;
 }
 
 .profile-settings-btn {
 	font-size: 2rem;
-	margin-left: 1rem;
+	margin-left: 2rem;
 }
 
 .profile-stats {
-	margin-top: 2.3rem;
+	margin-top: 2rem;
+	content: '\f6aa';
 }
 
 .profile-stats li {
 	display: inline-block;
 	font-size: 1.6rem;
-	line-height: 1.5;
+	line-height: 1;
 	margin-right: 4rem;
 	cursor: pointer;
 }
@@ -129,8 +134,8 @@ body {
 .profile-bio {
 	font-size: 1.6rem;
 	font-weight: 400;
-	line-height: 1.5;
-	margin-top: 2.3rem;
+	line-height: 0.8;
+	margin-top: 2rem;
 }
 
 .profile-real-name,
@@ -144,22 +149,23 @@ body {
 .gallery {
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
 	margin: -1rem -1rem;
 	padding-bottom: 3rem;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	/* border: 1px solid grey; */
 }
 
 .gallery-item {
 	position: relative;
 	flex: 1 0 22rem;
-	margin: 1rem;
+	margin: 5px;
 	color: #fff;
 	cursor: pointer;
 }
 
-/* .gallery-item:hover .gallery-item-info,
+.gallery-item:hover .gallery-item-info,
 .gallery-item:focus .gallery-item-info {
 	display: flex;
 	justify-content: center;
@@ -169,7 +175,7 @@ body {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
-} */
+}
 
 .gallery-item-info {
 	display: none;
@@ -202,6 +208,8 @@ body {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	padding: 5px;
+	border-radius: 10px;
 }
 
 /* Loader */
@@ -221,14 +229,14 @@ body {
 	width: 28rem;
 }
 
-.card-columns {
+/* .card-columns {
 	@include media-breakpoint-only(lg) {
 		column-count: 5;
 	}
 	@include media-breakpoint-only(xl) {
 		column-count: 5;
 	}
-}
+} */
 
 /* .notification {
   color: white;
