@@ -11,10 +11,11 @@
     <div class="card-body">
         <h3>Are you sure you want to delete {{ recipe.title }}?</h3>
     </div>
-    <form method="post">
+    <form action="{% url 'recipe:delete-recipe' recipe.pk %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="button" class="btn btn-danger">Submit</button>
+        <button type="submit" class="btn btn-danger">Submit</button>
+        <a href="{% url 'recipe:recipe-detail' recipe.pk %}"><input type="submit" class="btn btn-light" value="Cancel"/></a>
     </form>
 </div>
 </section>

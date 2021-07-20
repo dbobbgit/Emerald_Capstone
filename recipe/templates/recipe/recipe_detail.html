@@ -9,11 +9,15 @@
 </main>
 <div class="container d-flex justify-content-md-center">
 
-    <div class="col-md-8">
-            <div class="card-body">
-              <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
-              <p class="card-text"><strong>Total time:</strong> {{recipe.time_required}}</p>
-    </div>
+
+    <div class="col-md-8" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
+      <div class="card-body">
+        <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
+        <div class="d-flex">
+        <h6 class="card-text"><strong>Duration time:</strong> {{recipe.time_required}} <span>created by <span class="badge bg-secondary">{{recipe.author.username}}</span></span></h6>
+        </div>
+      </div>
+
     <div id="image-control" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -29,7 +33,7 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-    <div class="card mb-3">
+    <div class="card">
           <div class="col-md-8">
             <div class="card-body">
               <p class="card-text"><strong>Instruction:</strong> <br>
@@ -41,11 +45,10 @@
         </div>
     </div>
 </div>
+<br>
 <div class="d-grid gap-4 d-md-flex justify-content-md-center mb-3">
 <a href="{% url 'recipe:edit-recipe' recipe.pk %}" class="btn btn-outline-success btn-md">Edit</a>
 <a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-outline-danger btn-md">Delete</a>
 </div>  
 </div>
-
-
 {% endblock %}
