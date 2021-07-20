@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% load static %} {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	{% csrf_token %} {{ form.as_p }}
 	<button class="btn btn-warning" type="submit">Save Updates</button>
 </form>

@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from motogram.settings import AUTH_USER_MODEL
-
+# from motogram.settings import AUTH_USER_MODEL
 
 # Create your models here.
+
+
 class MotoUser(AbstractUser):
     """CAITLIN: THIS CUSTOM USER MODEL IS INTENDED TO BE THE BASIS FOR OUR PROFILE TEMPLATE. 
     OUR ABSTRACT USER PARAMETER GIVES US ACCESS TO USERNAME, PASSWORD, AND EMAIL"""
-    
+
     display_name = models.CharField(max_length=30)
     bio = models.CharField(max_length=300)
     bike = models.CharField(max_length=50)
@@ -37,9 +38,12 @@ class MotoUser(AbstractUser):
     favorite_posts = models.ManyToManyField('post.Post', symmetrical=False, related_name='+', blank=True)
 
     favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, related_name='+', blank=True)
-    
-    
+
+    avatar = models.ImageField(
+        upload_to='images/avatar/',
+        verbose_name='Avatar',
+        null=True
+    )
+
     def __str__(self):
-            return self.display_name
-
-
+        return self.display_name
