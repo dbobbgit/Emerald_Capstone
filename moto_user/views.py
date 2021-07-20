@@ -8,8 +8,9 @@ from .forms import EditProfileForm
 
 
 def MotoUserView(request, user_id: int):
+
     profile = MotoUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {"profile":profile})
+    return render(request, 'profile.html', {"profile": profile})
 
 
 def EditProfileView(request, user_id: int):
@@ -17,12 +18,12 @@ def EditProfileView(request, user_id: int):
     PREVIOUSLY ENTERED INFO. ONCE USER SAVES INFO, AS OF 7/10 COMMIT 
     THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
     THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
+
     current_profile = MotoUser.objects.get(id=user_id)
 
-    if request.user.is_staff or request.user == MotoUser.username:
-
+    if request.user.is_staff or request.user.is_authenticated:
         if request.method == "POST":
-            form = EditProfileForm(request.POST)
+            form = EditProfileForm(request.POST, request.FILES)
             if form.is_valid():
                 data = form.cleaned_data
                 current_profile.display_name = data['display_name']
@@ -30,10 +31,13 @@ def EditProfileView(request, user_id: int):
                 current_profile.bike = data['bike']
                 current_profile.riding_style = data['riding_style']
                 current_profile.riding_level = data['riding_level']
+                current_profile.avatar = data['avatar']
+                print(current_profile.avatar)
                 current_profile.save()
-                return HttpResponseRedirect(reverse("home"))
-        
+            return HttpResponseRedirect(reverse("home"))
+
         form = EditProfileForm(initial={
+            'avatar': current_profile.avatar,
             'display_name': current_profile.display_name,
             'bio': current_profile.bio,
             'bike': current_profile.bike,
@@ -41,13 +45,14 @@ def EditProfileView(request, user_id: int):
             'riding_level': current_profile.riding_level
         })
 
-        return render(request, "edit_profile.html", { "form": form})
+        return render(request, "edit_profile.html", {"form": form})
 
     return HttpResponseRedirect(reverse("home"))
 
 
 def Add_Favorite_Recipe(request, recipe_pk: int):
     current_user = Recipe.objects.filter(author=request.user).first()
+
     if current_user:
         recipe = Recipe.objects.get(id=recipe_pk)
         current_user.favorite_recipes.add(recipe)
@@ -82,32 +87,30 @@ def Remove_Favorite_Post(request, post_id: str):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def Follow_View(request, user_id:int):
+def Follow_View(request, user_id: int):
     following = MotoUser.objects.get(id=user_id)
     if request.user.is_authenticated:
-        if request.user.following.filter(id=user_id).exists() == False:
+        if request.user.following.filter(id=user_id).exists() is False:
             request.user.following.add(following)
             following.save()
         count = request.user.following.all().count()
-        if count == None:
+        if count is None:
             count = 0
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count': count}))
 
 
-def Unfollow_View(request, user_id:int):
+def Unfollow_View(request, user_id: int):
     following = MotoUser.objects.get(id=user_id)
     if request.user.is_authenticated:
         if request.user.following.filter(id=user_id).exists():
             request.user.following.remove(following)
             following.save()
         count = request.user.following.all().count()
-        if count == None:
+        if count is None:
             count = 0
-            
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count':count}))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count': count}))
 
 
-def Following_View(request, user_id:int):
+def Following_View(request, user_id: int):
     following = request.user.following.exclude(following=user_id)
-
-    return render(request, 'following.html',{'following':following})
+    return render(request, 'following.html', {'following': following})

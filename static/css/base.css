@@ -1,44 +1,256 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-* {
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+:root {
+  font-size: 10px;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
-  font-family: 'Open Sans', 'Lato', sans-serif;
+  font-family: "Open Sans", "Lato", sans-serif;
 }
 
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  color: #262626;
+  padding-bottom: 1em;
+  overflow-y: auto;
+  margin: 20px;
+}
+
+.img {
+  display: block;
+  width: 275px;
+  height: 275px;
+}
+
+.container {
+  max-width: 93.5rem;
+  margin: 0 auto;
+  /* padding: 1em; */
+}
+
+.btn {
+  display: flex;
+  font: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: 0.5rem auto #4d90fe;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Profile Section */
+.profile {
+  padding: 5rem 0;
+}
+
+.profile::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.profile-image {
+  float: left;
+  width: calc(33.333% - 1rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image img {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.profile-user-settings,
+.profile-stats,
+.profile-bio {
+  float: left;
+  width: calc(66.666% - 2rem);
   margin: auto;
   padding: 0;
   /* background-color: #b489fa; */
   /* background-color: #e3f2fd; */
-} 
+}
 
 body::before {
   display: block;
-  content: '';
+  content: "";
   height: 100px;
   width: 100px;
 }
 
+.profile-user-settings {
+  margin-top: 2.5rem;
+}
 
-/* body {
-  background-color: antiquewhite;
-  font-family: 'Roboto', sans-serif;
-  color: #222;
-  margin: auto;
-  padding-bottom: 50px;
+.profile-user-name {
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+.btn-warning {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  border: 0.1rem solid #dbdbdb;
+  border-radius: 0.3rem;
+  padding: 0 2rem;
+  margin-left: 2rem;
+  align-items: center;
+}
+
+/* .profile-settings-btn {
+	font-size: 2rem;
+	margin-left: 2rem;
 } */
 
-/* .notification {
-  color: white;
-  text-decoration: none;
-  padding: 15px 26px;
-  position: relative;
-  display: inline-block;
-  border-radius: 2px;
+.profile-stats {
+  margin-top: 2rem;
+  content: "\f6aa";
 }
- 
+
+.profile-stats li {
+  display: inline-block;
+  font-size: 1.6rem;
+  line-height: 1;
+  margin-right: 4rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+.profile-stats li:last-of-type {
+  margin-right: 0;
+}
+
+.profile-bio {
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 0.8;
+  margin-top: 0.5rem;
+}
+
+.profile-real-name,
+.profile-stat-count,
+.profile-edit-btn {
+  font-weight: 600;
+}
+
+/* Gallery Section */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  justify-content: center;
+  align-items: flex-start;
+  /* border: 1px solid grey; */
+}
+
+.gallery-item {
+  position: relative;
+  flex: 1 0 22rem;
+  margin: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.gallery-item:hover .gallery-item-info,
+.gallery-item:focus .gallery-item-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 275px;
+  height: 275px;
+  border-radius: 10px;
+  background-color: rgba(17, 8, 8, 0.2);
+}
+
+.gallery-item-info {
+  display: none;
+}
+
+.gallery-item-info li {
+  display: inline-block;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.gallery-item-likes {
+  margin-right: 2.2rem;
+}
+
+.gallery-item-type {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2.5rem;
+}
+
+.fa-clone,
+.fa-comment {
+  transform: rotateY(180deg);
+}
+
+.gallery-image {
+  width: 275px;
+  height: 275px;
+  object-fit: cover;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+/* Recipes begins here */
+
+.recipe-card-img-top {
+  width: 100% !important;
+  height: 275px;
+  border-radius: 10px;
+  box-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+/* Loader */
+
+.loader {
+  width: 5rem;
+  height: 5rem;
+  border: 0.6rem solid #999;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: loader 500ms linear infinite;
+}
+
 .notification .badge {
   position: absolute;
   top: 2px;
@@ -47,10 +259,84 @@ body::before {
   border-radius: 50%;
   background-color: red;
   color: white;
-} */
-
-@media(min-width: 768px) {
+}
+*/ @media (min-width: 768px) {
   .new-input {
-      width: 50%;
+    width: 50%;
+  }
+}
+
+@keyframes loader {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*
+
+The following code will only run if your browser supports CSS grid.
+
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
+
+*/
+
+@supports (display: grid) {
+  .profile {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(3, auto);
+    grid-column-gap: 3rem;
+    align-items: center;
+  }
+
+  .profile-image {
+    grid-row: 1 / -1;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    grid-gap: 2rem;
+  }
+
+  .profile-image,
+  .profile-user-settings,
+  .profile-stats,
+  .profile-bio,
+  .gallery-item,
+  .gallery {
+    width: auto;
+    margin: 0;
+  }
+
+  @media (max-width: 40rem) {
+    .profile {
+      grid-template-columns: auto 1fr;
+      grid-row-gap: 1.5rem;
+    }
+
+    .profile-image {
+      grid-row: 1 / 2;
+    }
+
+    .profile-user-settings {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 1rem;
+    }
+
+    .profile-edit-btn,
+    .profile-stats,
+    .profile-bio {
+      grid-column: 1 / -1;
+    }
+
+    .profile-user-settings,
+    .profile-edit-btn,
+    .profile-settings-btn,
+    .profile-bio,
+    .profile-stats {
+      margin: 0;
+    }
   }
 }

@@ -1,60 +1,83 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-{% block title %} {{profile.display_name}}'s Profile
-{% endblock %}
-{% if profile.username == request.user.username%}
-<h4>Your Profile</h4>
-{% elif user.is_authenticated %}
-<a href='/user/follow/{{profile.id}}/'>Follow {{profile.display_name}}</a>
-<a href='/user/unfollow/{{profile.id}}/'>Unfollow {{profile.display_name}}</a>
-{%else%}
-Login to <a href='/user/follow/{{profile.id}}/'>follow {{profile.username}}</a>
-{%endif%}
 
-{% if profile.username == request.user.username%}
-<p><a href= '/user/following/all/{{profile.id}}/'>Following:{{profile.following.count}} </a></p>
+<header>
+    <div class="container">
+        <div class="profile">
+            <div class="profile-image">
+                <img src='{{profile.avatar.url | default_if_none:'#'}}'  alt=""/>
+            </div>
+                <div class="profile-user-settings">
+                    <div class="profile-user-name"> 
+                        <strong>{{profile.display_name}}</strong>
+                        <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
+                    </div>
+                </div>
+            <!-- End of Profile User Settings Section-->
+            <div class="profile-stats">
+                <ul>
+                        <li><span class="profile-stat-count">164</span> Posts</li>
+                        <li><span class="profile-stat-count">188</span> Followers</li>
+                        <li><span class="profile-stat-count"><a href= '/user/following/all/{{profile.id}}/' style="text-decoration: none;">{{profile.following.count}} </a></span>Following</li>
+                    </ul>
+            </div>
+            <div class="profile-bio">
+                <h4>Member since: {{ request.user.joined_date }}</h4>
+                <span class="profile-real-name">
+                        <br></br>
+                        {{profile.bio}} 🏕️
+                        <br></br>
+                        My Trusty Two-Wheeled Steed is a 
+                        {{profile.bike}}
+                        <br></br>
+                        Catch Me Ridin {{profile.riding_style}}
+                        <br></br>
+                        I Ride Like a {{profile.riding_level}}
+                </span>
+            </div>
 
+            {% comment %} {% if profile.username == request.user.username %}
+                # Commenting out following, unfollowing and follow while refactoring profile.html - Danielle 7/20
+            {% elif user.is_authenticated %}
 
-{%endif%}
+            <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.display_name}}</a>
+            <a href='/user/unfollow/{{profile.id}}/' style="text-decoration: none;">Unfollow {{profile.display_name}}</a>
+            {%else%}
+            Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.username}}</a>
+            {%endif%} {% endcomment %}
+            <!-- End of Profile Section -->
+        </div>           
+    </div>
+    <!-- End of Container -->
+</header>
+<main>
+    <div class="container">
 
-<br></br>
-Username: {{profile.username}}
-<br></br>
-Bio: {{profile.bio}}
-<br></br>
-Bike: {{profile.bike}}
-<br></br>
-Riding Style: {{profile.riding_style}}
-<br></br>
-Riding Level: {{profile.riding_level}}
-<br></br>
-<br></br> 
+        <hr class="gallery-line">
 
-_____________________________
-<br></br>
-
-
-Favorite Posts:
-
-    {% for post in profile.favorite_posts.all %}
-    <div class="card text-white bg-success mb-3" style="width: 28rem;">
-        <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="card-img-top" alt="Post picture">
-        <div class="card-body">
-            <h5 class="card-title">{{ post.caption }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="/user/favorite_post/{{post.id}}/" class="btn btn-warning">add fave</a><span></span><span><a href="/user/unfavorite_post/{{post.id}}/" class="btn btn-warning">remove from faves</a></span>
+        <div class="gallery">
+            
+            {% for post in profile.favorite_posts.all %}
+            
+            <div class="gallery-item">
+                <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture">
+                
+                <div class="gallery-item-info">
+                    <ul>
+                        <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
+                        <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
+</main>
+{% endblock %}
 
-
-<br></br>
-<br></br>
-_____________________________ 
-<br></br>
-
-Favorite Recipes:
+<hr>
+<b>Favorite Recipes:</b>
 <ul>
     {% for recipe in current_user.favorite_recipes.all %}
     <li>
@@ -62,5 +85,3 @@ Favorite Recipes:
     </li>
     {% endfor %}
 </ul>
-<a href='/user/edit/profile/{{profile.id}}/'>Edit Profile</a>
-{% endblock %}

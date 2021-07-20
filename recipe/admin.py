@@ -6,10 +6,9 @@ from .models import Recipe, Tag
 
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('title', 'id')
-    list_filter = ('title',)
+    list_filter = ['title']
     # prepopulated_fields = {'id': ('title', )}
 
 
 admin.site.register(Recipe, RecipeAdmin)
-# admin.site.register(Author)
 admin.site.register(Tag)

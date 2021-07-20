@@ -24,6 +24,7 @@
              {{recipe.title}}
                 <div class="card border-light text-center mb-3" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
                 <img src="{{recipe.image.url}}" width=200 height=300 class="card-img-top" alt="{{recipe.title}}">
+
                 <div class="card">
                 <!--collapse start-->
                 <button class="btn btn-light d-flex justify-content-center " type="button" data-bs-toggle="collapse" data-bs-target="#description" aria-expanded="false" aria-controls="description">
@@ -37,12 +38,17 @@
                 </div>
                 <!--collapse end-->
                 <div class="card-bady bg-transparent border-secondary">
-                    <small>Created by: {{recipe.author.username}}</small>
+                    <small>From {{recipe.author.display_name}}'s outdoor kitchen to yours!</small>
                 </div>
                 <div class="card-body">
                         <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Go to Recipe!! 😋</a>
                             <!--Need to change to Saved recipe-->
+
                         <a href="/favorite_recipe/{{recipe.pk}}/" class="btn btn-outline-danger">Save 💜</a>
+
+                        <!-- Haejin's most recent push did not include the a tag for recipe.title and I wasn't sure if it should or not so I left it for her review -->
+                        <a href="/user/favorite_recipe/{{recipe.title}}/" class="btn btn-outline-danger">Like 💜</a>
+
                     </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <small class="text-muted">Created on: <time>{{recipe.date}}</time></small>

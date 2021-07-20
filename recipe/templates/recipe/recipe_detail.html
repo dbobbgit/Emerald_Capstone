@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Outdoor {% endblock title %}
+{% block title %}Outdoor Grindz{% endblock title %}
 {% block css_files %}
 {% endblock css_files %}
 {% block content %}
@@ -9,6 +9,7 @@
 </main>
 <div class="container d-flex justify-content-md-center">
 
+
     <div class="col-md-8" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
       <div class="card-body">
         <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
@@ -16,6 +17,7 @@
         <h6 class="card-text"><strong>Duration time:</strong> {{recipe.time_required}} <span>created by <span class="badge bg-secondary">{{recipe.author.username}}</span></span></h6>
         </div>
       </div>
+
     <div id="image-control" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -36,7 +38,7 @@
             <div class="card-body">
               <p class="card-text"><strong>Instruction:</strong> <br>
               {{recipe.instruction}}</p>
-              <p class="card-text"><small class="text-muted">Last updated <time>{{recipe.date}}</time>
+              <p class="card-text"><small class="text-muted">Last Updated <time>{{recipe.date}}</time>
               </small></p>
             </div>
           </div>

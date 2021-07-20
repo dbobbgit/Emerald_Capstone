@@ -2,8 +2,11 @@
     <nav class="navbar navbar-expand-lg alert alert-success navbar-light py-3 fixed-top" style="height: 60px;">
        {% comment %} <div class="container"> {% endcomment %}
             <a href="{% url 'home' %}" class="navbar-brand">
-            <img src="{% static 'images/MotoBearTransparency.png' %}" alt="" width="64" height="70" class="d-inline-block align-text-top"></a>
-            <h5>Motogram</h5>
+              
+            <img src="{% static 'images/MotoBearTransparency.png' %}" alt="" width="35" height="35" class="d-inline-block align-text-top">
+            Motogram
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -43,13 +46,15 @@
                                <i class="bi bi-file-person-fill"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{% url 'MotoUserView' user.id%}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="/user/profile/{{request.user.id}}/">My Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                             </ul>
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-item">
+
                             <a class="nav-brand text-success" href="{% url 'MotoUserView' user.id%}" style="text-decoration: none;">Logged in as:  {{ user.username }}</a>
+
                             </li>
                             {% else %}
                              <li class="nav-item">

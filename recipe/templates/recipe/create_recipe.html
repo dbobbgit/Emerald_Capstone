@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
+{% comment %}
+{% extends 'base.html' %} 
+{% load static %} {% block title %}Create Recipe
+{% endblock title %} {% block css_files %} 
+{% endblock css_files %} {% block content %}
+<section>
+	<div class="container recipe">
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %} {{form.as_p}}
+			<input type="submit" value="save recipe" />
+		</form>
+	</div>
+</section>
+{% endblock %}
+{% endcomment %}
+
 
 {% block title %}Create Recipe{% endblock title %}
 {% block css_files %}
 {% endblock css_files %}
 {% block content %}
+
 <section class="create-form bg-light">
   <div class='container d-flex justify-content-center'>
     <div class="card" style="width: 40rem; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">

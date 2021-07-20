@@ -1,38 +1,87 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-
-
 {% extends "base.html" %}
 {% load static %}
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous"
+/>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+	crossorigin="anonymous"
+></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+	integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+	crossorigin="anonymous"
+></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+	integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+	crossorigin="anonymous"
+></script>
+
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<br />
+<br />
+
+<a href="/user/profile/{{request.user.id}}/"><h1>{{ request.user.display_name }}!</h1></a>
+<img class="mb-4" src='{{ request.user.avatar.url }}' alt="" width="72" height="57" />
+
+<h2>A member since: {{ request.user.joined_date }}</h2>
+<h4>Motofications: {{ pings.count }}</h4>
+<hr />
+{% for post_item in post_items %}
+<div class="card text-white bg-success mb-3">
+	<img src="{{MEDIA_URL}}{{ post_item.picture.url }}" class="card-img-top" alt="Post picture" />
+	<div class="card-body">
+		<h5 class="card-title">{{ post_item.caption }}</h5>
+		<p class="card-text">
+			Some quick example text to build on the card title and make up the bulk of the card's content.
+		</p>
+
+		<a href="#" class="btn btn-warning">Go somewhere</a>
+		<br />
+		<hr />
+		<p>{{ post_item.posted }}</p>
+
+		<span><a href="/user/favorite_post/{{post_item.id}}/" class="btn btn-warning">add fave</a></span>
+		<span><a href="/user/unfavorite_post/{{post_item.id}}/" class="btn btn-warning">remove from faves</a></span>
+	</div>
+</div>
+{% endfor %}{% endblock %}
+
+{% comment %}<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 <br>
 <br>
 
-<a href='/user/profile/{{request.user.id}}/'><h1>{{ request.user.username }}!</h></a>
-    <img class="mb-4" src="{{ request.picture }}" alt="" width="72" height="57">
-
-    <h2>A member since: {{ request.user.joined_date }}</h2>
+<a href='/user/profile/{{request.user.id}}/'><h1>{{ request.user.username }}!</h1></a>
+<img class="mb-4" src="/static/images/profile.png" alt="" width="72" height="57">
     <h4>Notifications: {{ pings.count }}</h4>
-    <hr>
     {% for post_item in post_items %}
-    <div class="card text-white bg-success mb-3" style="width: 28rem;">
+    <div class="card shadow-lg p-1 text-white bg-success mb-3 rounded" style="width: 28rem;">
         <img src="{{MEDIA_URL}}{{ post_item.picture.url }}" class="card-img-top" alt="Post picture">
         <div class="card-body">
-            <h5 class="card-title">{{ post_item.caption }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-            <a href="#" class="btn btn-warning">Go somewhere</a>
+            <a href='/user/profile/{{request.user.id}}/' class="card-title text-white" style="text-decoration: none;">{{ request.user.username }}</a>:
+            {{ post_item.caption }}
             <br>
+            <br>
+            <br>
+            <a href="/user/favorite_post/{{post_item.id}}/" class="btn btn-outline-warning"> ➕ add fave </a>
+            <a href="/user/unfavorite_post/{{post_item.id}}/" class="btn btn-outline-warning"> ➖ remove from faves </a>
+            <a href="#" class="btn btn-outline-warning"> 💛 Likes </a>
             <hr>
-            <p>{{ post_item.posted }}</p>
+            <p>Created: {{ post_item.posted }}</p>
 
-            <a href="/user/favorite_post/{{post_item.id}}/" class="btn btn-warning">add fave</a><span></span><span><a href="/user/unfavorite_post/{{post_item.id}}/" class="btn btn-warning">remove from faves</a></span>
+        
 
         </div>
     </div>
     {% endfor %}
     {% endblock %}
 
+{% endcomment %}

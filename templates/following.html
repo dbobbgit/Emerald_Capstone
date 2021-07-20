@@ -1,3 +1,7 @@
-{% for follow in following %}
-<a href='/user/profile/{{follow.id}}/'>{{follow.display_name}}</a>
-{%endfor%}
+{% extends 'base.html' %}{% load static %} {% block content %}
+<div>
+	{% for follow in following %}
+	<a href="/user/profile/{{follow.id}}/">{{follow.display_name}}</a>
+	{%endfor%}
+</div>
+{% endblock content %}

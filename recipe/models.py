@@ -23,14 +23,13 @@ class Recipe(models.Model):
         null=True
         )
     image = models.ImageField(
-        upload_to ="recipes",
-        null = True,
-        blank = True
+        upload_to="recipes",
+        null=True,
+        blank=True
         )
     date = models.DateTimeField(auto_now=True)
-    tags= models.ManyToManyField(Tag, blank=True, related_name='tags')
+    tags = models.ManyToManyField(Tag, blank=True, related_name='tags')
     favorites = models.ManyToManyField('Recipe', blank=True, related_name='favorite_recipes')
-
 
     def __str__(self):
         return f"{self.title} (by:{self.author})"
