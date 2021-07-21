@@ -6,7 +6,11 @@
     <div class="container">
         <div class="profile">
             <div class="profile-image">
-                <img src='{{profile.avatar.url | default_if_none:'#'}}'  alt=""/>
+                {% if avatar.url %}
+                <img src='{{ avatar.url }}  alt=""'/>
+                    {%else%}
+                <img src='/../static/images/profile.png/' alt=''/>
+                {%endif%}
             </div>
                 <div class="profile-user-settings">
                     <div class="profile-user-name"> 

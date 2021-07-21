@@ -8,9 +8,9 @@ from .forms import EditProfileForm
 
 
 def MotoUserView(request, user_id: int):
-
+    avatar = request.FILES
     profile = MotoUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {"profile": profile})
+    return render(request, 'profile.html', {"profile": profile, "avatar": avatar})
 
 
 def EditProfileView(request, user_id: int):
