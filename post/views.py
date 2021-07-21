@@ -9,9 +9,10 @@ from django.template import RequestContext
 
 @login_required
 def index(request):
+    avatar = request.FILES
     posts = Post.objects.all().order_by('-id')
     template = loader.get_template('index.html')
-    context = {'post_items': posts, }
+    context = {'post_items': posts, 'avatar': avatar }
     return HttpResponse(template.render(context, request))
 
 

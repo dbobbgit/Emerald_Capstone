@@ -30,10 +30,12 @@
 <br />
 
 <a href="/user/profile/{{request.user.id}}/"><h1>{{ request.user.display_name }}!</h1></a>
-<img class="mb-4" src='{{ request.user.avatar.url }}' alt="" width="72" height="57" />
+{%if avatar.url %}
+<img class="mb-4" src='{{ avatar.url }}' alt="" width="72" height="57" />
+{%else%}
+<img src='/../static/images/profile.png/' alt=''width="72" height="57"/>
+{%endif%}
 
-<h2>A member since: {{ request.user.joined_date }}</h2>
-<h4>Motofications: {{ pings.count }}</h4>
 <hr />
 {% for post_item in post_items %}
 <div class="card text-white bg-success mb-3">
