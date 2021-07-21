@@ -32,7 +32,6 @@ def EditProfileView(request, user_id: int):
                 current_profile.riding_style = data['riding_style']
                 current_profile.riding_level = data['riding_level']
                 current_profile.avatar = data['avatar']
-                print(current_profile.avatar)
                 current_profile.save()
             return HttpResponseRedirect(reverse("home"))
 

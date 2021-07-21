@@ -9,8 +9,8 @@ from django.template import RequestContext
 
 @login_required
 def index(request):
-    posts = Post.objects.all().order_by('-id')
-    template = loader.get_template('index.html')
+    posts = Post.objects.all().order_by('-posted')
+    template = loader.get_template('home.html')
     context = {'post_items': posts, }
     return HttpResponse(template.render(context, request))
 
@@ -33,7 +33,7 @@ def NewPost(request):
             p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
             p.tags.set(tags_objs)
             p.save()
-            return redirect('index')
+            return redirect('home')
     else:
         form = NewPostForm()
 

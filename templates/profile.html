@@ -6,7 +6,7 @@
     <div class="container">
         <div class="profile">
             <div class="profile-image">
-                <img src='{{profile.avatar.url | default_if_none:'#'}}'  alt=""/>
+                <img src="{{request.current_profile.avatar.url|default_if_none:'#'}}"  alt=""/>
             </div>
                 <div class="profile-user-settings">
                     <div class="profile-user-name"> 
@@ -23,7 +23,6 @@
                     </ul>
             </div>
             <div class="profile-bio">
-                <h4>Member since: {{ request.user.joined_date }}</h4>
                 <span class="profile-real-name">
                         <br></br>
                         {{profile.bio}} 🏕️
@@ -73,15 +72,15 @@
             {% endfor %}
         </div>
     </div>
+    
+    <hr>
+    <b>Favorite Recipes:</b>
+    <ul>
+        {% for recipe in current_user.favorite_recipes.all %}
+        <li>
+            <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
 </main>
 {% endblock %}
-
-<hr>
-<b>Favorite Recipes:</b>
-<ul>
-    {% for recipe in current_user.favorite_recipes.all %}
-    <li>
-        <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
