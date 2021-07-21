@@ -51,7 +51,6 @@ def create_recipe_view(request):
             time_required = data.get('time_required')
             description = data.get('description')
             instruction = data.get('instruction')
-            author = data.get('author')
             image = data.get('image')
             # tags_form = data.get('tags')
             # tags_list = list(tags_form.split(','))
@@ -82,16 +81,31 @@ def create_recipe_view(request):
 @login_required
 def edit_recipe_view(request, pk):
     recipe = get_object_or_404(Recipe, id=pk)
-    form = EditRecipeForm(instance=recipe)
+    form = RecipeForm(instance=recipe)
     context = {
         "form": form,
         "recipe": recipe
     }
     if request.method == "POST":
-        form = EditRecipeForm(request.POST, instance=recipe)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            data = form.cleaned_data
+            recipe.title = data.get('title')
+            recipe.description = data.get('description')
+            recipe.time_required = data.get('time_required')
+            recipe.instruction = data.get('instruction')
+            recipe.image = data.get('image')
+            recipe.save()
             return redirect("/recipe")
+
+    form = RecipeForm(initial={
+        'title': recipe.title,
+        'description': recipe.description,
+        'time_required': recipe.time_required,
+        'instruction': recipe.instruction,
+        'image': recipe.image,
+    }            
+    )
     return render(request, "recipe/edit_recipe.html", context)
 
 
