@@ -1,62 +1,66 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}Outdoor Food{% endblock title %}
+{% extends 'base.html' %} {% load static %} {% block title %}Outdoor Food {% endblock title %} {% block content %}
 
-{% block content %}
+<section id="outdoor-food" class="container-fluid p-5 alert alert-light">
+	<div class="container-fluid">
+		<h2 class="text-center text-dark" style="margin-top: -20px">Outdoor foods</h2>
+		<p class="lead text-center text-dark mb-5" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)">
+			Here is great source for outdoor food from our people!!
+		</p>
 
- <section id="outdoor-food" class="container-fluid p-5 alert alert-light">
-    <div class="container-fluid">
-        <h2 class="text-center text-dark" style="margin-top: -20px ;">Outdoor foods</h2>
-            <p class="lead text-center text-dark mb-5" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
-                Here is great source for outdoor food from our people!!
-            </p>
+		<a href="{% url 'recipe:create-recipe' %}">
+			<button class="btn btn-outline-dark btn-lg" type="submit">Create New Recipe</button>
+		</a>
+		<br />
+		<hr />
+		<!--Start card-->
+		<div class="row row-cols-1 row-cols-md-2 g-4">
+			{% for recipe in recipes %}
+			<div class="col bg-alert-secondary text-center">
+				{{recipe.title}}
+				<div class="card border-light text-center mb-3" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)">
+					<img
+						src="{{recipe.image.url}}"
+						width="200"
+						height="300"
+						class="card-img-top"
+						alt="{{recipe.title}}"
+					/>
 
-        <a href="{% url 'recipe:create-recipe' %}" <button class="btn btn-outline-dark btn-lg" type="submit">
-                        Create New Recipe
-        </button>
-        </a>
-        <br>
-        <hr>
-        <!--Start card-->
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-        {% for recipe in recipes  %}
-            <div class="col bg-alert-secondary text-center">
-             {{recipe.title}}
-                <div class="card border-light text-center mb-3" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
-                <img src="{{recipe.image.url}}" width=200 height=300 class="card-img-top" alt="{{recipe.title}}">
+					<div class="card">
+						<!--collapse start-->
+						<button
+							class="btn btn-light d-flex justify-content-center"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#description"
+							aria-expanded="false"
+							aria-controls="description"
+						>
+							Description
+						</button>
+					</div>
+					<div class="collapse" id="description">
+						<div class="card card-body">{{recipe.description}}</div>
+					</div>
+					<!--collapse end-->
+					<div class="card-bady bg-transparent border-secondary">
+						<small>From {{recipe.author.display_name}}'s outdoor kitchen to yours!</small>
+					</div>
+					<div class="card-body">
+						<a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success"
+							>Go to Recipe!! 😋</a
+						>
+						<!--Need to change to Saved recipe-->
 
-                <div class="card">
-                <!--collapse start-->
-                <button class="btn btn-light d-flex justify-content-center " type="button" data-bs-toggle="collapse" data-bs-target="#description" aria-expanded="false" aria-controls="description">
-                    Description
-                </button>
-                </div>
-                <div class="collapse" id="description">
-                <div class="card card-body">
-                    {{recipe.description}}
-                </div>
-                </div>
-                <!--collapse end-->
-                <div class="card-bady bg-transparent border-secondary">
-                    <small>From {{recipe.author.display_name}}'s outdoor kitchen to yours!</small>
-                </div>
-                <div class="card-body">
-                        <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Go to Recipe!! 😋</a>
-                            <!--Need to change to Saved recipe-->
-
-                        <a href="/favorite_recipe/{{recipe.pk}}/" class="btn btn-outline-danger">Save 💜</a>
-
-                        <!-- Haejin's most recent push did not include the a tag for recipe.title and I wasn't sure if it should or not so I left it for her review -->
-                        <a href="/user/favorite_recipe/{{recipe.title}}/" class="btn btn-outline-danger">Like 💜</a>
-
-                    </div>
-                <div class="card-footer bg-transparent border-secondary">
-                    <small class="text-muted">Created on: <time>{{recipe.date}}</time></small>
-                </div>
-                </div>
-            </div>
-        {% endfor %}
-        </div>
-    </div>        
+						<a href="/favorite_recipe/{{recipe.pk}}/" class="btn btn-outline-danger">Save 💜</a>
+					</div>
+					<div class="card-footer bg-transparent border-secondary">
+						<small class="text-muted">Created on: <time>{{recipe.date}}</time></small>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 </section>
 {% endblock content %}

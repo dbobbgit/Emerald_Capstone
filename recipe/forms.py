@@ -24,7 +24,8 @@ class EditRecipeForm(forms.ModelForm):
             'title',
             'description',
             'time_required',
-            'instruction'
+            'instruction',
+            'image',
         ]
 
         exclude = ['password2']
