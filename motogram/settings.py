@@ -138,14 +138,15 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'static',
+    "/var/www/static",
     ]
 
 LOGIN_URL = '/login/'
 
 
 # Media(images, video)
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR / "media")
 MEDIA_URL = "/media/"
 
 

@@ -4,16 +4,35 @@
 {% endblock %} {% block content%}
 
 <!-- User Home page starts here -->
-<header>
-	<header>
-		<div class="container">
-			<div class="profile">
-				<a href="/user/profile/{{request.user.id}}/"><h1>{{ request.user.display_name }}!</h1></a>
-				</div>
+{% if not user.is_authenticated %}
+
+
+    <div class="bg-video-wrap">
+        <video src="/static/video/ride_woods.mp4.mov" type="video/mp4"  loop muted autoplay>
+        </video>
+        <div class="overlay">
+		</div>
+		
+		<div class="motobear">
+			<img width="500px" height="500px"  src="static/images/MotoBearTransparencyInvert.png">
 			</div>
+	
+		<script type="text/javascript">
+			$(window).bind('load',function(){
+			'use strict';
+			$('video').trigger('play');
+		});
+		</script>
+    </div>
+
+	{% endif %}
+
+	<div class="container">
+		<div class="profile">
+			{% if user.is_authenticated %}
+			<a href="/user/profile/{{request.user.id}}/"><h1>{{ request.user.display_name }}!</h1></a>
 		</div>
 	</div>
-</header>
 	<main>
 		{% for post_item in post_items %}
 		<div class="card text-white bg-success mb-3">
@@ -36,7 +55,7 @@
 				>
 			</div>
 		</div>
-		{% endfor %}
+		{% endfor %} {% endif %}
 	</main>
 	{% endblock %}
-</header>
+</video>

@@ -8,7 +8,6 @@ from .forms import EditProfileForm
 
 
 def MotoUserView(request, user_id: int):
-
     profile = MotoUser.objects.get(id=user_id)
     return render(request, 'profile.html', {"profile": profile})
 
@@ -16,8 +15,8 @@ def MotoUserView(request, user_id: int):
 def EditProfileView(request, user_id: int):
     ''' CAITLIN: ALLOWS USER TO EDIT THEIR PROFILE WITH FIELDS 
     PREVIOUSLY ENTERED INFO. ONCE USER SAVES INFO, AS OF 7/10 COMMIT 
-    THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND
-    THE USER'S USERNAME TO PROVIDE A LINK TO THEIR PROFILE'''
+    THEY ARE REROUTED TO HOMEPAGE ON WHICH AN HREF HAS BEEN ADDED AROUND'''
+
 
     current_profile = MotoUser.objects.get(id=user_id)
 
@@ -33,7 +32,8 @@ def EditProfileView(request, user_id: int):
                 current_profile.riding_level = data['riding_level']
                 current_profile.avatar = data['avatar']
                 current_profile.save()
-            return HttpResponseRedirect(reverse("home"))
+
+                return HttpResponseRedirect(reverse("MotoUserView", args=(user_id,)))
 
         form = EditProfileForm(initial={
             'avatar': current_profile.avatar,
@@ -107,9 +107,17 @@ def Unfollow_View(request, user_id: int):
         count = request.user.following.all().count()
         if count is None:
             count = 0
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count': count}))
 
 
 def Following_View(request, user_id: int):
     following = request.user.following.exclude(following=user_id)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', {'count': count}))
+
+
+def Following_View(request, user_id: int):
+    following = request.user.following.exclude(following=user_id)
+
     return render(request, 'following.html', {'following': following})
