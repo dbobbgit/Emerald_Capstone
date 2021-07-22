@@ -1,87 +1,106 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 
 <header>
-    <div class="container">
-        <div class="profile">
-            <div class="profile-image">
-                <img src='{{profile.avatar.url | default_if_none:'#'}}'  alt=""/>
-            </div>
-                <div class="profile-user-settings">
-                    <div class="profile-user-name"> 
-                        <strong>{{profile.display_name}}</strong>
-                        <a href='/user/edit/profile/{{profile.id}}/' style="text-decoration: none;" class="btn btn-warning shadow-md">Edit Profile</a>
-                    </div>
-                </div>
-            <!-- End of Profile User Settings Section-->
-            <div class="profile-stats">
-                <ul>
-                        <li><span class="profile-stat-count">164</span> Posts</li>
-                        <li><span class="profile-stat-count">188</span> Followers</li>
-                        <li><span class="profile-stat-count"><a href= '/user/following/all/{{profile.id}}/' style="text-decoration: none;">{{profile.following.count}} </a></span>Following</li>
-                    </ul>
-            </div>
-            <div class="profile-bio">
-                <h4>Member since: {{ request.user.joined_date }}</h4>
-                <span class="profile-real-name">
-                        <br></br>
-                        {{profile.bio}} 🏕️
-                        <br></br>
-                        My Trusty Two-Wheeled Steed is a 
-                        {{profile.bike}}
-                        <br></br>
-                        Catch Me Ridin {{profile.riding_style}}
-                        <br></br>
-                        I Ride Like a {{profile.riding_level}}
-                </span>
-            </div>
+	<div class="container">
+		<div class="profile">
+			<div class="profile-image">
+				{% if profile.avatar.url %}
+				<img src="{{profile.avatar.url}}" alt="user avatar" />
+				{% else %}
+				<img src="/media/images/avatar/default.png" alt="default avatar" />
+				{% endif %}
+			</div>
+			<div class="profile-user-settings">
+				<div class="profile-user-name">
+					<strong>{{profile.display_name}}</strong>
+					<a
+						href="/user/edit/profile/{{profile.id}}/"
+						style="text-decoration: none"
+						class="btn-d btn-warning shadow-md"
+						>Edit Profile</a
+					>
+				</div>
+			</div>
+			<!-- End of Profile User Settings Section-->
+			<div class="profile-stats">
+				<ul>
+					<li><span class="profile-stat-count">164</span> Posts</li>
+					<li><span class="profile-stat-count">188</span> Followers</li>
+					<li>
+						<span class="profile-stat-count">
+							<a href="/user/following/all/{{profile.id}}/" style="text-decoration: none">
+								{{profile.following.count}}
+							</a> </span
+						>Following
+					</li>
+				</ul>
+			</div>
 
-            {% comment %} {% if profile.username == request.user.username %}
-                # Commenting out following, unfollowing and follow while refactoring profile.html - Danielle 7/20
-            {% elif user.is_authenticated %}
+			<div class="profile-bio">
+				<span class="profile-real-name">
+					<br />
+					<br />
+					{{profile.bio}} 🏕️
+					<br />
+					<br />
+					My Trusty Two-Wheeled Steed is a {{profile.bike}}
+					<br />
+					<br />
+					Catch Me Ridin {{profile.riding_style}}
+					<br />
+					<br />
+					I Ride Like a {{profile.riding_level}}
+				</span>
+			</div>
 
-            <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.display_name}}</a>
-            <a href='/user/unfollow/{{profile.id}}/' style="text-decoration: none;">Unfollow {{profile.display_name}}</a>
-            {%else%}
-            Login to <a href='/user/follow/{{profile.id}}/' style="text-decoration: none;">Follow {{profile.username}}</a>
-            {%endif%} {% endcomment %}
-            <!-- End of Profile Section -->
-        </div>           
-    </div>
-    <!-- End of Container -->
+			{% comment %} {% if profile.username == request.user.username %} # Commenting out following, unfollowing and
+			follow while refactoring profile.html - Danielle 7/20 {% elif user.is_authenticated %}
+
+			<a href="/user/follow/{{profile.id}}/" style="text-decoration: none">Follow {{profile.display_name}}</a>
+			<a href="/user/unfollow/{{profile.id}}/" style="text-decoration: none">Unfollow {{profile.display_name}}</a>
+			{%else%} Login to
+			<a href="/user/follow/{{profile.id}}/" style="text-decoration: none">Follow {{profile.username}}</a>
+			{%endif%} {% endcomment %}
+			<!-- End of Profile Section -->
+		</div>
+	</div>
+	<!-- End of Container -->
 </header>
 <main>
-    <div class="container">
+	<div class="container">
+		<hr class="gallery-line" />
 
-        <hr class="gallery-line">
+		<div class="gallery">
+			{% for post in profile.favorite_posts.all %}
 
-        <div class="gallery">
-            
-            {% for post in profile.favorite_posts.all %}
-            
-            <div class="gallery-item">
-                <img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture">
-                
-                <div class="gallery-item-info">
-                    <ul>
-                        <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 89</li>
-                        <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 5</li>
-                    </ul>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+			<div class="gallery-item">
+				<img src="{{MEDIA_URL}}{{ post.picture.url }}" class="gallery-image" alt="Post picture" />
+
+				<div class="gallery-item-info">
+					<ul>
+						<li class="gallery-item-likes">
+							<span class="visually-hidden">Likes:</span
+							><i class="fas fa-heart" aria-hidden="true"></i> 89
+						</li>
+						<li class="gallery-item-comments">
+							<span class="visually-hidden">Comments:</span
+							><i class="fas fa-comment" aria-hidden="true"></i> 5
+						</li>
+					</ul>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<hr />
+	<b>Favorite Recipes:</b>
+	<ul>
+		{% for recipe in current_user.favorite_recipes.all %}
+		<li>
+			<a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
+		</li>
+		{% endfor %}
+	</ul>
 </main>
 {% endblock %}
-
-<hr>
-<b>Favorite Recipes:</b>
-<ul>
-    {% for recipe in current_user.favorite_recipes.all %}
-    <li>
-        <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
-    </li>
-    {% endfor %}
-</ul>

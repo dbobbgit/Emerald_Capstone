@@ -20,7 +20,8 @@ class EditProfileForm(forms.Form):
 
     avatar = forms.ImageField(required=False)
     display_name = forms.CharField(max_length=30)
-    bio = forms.CharField(max_length=300)
+    bio = forms.CharField(widget=forms.Textarea)
     bike = forms.CharField(max_length=50)
     riding_style = forms.ChoiceField(choices=riding_style_choices)
     riding_level = forms.ChoiceField(choices=riding_level_choices)
+

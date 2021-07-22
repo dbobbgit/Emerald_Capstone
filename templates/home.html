@@ -1,16 +1,61 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}Home{% endblock %}
-{% block css_files %}{% endblock %}
-{% block content%}
+{% extends 'base.html' %} {% load static %} {% block title %}Home{% endblock %} {% block css_files %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+{% endblock %} {% block content%}
 
-{% if user.is_authenticated %} Hi <a href='/user/profile/{{user.id}}/'>{{ user.username }}</a>!
+<!-- User Home page starts here -->
+{% if not user.is_authenticated %}
 
-<p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}" style="text-decoration: none;">Log In</a>
-</br>
-<a href="{% url 'signup' %}" style="text-decoration: none;">Don't have an account? Click here to create one!</a>
-{% endif %}
-{% endblock %}
+
+    <div class="bg-video-wrap">
+        <video src="/static/video/ride_woods.mp4.mov" type="video/mp4"  loop muted autoplay>
+        </video>
+        <div class="overlay">
+		</div>
+		
+		<div class="motobear">
+			<img width="500px" height="500px"  src="static/images/MotoBearTransparencyInvert.png">
+			</div>
+	
+		<script type="text/javascript">
+			$(window).bind('load',function(){
+			'use strict';
+			$('video').trigger('play');
+		});
+		</script>
+    </div>
+
+	{% endif %}
+
+	<div class="container">
+		<div class="profile">
+			{% if user.is_authenticated %}
+			<a href="/user/profile/{{request.user.id}}/"><h1>{{ request.user.display_name }}!</h1></a>
+		</div>
+	</div>
+	<main>
+		{% for post_item in post_items %}
+		<div class="card text-white bg-success mb-3">
+			<img src="{{MEDIA_URL}}{{ post_item.picture.url }}" class="card-img-top" alt="Post picture" />
+			<div class="card-body">
+				<h5 class="card-title">{{ post_item.caption }}</h5>
+				<p class="card-text">
+					Some quick example text to build on the card title and make up the bulk of the card's content.
+				</p>
+				<a href="#" class="btn btn-warning">Go somewhere</a>
+				<br />
+				<hr />
+				<p>{{ post_item.posted }}</p>
+
+				<span><a href="/user/favorite_post/{{post_item.id}}/" class="btn btn-warning">add fave</a></span>
+				<span
+					><a href="/user/unfavorite_post/{{post_item.id}}/" class="btn btn-warning"
+						>remove from faves</a
+					></span
+				>
+			</div>
+		</div>
+		{% endfor %} {% endif %}
+	</main>
+	{% endblock %}
+</video>
