@@ -158,3 +158,6 @@ moto_user/migrations/0009_auto_20210721_1809.py
 moto_user/migrations/0010_alter_motouser_avatar.py
 moto_user/migrations/0011_alter_motouser_avatar.py
 static/video/ride_woods.mp4.mov
+
+#static
+ridevid.mp4.mov
