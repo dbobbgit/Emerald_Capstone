@@ -41,7 +41,7 @@ class Recipe(models.Model):
     date = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name='tags')
     favorites = models.ManyToManyField('Recipe', blank=True, related_name='favorite_recipes')
-    # comment = models.ManyToManyField('Comment', blank=True, related_name='comment')
+    comment = models.ManyToManyField('Comment', blank=True, related_name='comment')
 
     def __str__(self):
         return f"{self.title} (by:{self.author})"

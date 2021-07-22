@@ -10,11 +10,11 @@
 	<div class="container d-flex justify-content-center">
 		<div class="card" style="width: 40rem; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)">
 			<div class="card-header">
-				<h5 class="text-center"><strong>Let's share your recipe!</strong></h5>
+				<h5 class="text-center my-3"><strong>Let's share your recipe!</strong></h5>
 				<form method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="row form-control-sm mb-3">
-						<label for="id_title" class="col-sm-2 col-form-label">Name of recipe:</label>
+						<label for="id_title" class="col-sm-2 col-form-label">Name of recipe</label>
 						<div class="col-sm-10">
 							<input
 								type="text"
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 					<div class="row form-control-sm mb-3">
-						<label for="id_description" class="col-sm-2 col-form-label">Description:</label>
+						<label for="id_description" class="col-sm-2 col-form-label">Description</label>
 						<div class="col-sm-10">
 							<textarea
 								class="form-control"
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class="row form-control-sm mb-3">
-						<label for="id_time_required" class="col-sm-2 col-form-label">Duration time:</label>
+						<label for="id_time_required" class="col-sm-2 col-form-label">Duration time</label>
 						<div class="col-sm-10">
 							<input
 								type="text"
@@ -54,7 +54,7 @@
 						</div>
 					</div>
 					<div class="row form-control-sm mb-3">
-						<label for="id_instruction" class="col-sm-2 col-form-label">Detail of your recipe:</label>
+						<label for="id_instruction" class="col-sm-2 col-form-label">Detail of your recipe</label>
 						<div class="col-sm-10">
 							<textarea
 								class="form-control"
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 					<div class="row form-control-sm mb-3">
-						<label for="id_image formFile " class="col-sm-2 col-form-label">Share your image:</label>
+						<label for="id_image formFile " class="col-sm-2 col-form-label">Share your image</label>
 						<div class="col-sm-10">
 							<input type="file" class="form-control" name="image" accept="image/*" id="id_image" />
 						</div>

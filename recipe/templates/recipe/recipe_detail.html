@@ -46,8 +46,8 @@
               <button class='btn btn-outline-secondary'>Save Comment</button>
               </form> {% endcomment %}
               <hr>
-              {% if recipe_post.comments.all %}
-              {% for comment in recipe_post.comments.all %}
+              {% if recipe.comments.all %}
+              {% for comment in recipe.comments.all %}
                   <div class="card-body">
                       <div class="date">Created at: {{ comment.date }}</div>
                       <strong>From: {{ comment.author.user.display_name }}</strong>
@@ -55,7 +55,7 @@
                   </div>
               {% endfor %}
               {% else %}
-                  <p>No comments here yet :(</p>
+                  <p>There is no comments yet</p>
               
               {% endif %}
               {% comment %} <div class="col-md-10 col-xs-10 col-sm-10">
