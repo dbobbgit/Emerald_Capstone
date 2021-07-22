@@ -37,13 +37,27 @@ class MotoUser(AbstractUser):
 
     favorite_posts = models.ManyToManyField('post.Post', symmetrical=False, related_name='+', blank=True)
 
-    favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, related_name='+', blank=True)
+    favorite_recipes = models.ManyToManyField('recipe.Recipe', symmetrical=False, blank=True)
 
     avatar = models.ImageField(
+<<<<<<< HEAD
         upload_to='images/avatar/',
         verbose_name='Avatar',
         null=True
+=======
+        default='media/images/avatar/default.png',
+        upload_to='images/avatar/',
+        null=True,
+        # blank=True
+>>>>>>> 2249618f6022a7a27f664c79e7c14b85f493cb09
     )
 
     def __str__(self):
         return self.display_name
+<<<<<<< HEAD
+=======
+
+    def image_url(self):
+        if self.avatar and hasattr(self.avatar, 'url'):
+            return self.avatar.url
+>>>>>>> 2249618f6022a7a27f664c79e7c14b85f493cb09

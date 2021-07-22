@@ -148,3 +148,26 @@ cython_debug/
 
 # VSCode
 .vscode/
+moto_user/migrations/0003_motouser_avatar.py
+moto_user/migrations/0004_alter_motouser_avatar.py
+moto_user/migrations/0005_alter_motouser_avatar.py
+moto_user/migrations/0006_alter_motouser_avatar.py
+moto_user/migrations/0007_alter_motouser_avatar.py
+moto_user/migrations/0008_alter_motouser_avatar.py
+moto_user/migrations/0009_auto_20210721_1809.py
+moto_user/migrations/0010_alter_motouser_avatar.py
+moto_user/migrations/0011_alter_motouser_avatar.py
+static/video/ride_woods.mp4.mov
+
+#static
+ridevid.mp4.mov
+moto_user/migrations/0003_motouser_avatar.py
+moto_user/migrations/0004_alter_motouser_avatar.py
+moto_user/migrations/0005_alter_motouser_avatar.py
+moto_user/migrations/0006_alter_motouser_avatar.py
+moto_user/migrations/0007_alter_motouser_avatar.py
+moto_user/migrations/0008_alter_motouser_avatar.py
+moto_user/migrations/0009_auto_20210721_1809.py
+moto_user/migrations/0010_alter_motouser_avatar.py
+moto_user/migrations/0011_alter_motouser_avatar.py
+templates/insta.html

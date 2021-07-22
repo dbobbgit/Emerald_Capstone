@@ -1,16 +1,14 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 
 <header>
     <div class="container">
         <div class="profile">
             <div class="profile-image">
-                {% if avatar.url %}
-                <img src='{{ avatar.url }}  alt=""'/>
-                    {%else%}
-                <img src='/../static/images/profile.png/' alt=''/>
-                {%endif%}
+                {% if profile.avatar.url %}
+				<img src="{{profile.avatar.url}}" alt="user avatar" />
+				{% else %}
+				<img src="/media/images/avatar/default.png" alt="default avatar" />
+				{% endif %}
             </div>
                 <div class="profile-user-settings">
                     <div class="profile-user-name"> 
@@ -31,20 +29,30 @@
                 <ul>
                         <li><span class="profile-stat-count">164</span> Posts</li>
                         <li><span class="profile-stat-count">188</span> Followers</li>
-                        <li><span class="profile-stat-count"><a href= '/user/following/all/{{profile.id}}/' style="text-decoration: none;">{{profile.following.count}} </a></span>Following</li>
+                        <li>
+                            <span class="profile-stat-count">
+                                <a href= '/user/following/all/{{profile.id}}/' style="text-decoration: none;">
+                                    {{profile.following.count}} 
+                                </a>
+                            </span>Following
+                        </li>
                     </ul>
             </div>
             <div class="profile-bio">
                 
                 <span class="profile-real-name">
-                        <br></br>
+                        <br>
+                        </br>
                         {{profile.bio}} 🏕️
-                        <br></br>
+                        <br>
+                        </br>
                         My Trusty Two-Wheeled Steed is a 
                         {{profile.bike}}
-                        <br></br>
+                        <br>
+                        </br>
                         Catch Me Ridin {{profile.riding_style}}
-                        <br></br>
+                        <br>
+                        </br>
                         I Ride Like a {{profile.riding_level}}
                 </span>
             </div>
@@ -80,13 +88,3 @@
     </div>
 </main>
 {% endblock %}
-
-<hr>
-<b>Favorite Recipes:</b>
-<ul>
-    {% for recipe in current_user.favorite_recipes.all %}
-    <li>
-        <a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
