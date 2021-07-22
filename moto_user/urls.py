@@ -2,6 +2,7 @@ from django.urls import path, include
 from . import views
 
 
+
 urlpatterns = [
     path('profile/<int:user_id>/', views.MotoUserView, name='MotoUserView'),
     path('edit/profile/<int:user_id>/', views.EditProfileView, name='EditProfileView'),
@@ -11,5 +12,8 @@ urlpatterns = [
     path("unfavorite_recipe/<int:recipe_pk>/", views.Remove_Favorite_Recipe, name='RemoveFaveRecipe'),
     path("follow/<int:user_id>/", views.Follow_View, name='FollowView'),
     path("unfollow/<int:user_id>/", views.Unfollow_View, name='UnfollowView'),
-    path('following/all/<int:user_id>/', views.Following_View, name='FollowingList')
+    path('following/all/<int:user_id>/', views.Following_View, name='FollowingList'),
+    path('favorites/all/<int:user_id>/', views.Favorites_View, name='FavoritesList'),
+    path('explore_users/<int:user_id>/', views.All_Users, name='AllUsers')
+
 ]

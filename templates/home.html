@@ -4,7 +4,8 @@
 {% block css_files %}{% endblock %}
 {% block content%}
 
-{% if user.is_authenticated %} Hi <a href='/user/profile/{{user.id}}/'>{{ user.username }}</a>!
+{% if user.is_authenticated %} 
+<span></span>Hi <a href='/user/profile/{{user.id}}/'>{{ user.username }}</a>!
 
 <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}

@@ -52,3 +52,7 @@ def handler404(request, exception, template_name="404.html"):
 
 def handler500(request, *args, **argv):
     return render(request, '500.html', status=500)
+
+def post_detail_view(request, post_id:int):
+    post = Post.objects.get(id=post_id)
+    return render(request, 'post_detail.html',{'post':post})

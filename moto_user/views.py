@@ -4,13 +4,15 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import MotoUser
 from .forms import EditProfileForm
 
+
 # Create your views here.
 
 
 def MotoUserView(request, user_id: int):
     avatar = request.FILES
     profile = MotoUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {"profile": profile, "avatar": avatar})
+    posts = Post.objects.filter(user=user_id)
+    return render(request, 'profile.html', {"profile": profile, "avatar": avatar, "posts": posts})
 
 
 def EditProfileView(request, user_id: int):
@@ -114,3 +116,11 @@ def Unfollow_View(request, user_id: int):
 def Following_View(request, user_id: int):
     following = request.user.following.exclude(following=user_id)
     return render(request, 'following.html', {'following': following})
+
+def Favorites_View(request, user_id: int):
+    MotoUserView(request, user_id=user_id)
+    return render(request, 'favorites.html')
+
+def All_Users(request, user_id:int):
+    all_users = MotoUser.objects.all().exclude(id=user_id)
+    return render(request, 'all_users.html',{'all_users':all_users})

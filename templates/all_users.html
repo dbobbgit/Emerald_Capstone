@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<div>
+	{% for each in all_users %}
+	<h6><a href="/user/profile/{{each.id}}/">{{each.display_name}}</a></h6>
+	{%endfor%}
+</div>
+{% endblock content %}

@@ -1,6 +1,5 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
-
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -23,13 +22,26 @@
 	crossorigin="anonymous"
 ></script>
 
-{% block content %}
+{% block title %}Home{% endblock %}
+{% block css_files %}{% endblock %}
+{% block content%}
+
+{% if user.is_authenticated %} 
+<h1><span>Hi <a href='/user/profile/{{user.id}}/'>{{ user.username }}</a>!</span></h1>
+
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}" style="text-decoration: none;">Log In</a>
+</br>
+<a href="{% url 'signup' %}" style="text-decoration: none;">Don't have an account? Click here to create one!</a>
+{% endif %}
+
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 <br />
 <br />
 
-<a href="/user/profile/{{request.user.id}}/"><h1>{{ request.user.display_name }}!</h1></a>
 {%if avatar.url %}
 <img class="mb-4" src='{{ avatar.url }}' alt="" width="72" height="57" />
 {%else%}
@@ -38,7 +50,8 @@
 
 <hr />
 {% for post_item in post_items %}
-<div class="card text-white bg-success mb-3">
+
+<a href='/post/post_detail/{{post_item.id}}/'><div class="card text-white bg-success mb-3">
 	<img src="{{MEDIA_URL}}{{ post_item.picture.url }}" class="card-img-top" alt="Post picture" />
 	<div class="card-body">
 		<h5 class="card-title">{{ post_item.caption }}</h5>
@@ -55,6 +68,7 @@
 		<span><a href="/user/unfavorite_post/{{post_item.id}}/" class="btn btn-warning">remove from faves</a></span>
 	</div>
 </div>
+</a>
 {% endfor %}{% endblock %}
 
 {% comment %}<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -87,3 +101,4 @@
     {% endblock %}
 
 {% endcomment %}
+
