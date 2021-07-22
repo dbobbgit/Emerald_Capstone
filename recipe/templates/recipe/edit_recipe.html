@@ -5,6 +5,7 @@
 
 <section class="create-form">
 	<div class="container d-flex justify-content-center">
+  {% include 'includes/messages.html' %}
 		<div class="card" style="width: 36rem">
 			<div class="card-header">
 				{% if request.user.is_authenticated %}

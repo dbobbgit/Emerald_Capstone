@@ -1,6 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% block title %}Outdoor Food {% endblock title %} {% block content %}
 
 <section id="outdoor-food" class="container-fluid p-5 alert alert-light">
+<div class="header">
+  {% include 'includes/messages.html' %}
+  </div>
 	<div class="container-fluid">
 		<h2 class="text-center text-dark" style="margin-top: -20px">Outdoor foods</h2>
 		<p class="lead text-center text-dark mb-5" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)">
@@ -13,7 +16,7 @@
 		<br />
 		<hr />
 		<!--Start card-->
-		<div class="row row-cols-1 row-cols-md-2 g-4">
+		<div class="row row-cols-1 row-cols-lg-3 g-4">
 			{% for recipe in recipes %}
 			<div class="col bg-alert-secondary text-center">
 				{{recipe.title}}
@@ -22,7 +25,7 @@
 						src="{{recipe.image.url}}"
 						width="200"
 						height="300"
-						class="card-img-top"
+						class="card-img-top card-image-thumbnail me-2 "
 						alt="{{recipe.title}}"
 					/>
 
@@ -53,6 +56,8 @@
 						<!--Need to change to Saved recipe-->
 
 						<a href="/favorite_recipe/{{recipe.pk}}/" class="btn btn-outline-danger">Save 💜</a>
+
+                        <a href="{% url 'recipe:recipe-detail' recipe.pk %}" class="btn btn-outline-success">Comments: {{ recipe.comments.count }}</a>
 					</div>
 					<div class="card-footer bg-transparent border-secondary">
 						<small class="text-muted">Created on: <time>{{recipe.date}}</time></small>

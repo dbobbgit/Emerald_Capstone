@@ -7,6 +7,7 @@
 {% block content %}
 <section id="delete" class="container-xxl p-5 bg-dark text-white">
 <div class="container mx-auto">
+{% include 'includes/messages.html' %}
     <a class="hover:text-primary" href="{% url 'recipe:recipe-list' %}">Go back to recipes</a>
     <div class="card-body">
         <h3>Are you sure you want to delete {{ recipe.title }}?</h3>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid d-flex justify-content-center align-item-center">
+<div class="card-fluid">
+    <div class="card-body">
+    {% if search %}
+    <div class="card-text">
+    <h5>You are searching for {{search}}</h5>
+    </div>
+    {% else %}
+    <div class="card-text">
+    <h5>You forgot to search something??...</h5>
+    </div>
+    {% endif %}
+    </div>
+</div>
+</div>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django import forms
 from moto_user.models import MotoUser
-from recipe.models import Recipe
+from recipe.models import Recipe, Comment
 
 
 class RecipeForm(forms.ModelForm):
@@ -16,16 +16,21 @@ class RecipeForm(forms.ModelForm):
         exclude = ['date', 'favorites', 'tags', 'author', 'password2']
 
 
-
-class EditRecipeForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
-        model = Recipe
-        fields = [
-            'title',
-            'description',
-            'time_required',
-            'instruction',
-            'image',
-        ]
+        model = Comment
+        fields = ('author', 'text',)
 
-        exclude = ['password2']
+
+# class EditRecipeForm(forms.ModelForm):
+#     class Meta:
+#         model = Recipe
+#         fields = [
+#             'title',
+#             'description',
+#             'time_required',
+#             'instruction',
+#             'image',
+#         ]
+
+#         exclude = ['password2']

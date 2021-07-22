@@ -9,7 +9,6 @@
 </main>
 <div class="container d-flex justify-content-md-center">
 
-
     <div class="col-md-8" style="box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);">
       <div class="card-body">
         <p class="card-text"><strong>Description:</strong> {{recipe.description}}</p>
@@ -17,11 +16,10 @@
         <h6 class="card-text"><strong>Duration time:</strong> {{recipe.time_required}} <span>created by <span class="badge bg-secondary">{{recipe.author.username}}</span></span></h6>
         </div>
       </div>
-
-    <div id="image-control" class="carousel slide" data-bs-ride="carousel">
+    <div id="image-control image-thumbnail" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="{{recipe.image.url}}" class="d-block w-100" alt="{{recipe.title}}">
+          <img src="{{recipe.image.url}}" class="d-block w-100 image-thumbnail" alt="{{recipe.title}}">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#image-control" data-bs-slide="prev">
@@ -40,15 +38,65 @@
               {{recipe.instruction}}</p>
               <p class="card-text"><small class="text-muted">Last Updated <time>{{recipe.date}}</time>
               </small></p>
+              {% comment %} <form action="" method='post'>
+              {% csrf_token %}
+                <div class="form-control">
+                  {{ form.as_p}}
+                </div>
+              <button class='btn btn-outline-secondary'>Save Comment</button>
+              </form> {% endcomment %}
+              <hr>
+              {% if recipe_post.comments.all %}
+              {% for comment in recipe_post.comments.all %}
+                  <div class="card-body">
+                      <div class="date">Created at: {{ comment.date }}</div>
+                      <strong>From: {{ comment.author.user.display_name }}</strong>
+                      <p>Comment: {{ comment.text|linebreaks }}</p>
+                  </div>
+              {% endfor %}
+              {% else %}
+                  <p>No comments here yet :(</p>
+              
+              {% endif %}
+              {% comment %} <div class="col-md-10 col-xs-10 col-sm-10">
+                 <form action="{% url "recipe:recipe-detail" recipe.pk %}" method="POST">
+                  {% csrf_token %}
+                  <div class="row form-control-sm mb-3">
+                  <label for="id_comment" class="col-sm-2 col-form-label">Comment</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="comment"
+                      maxlength="50"
+                      required
+                      id="id_comment"
+                    />
+                  </div>
+                </div> {% endcomment %}
+                <a class="btn btn-default" href="{% url 'recipe:comment' recipe.pk%}">Add comment</a>
+                    {% comment %} <button type="submit" class="btn btn-outline-secondary">Add comment</button> {% endcomment %}
+                </form>
+                <br>
+            </div>
             </div>
           </div>
         </div>
     </div>
 </div>
 <br>
+{% if request.user.is_authenticated %}
 <div class="d-grid gap-4 d-md-flex justify-content-md-center mb-3">
 <a href="{% url 'recipe:edit-recipe' recipe.pk %}" class="btn btn-outline-success btn-md">Edit</a>
 <a href="{% url 'recipe:delete-recipe' recipe.pk %}" class="btn btn-outline-danger btn-md">Delete</a>
 </div>  
+<div class="d-grid gap-4 d-md-flex justify-content-md-center mb-3">
+<a href="{% url 'recipe:recipe-list' %}" class="btn btn-outline-success btn-md">Go back to recipe</a>
+</div> 
+{% else %}
+<div class="d-grid gap-4 d-md-flex justify-content-md-center mb-3">
+<a href="{% url 'recipe:recipe-list' %}" class="btn btn-outline-secondary btn-md">Go back to recipe</a>
+</div> 
+{% endif %}
 </div>
 {% endblock %}

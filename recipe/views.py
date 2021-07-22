@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, HttpResponseRedirect, reverse, redirect
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView
 from django.views import View
 from .models import Recipe, Tag
-from .forms import RecipeForm, EditRecipeForm
+from .forms import RecipeForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -35,8 +35,37 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
         return reverse("recipe:recipe-list")
 
     def get_queryset(self):
-        author = self.request.user.pk
-        return Recipe.objects.filter(author=author)
+        # author = self.request.user.pk
+        # print(author)
+        return Recipe.objects.all()
+    # def get(self, request, pk):
+    #     recipe_post = Recipe.objects.get(id=pk)
+
+    #     context = {
+    #         "recipe": recipe_post,
+    #         "comment_form": CommentForm(),
+    #         "comments": recipe_post.comments.all().order_by("-id"),
+    #     }
+    #     return render(request, "recipe/recipe_detail.html", context)
+
+    # def post(self, request, pk):
+    #     # author = request.user.display_name
+    #     comment_form = CommentForm(request.POST)
+    #     recipe_post = Recipe.objects.get(id=pk)
+
+    #     if comment_form.is_valid():
+    #         comment = comment_form.save(commit=False)
+    #         comment.post = recipe_post
+    #         comment.save()
+
+    #         return HttpResponseRedirect(reverse("recipe-detail", args=[pk]))
+        
+    #     context = {
+    #         "recipe": recipe_post,
+    #         "comment_form": comment_form,
+    #         "comments": recipe_post.comments.all().order_by("-id")
+    #     }
+    #     return render(request, "recipe/recipe_detail.html", context)
 
 
 @login_required
@@ -52,20 +81,19 @@ def create_recipe_view(request):
             description = data.get('description')
             instruction = data.get('instruction')
             image = data.get('image')
-            # tags_form = data.get('tags')
-            # tags_list = list(tags_form.split(','))
             for tag in tags_list:
                 tag, __ = Tag.objects.get_or_create(title=tag)
                 tags_list.append(tag)
             recipe, __ = Recipe.objects.get_or_create(
-                image=image, 
-                author=request.user, 
-                title=title, 
+                image=image,
+                author=request.user,
+                title=title,
                 time_required=time_required,
                 description=description,
                 instruction=instruction
                 )
             recipe.tags.set(tags_list)
+            messages.success(request, 'Your recipe has been created!!')
             recipe.save()
             return redirect('recipe:recipe-list')
     else:
@@ -95,6 +123,7 @@ def edit_recipe_view(request, pk):
             recipe.time_required = data.get('time_required')
             recipe.instruction = data.get('instruction')
             recipe.image = data.get('image')
+            messages.success(request, 'Recipe has been updated!!')
             recipe.save()
             return redirect("/recipe")
 
@@ -120,6 +149,43 @@ def delete_recipe_view(request, pk):
     return render(request, "recipe/delete_recipe.html", context)
 
 
+def comment_view(request, pk: int):
+    recipe = get_object_or_404(Recipe, pk=pk)
+  
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = recipe
+            comment.save()
+            # data = form.cleaned_data
+            # recipe.text = data.get('text')
+            # recipe.author = data.get('author')
+            # recipe.save()
+          
+            return redirect('recipe:recipe-detail', pk=recipe.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'recipe/add_comment.html', {'form': form, 'recipe': recipe})
+
+
+# def comment_view(request, pk):
+#     comment_form = CommentForm(request.POST)
+#     recipe_post = Recipe.objectscts.get(id=pk)
+
+#     if comment_form.is_valid():
+#         comment = comment_form.save(commit=False)
+#         comment.post = recipe_post
+#         comment.save()
+
+#         return HttpResponseRedirect(reverse("recipe-detail", args=[pk]))
+    
+#     context = {
+#         "post": recipe_post,
+#         "comment_form": comment_form,
+#         "comments": recipe_post.comments.all().order_by("-id")
+#     }
+#     return render(request, "recipe/recipe_detail.html", context)
 
 # class RecipeDeleteView(LoginRequiredMixin, DeleteView):
 #     template_name = "recipe/delete_recipe.html"

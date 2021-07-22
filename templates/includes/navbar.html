@@ -11,6 +11,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         {% comment %} </div>     {% endcomment %}
+        {% if request.user.is_authenticated %}
+        <div class="container-fluid d-flex justify-content-center">
+                        <form action="" method="post" class="d-flex">
+                        {% csrf_token %}
+                        <input class="form-control ms-auto me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </div>
+                    {% endif %}
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto me-2"> 
                 {% if request.user.is_authenticated %}
