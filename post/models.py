@@ -68,7 +68,7 @@ class Post(models.Model):
     def __str__(self):
         return str(self.id)
 
-
+# TODO: Beginning of implementation of followERS count
 # class Follow(models.Model):
 #     follower = models.ForeignKey(
 #         MotoUser,
